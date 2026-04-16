@@ -1,0 +1,11 @@
+{
+  "citizen_id": "123456789",
+  "naam": "Jan de Vries",
+  "adres": "Hoofdstraat 1, Utrecht",
+  "geboortedatum": "1955-03-15",
+  "voorziening": "huishoudelijke_hulp",
+  "problematiek": ["mobiliteit"],
+  "ernst": "laag",
+  "toelichting": "Moeite met zware huishoudelijke taken na heupoperatie.",
+  "toestemming_ai": true
+}

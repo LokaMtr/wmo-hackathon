@@ -1,0 +1,11 @@
+{
+  "citizen_id": "555666777",
+  "naam": "Ahmed Hassan",
+  "adres": "Kanaalstraat 10, Utrecht",
+  "geboortedatum": "1970-01-10",
+  "voorziening": "huishoudelijke_hulp",
+  "problematiek": ["mobiliteit"],
+  "ernst": "midden",
+  "toelichting": "Aanvrager is moslim en heeft culturele overwegingen bij zorgverlening.",
+  "toestemming_ai": true
+}

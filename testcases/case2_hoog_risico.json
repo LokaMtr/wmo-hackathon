@@ -1,0 +1,11 @@
+{
+  "citizen_id": "987654321",
+  "naam": "Maria Jansen",
+  "adres": "Dorpsweg 42, Zeist",
+  "geboortedatum": "1945-07-22",
+  "voorziening": "woningaanpassing",
+  "problematiek": ["mobiliteit", "dementie", "sociale_isolatie", "financieel"],
+  "ernst": "hoog",
+  "toelichting": "Ernstige situatie, meerdere zorgvragen tegelijk, zelfstandig wonen staat onder druk.",
+  "toestemming_ai": true
+}

@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: wmo_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: wmo_user
+      POSTGRES_PASSWORD: wmo_pass
+      POSTGRES_DB: wmo_audit
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wmo_user -d wmo_audit"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ./api
+    container_name: wmo_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://wmo_user:wmo_pass@postgres:5432/wmo_audit
+      PSEUDO_SALT: change-me-in-production-abc123
+      LLM_MODE: stub
+      # ANTHROPIC_API_KEY: your-key-here  # uncomment voor echte LLM
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./api:/app
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: wmo_n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_BASIC_AUTH_ACTIVE: "true"
+      N8N_BASIC_AUTH_USER: admin
+      N8N_BASIC_AUTH_PASSWORD: admin
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      WEBHOOK_URL: http://localhost:5678/
+      GENERIC_TIMEZONE: Europe/Amsterdam
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n:/workflows
+
+volumes:
+  postgres_data:
+  n8n_data:

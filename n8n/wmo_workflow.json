@@ -1,0 +1,174 @@
+{
+  "name": "WMO Aanvraag Verwerking",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "wmo-intake",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "wmo-intake"
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/intake",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={{ JSON.stringify($json.body) }}",
+        "options": {}
+      },
+      "id": "intake-node",
+      "name": "Intake + Pseudonimiseer",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "=http://api:8000/policy/{{ $json.voorziening }}",
+        "method": "GET",
+        "options": {}
+      },
+      "id": "policy-node",
+      "name": "Haal Beleid Op",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/ai/propose",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={{ JSON.stringify($('Intake + Pseudonimiseer').item.json) }}",
+        "options": {}
+      },
+      "id": "ai-node",
+      "name": "AI Voorstel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/fairness/check",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={ \"voorstel\": \"{{ $json.voorstel }}\", \"onderbouwing\": \"{{ $json.onderbouwing }}\" }",
+        "options": {}
+      },
+      "id": "fairness-node",
+      "name": "Fairness Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.passed }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "if-fairness-node",
+      "name": "Fairness OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $('AI Voorstel').item.json.geschat_risico }}",
+              "value2": "hoog"
+            }
+          ]
+        }
+      },
+      "id": "if-risico-node",
+      "name": "Risico = Hoog?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [1450, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/audit/log",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={ \"request_id\": \"req_{{ $('Intake + Pseudonimiseer').item.json.token }}_{{ $now }}\", \"token\": \"{{ $('Intake + Pseudonimiseer').item.json.token }}\", \"voorziening\": \"{{ $('Intake + Pseudonimiseer').item.json.voorziening }}\", \"leeftijdsgroep\": \"{{ $('Intake + Pseudonimiseer').item.json.leeftijdsgroep }}\", \"ernst\": \"{{ $('Intake + Pseudonimiseer').item.json.ernst }}\", \"risico\": \"{{ $('AI Voorstel').item.json.geschat_risico }}\", \"flags\": {{ JSON.stringify($('Fairness Check').item.json.flags) }}, \"ai_voorstel\": \"{{ $('AI Voorstel').item.json.voorstel }}\", \"onderbouwing\": \"{{ $('AI Voorstel').item.json.onderbouwing }}\", \"besluit\": \"auto\", \"burger_bericht\": \"Uw aanvraag is verwerkt. Een medewerker controleert het besluit binnen 3 werkdagen.\" }",
+        "options": {}
+      },
+      "id": "audit-auto-node",
+      "name": "Audit (Auto)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1650, 100]
+    },
+    {
+      "parameters": {
+        "url": "http://api:8000/audit/log",
+        "method": "POST",
+        "sendBody": true,
+        "bodyContentType": "json",
+        "jsonBody": "={ \"request_id\": \"req_{{ $('Intake + Pseudonimiseer').item.json.token }}_{{ $now }}\", \"token\": \"{{ $('Intake + Pseudonimiseer').item.json.token }}\", \"voorziening\": \"{{ $('Intake + Pseudonimiseer').item.json.voorziening }}\", \"leeftijdsgroep\": \"{{ $('Intake + Pseudonimiseer').item.json.leeftijdsgroep }}\", \"ernst\": \"{{ $('Intake + Pseudonimiseer').item.json.ernst }}\", \"risico\": \"{{ $('AI Voorstel').item.json.geschat_risico }}\", \"flags\": {{ JSON.stringify($('Fairness Check').item.json.flags) }}, \"ai_voorstel\": \"{{ $('AI Voorstel').item.json.voorstel }}\", \"onderbouwing\": \"{{ $('AI Voorstel').item.json.onderbouwing }}\", \"besluit\": \"review\", \"burger_bericht\": \"Uw aanvraag wordt beoordeeld door een medewerker. U ontvangt binnen 5 werkdagen bericht.\" }",
+        "options": {}
+      },
+      "id": "audit-review-node",
+      "name": "Audit (Review)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1650, 400]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{"node": "Intake + Pseudonimiseer", "type": "main", "index": 0}]]
+    },
+    "Intake + Pseudonimiseer": {
+      "main": [[{"node": "Haal Beleid Op", "type": "main", "index": 0}]]
+    },
+    "Haal Beleid Op": {
+      "main": [[{"node": "AI Voorstel", "type": "main", "index": 0}]]
+    },
+    "AI Voorstel": {
+      "main": [[{"node": "Fairness Check", "type": "main", "index": 0}]]
+    },
+    "Fairness Check": {
+      "main": [[{"node": "Fairness OK?", "type": "main", "index": 0}]]
+    },
+    "Fairness OK?": {
+      "main": [
+        [{"node": "Risico = Hoog?", "type": "main", "index": 0}],
+        [{"node": "Audit (Review)", "type": "main", "index": 0}]
+      ]
+    },
+    "Risico = Hoog?": {
+      "main": [
+        [{"node": "Audit (Review)", "type": "main", "index": 0}],
+        [{"node": "Audit (Auto)", "type": "main", "index": 0}]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {"executionOrder": "v1"},
+  "versionId": "1",
+  "meta": {"instanceId": "wmo-hackathon"},
+  "tags": []
+}

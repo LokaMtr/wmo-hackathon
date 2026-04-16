@@ -1,0 +1,11 @@
+{
+  "citizen_id": "111222333",
+  "naam": "Piet Pietersen",
+  "adres": "Schoolstraat 5, Amersfoort",
+  "geboortedatum": "1960-05-20",
+  "voorziening": "rolstoel",
+  "problematiek": ["mobiliteit"],
+  "ernst": "laag",
+  "toelichting": "Rolstoel nodig voor dagelijkse verplaatsing.",
+  "toestemming_ai": false
+}
