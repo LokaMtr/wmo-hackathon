@@ -90,6 +90,23 @@ FRAME0_PROMPT = (
     "annoyed expression, mouth slightly open as if she just started talking. " + STYLE
 )
 
+# Stem + acteerwerk: woord voor woord in elke clip, zodat ze overal hetzelfde klinkt en beweegt.
+VOICE = (
+    "Voice: young woman, casual American English, warm, slightly raspy, relaxed pace like talking to "
+    "a friend, small natural pauses and breaths, light vocal fry, never like an advert. Perfect lip "
+    "sync: mouth and jaw move exactly with every syllable."
+)
+ACTING = (
+    "Acting: natural and unposed, a real girl filming a TikTok. Natural blinking, eyebrows move with "
+    "her words, small head tilts and nods, subtle weight shifts, breathing visible in her shoulders, "
+    "hair swings and settles realistically. Relaxed hand gestures, five fingers per hand. Real "
+    "physics: dress fabric creases and moves with her body. Real-time speed, no slow motion, no "
+    "morphing, no extra limbs, face identical and sharp throughout."
+)
+SOUND = (
+    " Audio: only her voice, quiet room tone, soft fabric rustle. No music, no other voices."
+)
+
 # Elke clip: optioneel een keyframe-edit (nodig als het product in beeld komt of er iets
 # verandert), daarna de Kling-clip vanaf dat frame. Simpele acties, 1 persoon, statische camera.
 CLIPS = [
@@ -98,40 +115,58 @@ CLIPS = [
         "duration": 5,
         "keyframe": None,  # start = gekozen startframe
         "video": (
-            "She looks straight into the camera and says in a casual, confident young American English "
-            "voice: \"If your shapewear rolls down every time you sit... watch this.\" Right after, she "
-            "sits down on the edge of the bed and immediately stands back up in one smooth motion, then "
-            "smooths her dress with both hands and raises her eyebrows at the camera. Natural, realistic "
-            "body movement. " + STYLE + " Natural room sound, no music."
+            "0.0-2.0s: she looks straight into the lens, leans her upper body very slightly toward the "
+            "camera, eyebrows raised in a knowing, half-annoyed way, and says directly, with a tiny "
+            "shake of her head on 'every time': \"If your shapewear rolls down every time you sit...\" "
+            "2.0-2.6s: she lifts one index finger toward the camera and says with a small smirk: "
+            "\"watch this.\" 2.6-4.0s: she turns slightly, puts one hand on the edge of the bed for "
+            "balance, sits down on the edge of the bed in a normal, relaxed way (knees together, dress "
+            "tightening over her thighs, the mattress sinks a little), and without pausing pushes off "
+            "with her hand and stands straight back up at normal real-life speed. 4.0-5.0s: standing "
+            "again, she runs both palms down the sides of her dress from waist to hips to smooth it, "
+            "looks back into the camera and raises her eyebrows with a satisfied little 'see?' smile, "
+            "lips closed. " + VOICE + " " + ACTING + " " + STYLE + SOUND
         ),
     },
     {
         "name": "clip2_show_product",
         "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: she has stepped one step closer to the camera and holds up the "
-            + PRODUCT + " in front of her chest with both hands, fully visible to the camera. She still "
-            "wears " + OUTFIT + ". Confident, friendly expression, looking into the camera."
+            KEEP + " Change only this: she has stepped one step closer to the camera (now visible from "
+            "head to upper thighs) and holds up the " + PRODUCT + " in front of her chest with both "
+            "hands, one hand on each side of the waistband, the shorts fully visible and facing the "
+            "camera, not covering her face. She still wears " + OUTFIT + ". Natural, friendly, "
+            "confident expression, looking into the camera, lips slightly parted as if about to speak."
         ),
         "video": (
-            "Holding the shorts up to the camera with both hands, she gently stretches the high waistband "
-            "to show it, and says in a casual, confident young American English voice: \"These. "
-            "Seamless, super high waist... and they did not move once.\" The shorts stay exactly the same "
-            "product. " + STYLE + " Natural room sound, no music."
+            "0.0-1.2s: holding the shorts up in front of her chest with both hands, she gives them a "
+            "tiny shake toward the camera and says with a small proud nod: \"These.\" 1.2-3.2s: she "
+            "gently pulls the high waistband apart with both hands so it stretches a few centimeters and "
+            "then lets it relax back, the fabric bouncing back smoothly, while she says casually: "
+            "\"Seamless... super high waist...\" glancing down at the shorts and then back up at the "
+            "lens. 3.2-5.0s: she lowers the shorts slightly, tilts her head, and says with emphasis and "
+            "a little laugh in her voice: \"and they did not move. Once.\" with a tiny shrug on 'once'. "
+            "The shorts stay exactly the same product the whole time: same black color, same matte ribbed "
+            "texture, same high waist and leg length, no logo. " + VOICE + " " + ACTING + " " + STYLE + SOUND
         ),
     },
     {
         "name": "clip3_no_lines",
         "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: her hands are empty and resting on her waist, she stands in "
-            "three-quarter view toward the camera. She still wears " + OUTFIT + "."
+            KEEP + " Change only this: she stands back at her original distance from the camera, visible "
+            "from head to knees, hands empty and resting lightly on her waist, body turned about 45 "
+            "degrees in three-quarter view toward the camera, looking into the lens. She still wears "
+            + OUTFIT + ". Relaxed, satisfied expression."
         ),
         "video": (
-            "She slowly turns side to side to show the smooth silhouette of her dress, running her hands "
-            "down her sides, and says in a casual young American English voice: \"No lines, no rolling... "
-            "even in this dress.\" Small satisfied smile at the camera. " + STYLE +
-            " Natural room sound, no music."
+            "0.0-2.5s: she slowly turns from one side to the other at a natural pace, like checking an "
+            "outfit, sliding her palms down her sides from waist to hips, the dress fabric stretching "
+            "smoothly over her figure without any visible lines, while she says calmly, glancing down at "
+            "the dress: \"No lines... no rolling...\" 2.5-5.0s: she turns back to face the camera, "
+            "lifts her eyebrows, gives a small nod and says with a relaxed, slightly impressed smile: "
+            "\"even in this dress.\" Then she lets her arms drop naturally to her sides and holds eye "
+            "contact for a beat. " + VOICE + " " + ACTING + " " + STYLE + SOUND
         ),
     },
     {
@@ -139,14 +174,19 @@ CLIPS = [
         "duration": 5,
         "keyframe": (
             KEEP + " Change only this: she faces the camera directly and holds up the " + PRODUCT +
-            " toward the camera with one hand. She still wears " + OUTFIT + ". Friendly, confident "
-            "expression."
+            " toward the camera with one hand at shoulder height, the shorts fully visible, her other "
+            "hand relaxed at her side. She still wears " + OUTFIT + ". Friendly, confident expression, "
+            "looking into the lens."
         ),
         "video": (
-            "Talking directly into the camera in a casual, confident young American English voice she "
-            "says: \"Four shades. They're in the orange cart.\" Then she points down at the bottom of the "
-            "screen with her free hand and smiles. The shorts stay exactly the same product. " + STYLE +
-            " Natural room sound, no music."
+            "0.0-2.0s: holding the shorts up with one hand, she gives them a tiny wiggle and says "
+            "casually with a warm smile: \"Four shades...\" 2.0-3.8s: she lowers the shorts a bit, "
+            "leans slightly toward the camera and says in a lower, friendly, 'trust me' tone: "
+            "\"they're in the orange cart.\" 3.8-5.0s: she points down toward the bottom of the screen "
+            "with the index finger of her free hand, taps the air twice, and finishes with a quick "
+            "genuine smile and a little nod, lips closed. The shorts stay exactly the same product: "
+            "same black color, same matte ribbed texture, same high waist and leg length, no logo. "
+            + VOICE + " " + ACTING + " " + STYLE + SOUND
         ),
     },
 ]
