@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Mila "The Mirror" TikTok video pipeline, via de officiele Higgsfield API.
+Mila TikTok video pipeline ("sit test"), via de officiele Higgsfield API.
 
 Stappen:
   1. python mila_mirror.py frame           -> maakt startframe-varianten (GPT-kwaliteit via Marketing Studio Image)
@@ -65,10 +65,11 @@ PRODUCT = (
     "subtle contour seam lines, mid-thigh length legs, solid black, no logo"
 )
 STYLE = (
-    "Ultra-realistic static iPhone footage from a phone on a small tripod, authentic TikTok UGC, natural overcast "
-    "daylight from a window on the left, realistic skin texture, slight phone grain, "
-    "real lived-in Scandinavian bedroom with an unmade bed with beige linen, clothes on a chair, "
-    "a small plant, tall full-length floor mirror. No text, no subtitles, no watermark."
+    "Ultra-realistic static iPhone footage from a phone on a small tripod at chest height, the camera "
+    "does not move, authentic TikTok UGC, soft natural daylight from a window on the left, realistic "
+    "skin texture, slight phone grain, real lived-in Scandinavian bedroom with an unmade bed with beige "
+    "linen, clothes on a chair, a small plant. Only one person in the room. No mirror. "
+    "No text, no subtitles, no watermark."
 )
 KEEP = (
     "Image 1 is the current frame of the video. Keep EVERYTHING identical to image 1: "
@@ -77,84 +78,74 @@ KEEP = (
     "the woman's face references first, then the product references."
 )
 
+OUTFIT = (
+    "a fitted black ribbed-knit midi dress with short sleeves and a crew neck, smooth silhouette"
+)
+
 FRAME0_PROMPT = (
-    "Ultra-realistic vertical TikTok UGC photo taken by an iPhone on a small tripod, placed at an angle "
-    "beside a tall full-length floor mirror. On the left of the frame the real woman from the reference "
-    "images (keep her face exactly identical) stands in three-quarter view, full body visible head to "
-    "knees, both arms fully visible, hands empty, smoothing her dress with both hands and looking at "
-    "herself in the mirror. On the right of the frame the mirror shows her reflection as a physically "
-    "accurate mirror image: the reflection looks back at her (not at the camera), with exactly the same "
-    "pose and hand position, mirrored. The tripod and phone are not visible in the mirror. She wears a "
-    "fitted black satin slip midi dress with thin straps; the satin fabric shows clearly visible "
-    "wrinkles and bunching lines around the waist and midsection, in the real woman and in the reflection "
-    "alike. Relaxed happy expression. " + STYLE
+    "Ultra-realistic vertical TikTok UGC photo taken by an iPhone on a small tripod. The woman from the "
+    "reference images (keep her face exactly identical) stands about two meters from the camera, facing "
+    "it, visible from head to knees, next to the edge of her bed. She wears " + OUTFIT + ". Both arms "
+    "relaxed at her sides, hands empty. She looks straight into the camera with a knowing, slightly "
+    "annoyed expression, mouth slightly open as if she just started talking. " + STYLE
 )
 
 # Elke clip: optioneel een keyframe-edit (nodig als het product in beeld komt of er iets
-# verandert), daarna de Kling-clip vanaf dat frame.
+# verandert), daarna de Kling-clip vanaf dat frame. Simpele acties, 1 persoon, statische camera.
 CLIPS = [
     {
-        "name": "clip1_reflection_freezes",
-        "duration": 7,
+        "name": "clip1_hook_sit_test",
+        "duration": 5,
         "keyframe": None,  # start = gekozen startframe
         "video": (
-            "Static tripod iPhone video, the camera does not move. Real woman on the left, her reflection in the "
-            "mirror on the right. 0-1.5s: she smooths her dress over her hips, the reflection mirrors her "
-            "perfectly, and she says happily in a casual young American English voice: \"Okay, this dress "
-            "is perfect—\". At 1.5s the reflection suddenly freezes mid-movement and stays completely still "
-            "while the real woman keeps moving. 2.5s: she notices, turns to the mirror confused and says: "
-            "\"...why'd you stop?\" 4s: only the reflection moves: it slowly crosses its arms, looks down at "
-            "the fabric wrinkles on her hips and says in the same voice, unimpressed: \"Babe. The lines.\" "
-            "The real woman stares at it frozen in shock. Natural, subtle acting, realistic body movement. " + STYLE +
-            " Natural room sound, no music."
+            "She looks straight into the camera and says in a casual, confident young American English "
+            "voice: \"If your shapewear rolls down every time you sit... watch this.\" Right after, she "
+            "sits down on the edge of the bed and immediately stands back up in one smooth motion, then "
+            "smooths her dress with both hands and raises her eyebrows at the camera. Natural, realistic "
+            "body movement. " + STYLE + " Natural room sound, no music."
         ),
     },
     {
-        "name": "clip2_hand_from_mirror",
-        "duration": 4,
+        "name": "clip2_show_product",
+        "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: the reflection's hand now reaches OUT through the mirror surface, "
-            "the glass ripples like water around the wrist, and the hand holds up the " + PRODUCT +
-            ". The real woman leans back in shock with wide eyes."
+            KEEP + " Change only this: she has stepped one step closer to the camera and holds up the "
+            + PRODUCT + " in front of her chest with both hands, fully visible to the camera. She still "
+            "wears " + OUTFIT + ". Confident, friendly expression, looking into the camera."
         ),
         "video": (
-            "The mirror surface ripples like water as the reflection's arm pushes the shorts further out "
-            "of the mirror. The woman gasps and shouts \"WHAT—\" in a shocked young American English "
-            "voice, then hesitantly grabs the shorts from the hand. The hand slides back into the mirror "
-            "and the glass settles. The shorts stay exactly the same product. " + STYLE +
-            " Natural room sound, no music."
+            "Holding the shorts up to the camera with both hands, she gently stretches the high waistband "
+            "to show it, and says in a casual, confident young American English voice: \"These. "
+            "Seamless, super high waist... and they did not move once.\" The shorts stay exactly the same "
+            "product. " + STYLE + " Natural room sound, no music."
         ),
     },
     {
-        "name": "clip3_smooth_dress",
-        "duration": 4,
+        "name": "clip3_no_lines",
+        "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: she wears the same black satin slip midi dress, but the fabric is "
-            "now perfectly smooth over her hips and waist with a sleek silhouette (shapewear worn "
-            "underneath, not visible). Her hands are empty. She stands in three-quarter "
-            "profile. In the mirror her reflection faces her and slow-claps with a smug smile."
+            KEEP + " Change only this: her hands are empty and resting on her waist, she stands in "
+            "three-quarter view toward the camera. She still wears " + OUTFIT + "."
         ),
         "video": (
-            "She slowly turns to show the smooth silhouette of her dress. Her reflection in the mirror "
-            "slow-claps. She looks into the phone camera and says dryly in a casual young American "
-            "English voice: \"Okay... she was right.\" with a small smile. " + STYLE +
+            "She slowly turns side to side to show the smooth silhouette of her dress, running her hands "
+            "down her sides, and says in a casual young American English voice: \"No lines, no rolling... "
+            "even in this dress.\" Small satisfied smile at the camera. " + STYLE +
             " Natural room sound, no music."
         ),
     },
     {
         "name": "clip4_cta",
-        "duration": 7,
+        "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: she faces the camera directly and with one hand "
-            "holds up the " + PRODUCT + " toward the camera. Friendly, confident "
-            "expression. Her reflection behind her mirrors her normally."
+            KEEP + " Change only this: she faces the camera directly and holds up the " + PRODUCT +
+            " toward the camera with one hand. She still wears " + OUTFIT + ". Friendly, confident "
+            "expression."
         ),
         "video": (
             "Talking directly into the camera in a casual, confident young American English voice she "
-            "says: \"They're seamless, they don't roll down, and you literally can't see them. Four "
-            "shades.\" Then she points down at the bottom of the screen and says: \"It's in the orange "
-            "cart.\" At the very end her reflection in the mirror behind her suddenly freezes and stares "
-            "straight into the camera. The shorts stay exactly the same product. " + STYLE +
+            "says: \"Four shades. They're in the orange cart.\" Then she points down at the bottom of the "
+            "screen with her free hand and smiles. The shorts stay exactly the same product. " + STYLE +
             " Natural room sound, no music."
         ),
     },
