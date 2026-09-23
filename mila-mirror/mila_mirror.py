@@ -50,7 +50,9 @@ VIDEO_MODELS = {
 }
 # Geschatte API-prijzen (sept 2026, met huidige korting). Alleen voor de schatting.
 PRICE_PER_SEC = {"pro": 0.084, "std": 0.063}
-PRICE_PER_IMAGE = 0.0162
+# Marketing Studio Image: $0.0167 bij 2k/low; 2k/high staat niet publiek, dit is een ruime bovengrens.
+PRICE_PER_IMAGE = 0.15
+MAX_IMAGE_REFS = 14  # API-limiet voor referentiebeelden
 
 IMG_EXT = {".png", ".jpg", ".jpeg", ".webp"}
 
@@ -351,6 +353,7 @@ def cmd_frame(args):
             "aspect_ratio": "9:16",
             "quality": "high",
             "moderation": args.moderation,
+            "enhance_prompt": False,  # anders herschrijft Marketing Studio de prompt
         }, f"startframe {i}")
         url = res["images"][0]["url"]
         dest = OUT / f"frame0_{i}{ext_from_url(url, '.png')}"
@@ -401,11 +404,12 @@ def cmd_video(args):
             base_url = upload(state, current_frame)
             res = run_model(IMAGE_MODEL, {
                 "prompt": clip["keyframe"],
-                "image_urls": [base_url, *mila_urls, *product_urls][:16],
+                "image_urls": [base_url, *mila_urls, *product_urls][:MAX_IMAGE_REFS],
                 "resolution": "2k",
                 "aspect_ratio": "9:16",
                 "quality": "high",
                 "moderation": args.moderation,
+            "enhance_prompt": False,  # anders herschrijft Marketing Studio de prompt
             }, f"keyframe clip {idx}")
             url = res["images"][0]["url"]
             start_frame = download(url, OUT / f"keyframe{idx}{ext_from_url(url, '.png')}")
