@@ -299,6 +299,10 @@ def run_model(model, arguments, what, nsfw_ok=False):
         sys.exit(f"\n{what} is geblokkeerd door de NSFW-filter. Pas de prompt of referenties aan "
                  f"(bijv. productfoto's zonder model) en run opnieuw. Mislukte requests worden niet gerekend.")
     if status != "completed":
+        err = str(result.get("error") or "")
+        if "credit" in err.lower() or "balance" in err.lower():
+            sys.exit(f"\nTe weinig API-saldo bij {what}: {err}\nWaardeer op via https://open.higgsfield.ai/billing "
+                     f"en draai hetzelfde commando opnieuw; klare clips blijven staan.")
         sys.exit(f"\n{what} mislukt (status: {status}): {result.get('error')}")
     return result
 
