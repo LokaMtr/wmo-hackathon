@@ -410,6 +410,9 @@ def cmd_video(args):
     clip_files = []
 
     for idx, clip in enumerate(CLIPS, start=1):
+        if args.until and idx > args.until:
+            log(f"\nGestopt na clip {args.until} (--until). Draai opnieuw zonder --until om verder te gaan.")
+            return
         key = str(idx)
         done = state["clips"].get(key)
         if done and Path(done["video"]).exists() and Path(done["last_frame"]).exists():
@@ -479,6 +482,7 @@ def main():
     pv.add_argument("--tier", choices=["pro", "std"], default="pro",
                     help="pro = beste kwaliteit (standaard), std = goedkoper")
     pv.add_argument("--redo", type=int, help="clip N en alles erna opnieuw genereren")
+    pv.add_argument("--until", type=int, help="stop na clip N (om eerst te bekijken)")
     pv.add_argument("--moderation", choices=["auto", "low"], default="auto")
 
     args = p.parse_args()
