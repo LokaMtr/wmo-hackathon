@@ -60,9 +60,13 @@ IMG_EXT = {".png", ".jpg", ".jpeg", ".webp"}
 #  PRODUCT + STYLE (woord voor woord in elke prompt, zodat alles gelijk blijft)
 # --------------------------------------------------------------------------- #
 PRODUCT = (
-    "black seamless shapewear shorts exactly like the product reference images: "
-    "extra high waist reaching just under the bust, matte fine-ribbed knit fabric, "
-    "subtle contour seam lines, mid-thigh length legs, solid black, no logo"
+    "a pair of black seamless shaping shorts, shaped like bike shorts: a very wide extra-high waistband "
+    "that reaches just under the bust, two separate legs ending at mid-thigh, matte fine-ribbed knit "
+    "fabric, subtle contour seams, solid black, no logo, no print"
+)
+PRODUCT_HOLD = (
+    "held up by the top of the waistband so both legs hang down and it is clearly recognisable as a "
+    "pair of shorts, filling about a third of the frame, not covering her face"
 )
 STYLE = (
     "Ultra-realistic static iPhone footage from a phone on a small tripod at chest height, the camera "
@@ -98,34 +102,67 @@ VOICE = (
 )
 ACTING = (
     "Acting: natural and unposed, a real girl filming a TikTok. Natural blinking, eyebrows move with "
-    "her words, small head tilts and nods, subtle weight shifts, breathing visible in her shoulders, "
-    "hair swings and settles realistically. Relaxed hand gestures, five fingers per hand. Real "
-    "physics: dress fabric creases and moves with her body. Real-time speed, no slow motion, no "
-    "morphing, no extra limbs, face identical and sharp throughout."
+    "her words, small head tilts and nods, subtle weight shifts, visible breathing, hair swings and "
+    "settles realistically. Relaxed hand gestures. Dress fabric creases and moves with her body. "
+    "Real-time speed, face identical and sharp throughout."
 )
 SOUND = (
     " Audio: only her voice, quiet room tone, soft fabric rustle. No music, no other voices."
 )
 
+# Opbouw per clip (stijl LiamEcom + Kling-skills): LOCK -> WRONG -> getimede acties met gekoppelde
+# tekst -> CAMERA -> VOICE/ACTING (woord voor woord gelijk in elke clip) -> STYLE -> SOUND -> END.
+# Elke clip is een jump cut in dezelfde opname: zelfde camera, kamer en licht, alleen tijd ertussenuit.
+LOCK = (
+    "Continue this exact shot. Preserve her identity, face, hair, dress, the room and "
+    "the light exactly as in the first frame. This is one jump cut inside one unbroken bedroom "
+    "recording: only time has passed, the camera has not moved."
+)
+WRONG = (
+    "WHAT WOULD BE WRONG: a phone or tripod in frame; the camera moving or changing angle; a second "
+    "person; her face, hair or dress changing; a hand without exactly five fingers; a fixed TV-host "
+    "smile; slow motion; morphing."
+)
+CAMERA = (
+    "Camera: locked static frame, phone on a tripod at chest height, framing slightly off-centre, "
+    "unpolished. Deep focus. Autofocus breathing, motion blur on fast hands, light phone grain, "
+    "realistic skin texture. Not 3D animation."
+)
+SPEAKER = "[Mila]"
+ROOM = (
+    "Real lived-in Scandinavian bedroom, soft daylight from a window on the left, unmade bed with "
+    "beige linen. Only one person. No mirror."
+)
+END = " No subtitles, no captions, no text overlays, no watermark."
+
+
+def clip_prompt(actions, product=False):
+    parts = [LOCK, WRONG, actions]
+    if product:
+        parts.append("The shorts stay exactly the same product in every frame: black bike-short style "
+                     "shaper shorts, extra-high waistband, two mid-thigh legs, matte ribbed, no logo.")
+    parts += [CAMERA, ROOM, "[Mila] = the woman from the first frame. " + VOICE, ACTING]
+    return " ".join(parts) + SOUND + END
+
+
 # Elke clip: optioneel een keyframe-edit (nodig als het product in beeld komt of er iets
 # verandert), daarna de Kling-clip vanaf dat frame. Simpele acties, 1 persoon, statische camera.
+# Spreektempo: max ~2,5-3 woorden per seconde, elke zin vast aan een zichtbare actie.
 CLIPS = [
     {
         "name": "clip1_hook_sit_test",
         "duration": 5,
         "keyframe": None,  # start = gekozen startframe
-        "video": (
-            "0.0-2.0s: she looks straight into the lens, leans her upper body very slightly toward the "
-            "camera, eyebrows raised in a knowing, half-annoyed way, and says directly, with a tiny "
-            "shake of her head on 'every time': \"If your shapewear rolls down every time you sit...\" "
-            "2.0-2.6s: she lifts one index finger toward the camera and says with a small smirk: "
-            "\"watch this.\" 2.6-4.0s: she turns slightly, puts one hand on the edge of the bed for "
-            "balance, sits down on the edge of the bed in a normal, relaxed way (knees together, dress "
-            "tightening over her thighs, the mattress sinks a little), and without pausing pushes off "
-            "with her hand and stands straight back up at normal real-life speed. 4.0-5.0s: standing "
-            "again, she runs both palms down the sides of her dress from waist to hips to smooth it, "
-            "looks back into the camera and raises her eyebrows with a satisfied little 'see?' smile, "
-            "lips closed. " + VOICE + " " + ACTING + " " + STYLE + SOUND
+        "video": clip_prompt(
+            "0-2s: she leans her upper body slightly toward the lens, eyebrows raised, half-annoyed, "
+            "and while giving a tiny head shake she says: " + SPEAKER + ": \"If your shapewear rolls "
+            "down every time you sit...\" Immediately, 2-2.6s: she lifts one index finger at the lens "
+            "and says with a small smirk: " + SPEAKER + ": \"watch this.\" 2.6-4s: first she puts one "
+            "hand on the edge of the bed, then sits down on it at normal speed, the mattress sinking a "
+            "little, then pushes off and stands straight back up. 4-5s: finally she runs both palms "
+            "down the sides of her dress, glances down at it and back up at the lens with a satisfied "
+            "'see?' look, lips closed, then settles. Sync: 'every time' = head shake, 'watch this' = "
+            "finger up."
         ),
     },
     {
@@ -133,21 +170,21 @@ CLIPS = [
         "duration": 5,
         "keyframe": (
             KEEP + " Change only this: she has stepped one step closer to the camera (now visible from "
-            "head to upper thighs) and holds up the " + PRODUCT + " in front of her chest with both "
-            "hands, one hand on each side of the waistband, the shorts fully visible and facing the "
-            "camera, not covering her face. She still wears " + OUTFIT + ". Natural, friendly, "
-            "confident expression, looking into the camera, lips slightly parted as if about to speak."
+            "head to upper thighs) and holds up " + PRODUCT + ", " + PRODUCT_HOLD + ", one hand on "
+            "each side of the waistband. She still wears " + OUTFIT + ". Natural, friendly expression, "
+            "looking into the lens, lips slightly parted as if mid-sentence. Looks like a paused video "
+            "frame, not a posed photo."
         ),
-        "video": (
-            "0.0-1.2s: holding the shorts up in front of her chest with both hands, she gives them a "
-            "tiny shake toward the camera and says with a small proud nod: \"These.\" 1.2-3.2s: she "
-            "gently pulls the high waistband apart with both hands so it stretches a few centimeters and "
-            "then lets it relax back, the fabric bouncing back smoothly, while she says casually: "
-            "\"Seamless... super high waist...\" glancing down at the shorts and then back up at the "
-            "lens. 3.2-5.0s: she lowers the shorts slightly, tilts her head, and says with emphasis and "
-            "a little laugh in her voice: \"and they did not move. Once.\" with a tiny shrug on 'once'. "
-            "The shorts stay exactly the same product the whole time: same black color, same matte ribbed "
-            "texture, same high waist and leg length, no logo. " + VOICE + " " + ACTING + " " + STYLE + SOUND
+        "video": clip_prompt(
+            "0-1.2s: holding the shorts up by the waistband with both hands, both legs of the shorts "
+            "hanging down, she gives them a tiny shake toward the lens and says with a small proud nod: "
+            + SPEAKER + ": \"These.\" Immediately, 1.2-3.2s: she gently stretches the waistband a few "
+            "centimeters with both hands and lets it relax back, glancing down at it and back at the "
+            "lens, and says: " + SPEAKER + ": \"Seamless... super high waist...\" Then, 3.2-5s: she "
+            "lowers the shorts slightly, tilts her head and says with a little laugh in her voice: "
+            + SPEAKER + ": \"and they did not move. Once.\" with a tiny shrug on 'once', then settles. "
+            "Sync: 'These' = shake, 'high waist' = waistband stretched, 'once' = shrug.",
+            product=True,
         ),
     },
     {
@@ -157,36 +194,36 @@ CLIPS = [
             KEEP + " Change only this: she stands back at her original distance from the camera, visible "
             "from head to knees, hands empty and resting lightly on her waist, body turned about 45 "
             "degrees in three-quarter view toward the camera, looking into the lens. She still wears "
-            + OUTFIT + ". Relaxed, satisfied expression."
+            + OUTFIT + ". Relaxed, satisfied expression. Looks like a paused video frame, not a posed photo."
         ),
-        "video": (
-            "0.0-2.5s: she slowly turns from one side to the other at a natural pace, like checking an "
-            "outfit, sliding her palms down her sides from waist to hips, the dress fabric stretching "
-            "smoothly over her figure without any visible lines, while she says calmly, glancing down at "
-            "the dress: \"No lines... no rolling...\" 2.5-5.0s: she turns back to face the camera, "
-            "lifts her eyebrows, gives a small nod and says with a relaxed, slightly impressed smile: "
-            "\"even in this dress.\" Then she lets her arms drop naturally to her sides and holds eye "
-            "contact for a beat. " + VOICE + " " + ACTING + " " + STYLE + SOUND
+        "video": clip_prompt(
+            "0-2.5s: first she slowly turns from one side to the other like checking an outfit, sliding "
+            "her palms down her sides from waist to hips, the dress smooth with no visible lines, and "
+            "glancing down at the dress she says calmly: " + SPEAKER + ": \"No lines... no rolling...\" "
+            "Then, 2.5-5s: she turns back to face the lens, lifts her eyebrows, gives a small nod and "
+            "says with a relaxed, slightly impressed smile: " + SPEAKER + ": \"even in this dress.\" "
+            "Finally she lets her arms drop to her sides and holds eye contact for a beat, then settles. "
+            "Sync: 'no lines' = palms on hips, 'this dress' = nod."
         ),
     },
     {
         "name": "clip4_cta",
         "duration": 5,
         "keyframe": (
-            KEEP + " Change only this: she faces the camera directly and holds up the " + PRODUCT +
-            " toward the camera with one hand at shoulder height, the shorts fully visible, her other "
-            "hand relaxed at her side. She still wears " + OUTFIT + ". Friendly, confident expression, "
-            "looking into the lens."
+            KEEP + " Change only this: she faces the camera directly and holds up " + PRODUCT + " with "
+            "one hand at shoulder height, " + PRODUCT_HOLD + ", her other hand relaxed at her side. She "
+            "still wears " + OUTFIT + ". Friendly, confident expression, looking into the lens. Looks "
+            "like a paused video frame, not a posed photo."
         ),
-        "video": (
-            "0.0-2.0s: holding the shorts up with one hand, she gives them a tiny wiggle and says "
-            "casually with a warm smile: \"Four shades...\" 2.0-3.8s: she lowers the shorts a bit, "
-            "leans slightly toward the camera and says in a lower, friendly, 'trust me' tone: "
-            "\"they're in the orange cart.\" 3.8-5.0s: she points down toward the bottom of the screen "
-            "with the index finger of her free hand, taps the air twice, and finishes with a quick "
-            "genuine smile and a little nod, lips closed. The shorts stay exactly the same product: "
-            "same black color, same matte ribbed texture, same high waist and leg length, no logo. "
-            + VOICE + " " + ACTING + " " + STYLE + SOUND
+        "video": clip_prompt(
+            "0-2s: holding the shorts up by the waistband with one hand, legs hanging down, she gives "
+            "them a tiny wiggle and says with a warm smile: " + SPEAKER + ": \"Four shades...\" "
+            "Immediately, 2-3.8s: she lowers the shorts a bit, leans slightly toward the lens and says "
+            "in a lower, 'trust me' tone: " + SPEAKER + ": \"they're in the orange cart.\" Finally, "
+            "3.8-5s: she points down toward the bottom of the screen with the index finger of her free "
+            "hand, taps the air twice, and ends with a quick genuine smile and a small nod, lips closed, "
+            "then settles. Sync: 'four shades' = wiggle, 'orange cart' = lean in.",
+            product=True,
         ),
     },
 ]
@@ -437,6 +474,8 @@ def cmd_video(args):
     if args.redo:
         for idx in range(args.redo, len(CLIPS) + 1):
             state["clips"].pop(str(idx), None)
+    if args.only:
+        state["clips"].pop(str(args.only), None)  # alleen deze clip, de rest blijft (jump cut)
     save_state(state)
 
     mila_urls, product_urls = ref_urls(state)
@@ -517,6 +556,7 @@ def main():
     pv.add_argument("--tier", choices=["pro", "std"], default="pro",
                     help="pro = beste kwaliteit (standaard), std = goedkoper")
     pv.add_argument("--redo", type=int, help="clip N en alles erna opnieuw genereren")
+    pv.add_argument("--only", type=int, help="alleen clip N opnieuw, andere clips blijven staan")
     pv.add_argument("--until", type=int, help="stop na clip N (om eerst te bekijken)")
     pv.add_argument("--moderation", choices=["auto", "low"], default="auto")
 
