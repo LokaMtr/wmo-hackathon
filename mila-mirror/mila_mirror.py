@@ -81,11 +81,13 @@ FRAME0_PROMPT = (
     "Ultra-realistic vertical TikTok UGC photo taken by an iPhone on a small tripod, placed at an angle "
     "beside a tall full-length floor mirror. On the left of the frame the real woman from the reference "
     "images (keep her face exactly identical) stands in three-quarter view, full body visible head to "
-    "knees, both arms fully visible, hands empty, looking at the mirror. On the right of the frame the "
-    "mirror shows her full reflection, also with both arms visible. The tripod and phone are not visible "
-    "in the mirror. She wears a fitted black satin slip midi dress with thin straps; the satin fabric "
-    "shows clearly visible wrinkles and bunching lines at the hips and waist. Relaxed confident "
-    "expression. Both the real woman and her reflection are clearly visible side by side. " + STYLE
+    "knees, both arms fully visible, hands empty, smoothing her dress with both hands and looking at "
+    "herself in the mirror. On the right of the frame the mirror shows her reflection as a physically "
+    "accurate mirror image: the reflection looks back at her (not at the camera), with exactly the same "
+    "pose and hand position, mirrored. The tripod and phone are not visible in the mirror. She wears a "
+    "fitted black satin slip midi dress with thin straps; the satin fabric shows clearly visible "
+    "wrinkles and bunching lines around the waist and midsection, in the real woman and in the reflection "
+    "alike. Relaxed happy expression. " + STYLE
 )
 
 # Elke clip: optioneel een keyframe-edit (nodig als het product in beeld komt of er iets
@@ -96,12 +98,14 @@ CLIPS = [
         "duration": 7,
         "keyframe": None,  # start = gekozen startframe
         "video": (
-            "Static tripod iPhone video: the real woman on the left, her reflection in the mirror on the right. The woman turns side to side admiring her dress and "
-            "says happily in a casual young American English voice: \"Okay, this dress is actually "
-            "perfect—\". Suddenly her reflection in the mirror stops moving and stays completely frozen "
-            "while the real woman keeps moving. She notices, looks at the mirror confused and says: "
-            "\"...why'd you stop?\" The reflection crosses its arms, points at the fabric wrinkles on her "
-            "hips and says in the same voice: \"Babe. The lines.\" " + STYLE +
+            "Static tripod iPhone video, the camera does not move. Real woman on the left, her reflection in the "
+            "mirror on the right. 0-1.5s: she smooths her dress over her hips, the reflection mirrors her "
+            "perfectly, and she says happily in a casual young American English voice: \"Okay, this dress "
+            "is perfect—\". At 1.5s the reflection suddenly freezes mid-movement and stays completely still "
+            "while the real woman keeps moving. 2.5s: she notices, turns to the mirror confused and says: "
+            "\"...why'd you stop?\" 4s: only the reflection moves: it slowly crosses its arms, looks down at "
+            "the fabric wrinkles on her hips and says in the same voice, unimpressed: \"Babe. The lines.\" "
+            "The real woman stares at it frozen in shock. Natural, subtle acting, realistic body movement. " + STYLE +
             " Natural room sound, no music."
         ),
     },
@@ -227,8 +231,13 @@ def upload(state, path):
     return url
 
 
-def run_model(model, arguments, what):
-    """Submit, wacht, en geef de JSON terug. Stopt met duidelijke melding bij fouten."""
+class NSFWBlocked(Exception):
+    pass
+
+
+def run_model(model, arguments, what, nsfw_ok=False):
+    """Submit, wacht, en geef de JSON terug. Stopt met duidelijke melding bij fouten.
+    nsfw_ok=True: gooi NSFWBlocked in plaats van te stoppen (blokkades worden niet gerekend)."""
     log(f"  -> {what} ({model})")
     started = time.time()
     last = [None]
@@ -254,6 +263,8 @@ def run_model(model, arguments, what):
 
     status = result.get("status")
     if status == "nsfw":
+        if nsfw_ok:
+            raise NSFWBlocked(what)
         sys.exit(f"\n{what} is geblokkeerd door de NSFW-filter. Pas de prompt of referenties aan "
                  f"(bijv. productfoto's zonder model) en run opnieuw. Mislukte requests worden niet gerekend.")
     if status != "completed":
@@ -347,21 +358,30 @@ def cmd_frame(args):
     mila_urls, _ = ref_urls(state)
     log(f"Startframe genereren ({args.variants} variant(en)) ...")
     made = []
-    for i in range(1, args.variants + 1):
-        res = run_model(IMAGE_MODEL, {
-            "prompt": FRAME0_PROMPT,
-            "image_urls": mila_urls,
-            "resolution": "2k",
-            "aspect_ratio": "9:16",
-            "quality": "high",
-            "moderation": args.moderation,
-            "enhance_prompt": False,  # anders herschrijft Marketing Studio de prompt
-        }, f"startframe {i}")
+    attempts = 0
+    while len(made) < args.variants and attempts < args.variants + 3:
+        attempts += 1
+        i = len(made) + 1
+        try:
+            res = run_model(IMAGE_MODEL, {
+                "prompt": FRAME0_PROMPT,
+                "image_urls": mila_urls,
+                "resolution": "2k",
+                "aspect_ratio": "9:16",
+                "quality": "high",
+                "moderation": args.moderation,
+                "enhance_prompt": False,  # anders herschrijft Marketing Studio de prompt
+            }, f"startframe {i}", nsfw_ok=True)
+        except NSFWBlocked:
+            log("     NSFW-blokkade (niet gerekend), nieuwe poging ...")
+            continue
         url = res["images"][0]["url"]
         dest = OUT / f"frame0_{i}{ext_from_url(url, '.png')}"
         download(url, dest)
         made.append(dest)
         log(f"     opgeslagen: {dest}")
+    if not made:
+        sys.exit("\nAlle pogingen geblokkeerd door de NSFW-filter. Pas de prompt of Mila-foto's aan.")
     log("\nKlaar. Bekijk de frames in de map out/ en start de video met bijvoorbeeld:")
     log(f"  python3 mila_mirror.py video --frame {made[0].relative_to(ROOT)}")
 
