@@ -65,7 +65,7 @@ PRODUCT = (
     "subtle contour seam lines, mid-thigh length legs, solid black, no logo"
 )
 STYLE = (
-    "Ultra-realistic handheld iPhone footage, authentic TikTok UGC, natural overcast "
+    "Ultra-realistic static iPhone footage from a phone on a small tripod, authentic TikTok UGC, natural overcast "
     "daylight from a window on the left, realistic skin texture, slight phone grain, "
     "real lived-in Scandinavian bedroom with an unmade bed with beige linen, clothes on a chair, "
     "a small plant, tall full-length floor mirror. No text, no subtitles, no watermark."
@@ -78,12 +78,14 @@ KEEP = (
 )
 
 FRAME0_PROMPT = (
-    "Ultra-realistic iPhone mirror selfie, vertical TikTok UGC style. The woman from the reference "
-    "images (keep her face exactly identical) stands in front of a tall full-length floor mirror, "
-    "holding an iPhone at chest height, filming her reflection. She wears a fitted black satin slip "
-    "midi dress with thin straps; the satin fabric shows slight wrinkles and bunching at the hips and "
-    "waist. Her body is turned three-quarters to the side, mid-turn, relaxed confident expression. "
-    "Both the woman and her reflection are clearly visible. " + STYLE
+    "Ultra-realistic vertical TikTok UGC photo taken by an iPhone on a small tripod, placed at an angle "
+    "beside a tall full-length floor mirror. On the left of the frame the real woman from the reference "
+    "images (keep her face exactly identical) stands in three-quarter view, full body visible head to "
+    "knees, both arms fully visible, hands empty, looking at the mirror. On the right of the frame the "
+    "mirror shows her full reflection, also with both arms visible. The tripod and phone are not visible "
+    "in the mirror. She wears a fitted black satin slip midi dress with thin straps; the satin fabric "
+    "shows clearly visible wrinkles and bunching lines at the hips and waist. Relaxed confident "
+    "expression. Both the real woman and her reflection are clearly visible side by side. " + STYLE
 )
 
 # Elke clip: optioneel een keyframe-edit (nodig als het product in beeld komt of er iets
@@ -94,7 +96,7 @@ CLIPS = [
         "duration": 7,
         "keyframe": None,  # start = gekozen startframe
         "video": (
-            "Handheld iPhone mirror selfie video. The woman turns side to side admiring her dress and "
+            "Static tripod iPhone video: the real woman on the left, her reflection in the mirror on the right. The woman turns side to side admiring her dress and "
             "says happily in a casual young American English voice: \"Okay, this dress is actually "
             "perfect—\". Suddenly her reflection in the mirror stops moving and stays completely frozen "
             "while the real woman keeps moving. She notices, looks at the mirror confused and says: "
@@ -109,7 +111,7 @@ CLIPS = [
         "keyframe": (
             KEEP + " Change only this: the reflection's hand now reaches OUT through the mirror surface, "
             "the glass ripples like water around the wrist, and the hand holds up the " + PRODUCT +
-            ". The real woman leans back in shock with wide eyes, still holding her phone."
+            ". The real woman leans back in shock with wide eyes."
         ),
         "video": (
             "The mirror surface ripples like water as the reflection's arm pushes the shorts further out "
@@ -125,7 +127,7 @@ CLIPS = [
         "keyframe": (
             KEEP + " Change only this: she wears the same black satin slip midi dress, but the fabric is "
             "now perfectly smooth over her hips and waist with a sleek silhouette (shapewear worn "
-            "underneath, not visible). Her only hand-held item is the phone. She stands in three-quarter "
+            "underneath, not visible). Her hands are empty. She stands in three-quarter "
             "profile. In the mirror her reflection faces her and slow-claps with a smug smile."
         ),
         "video": (
@@ -139,8 +141,8 @@ CLIPS = [
         "name": "clip4_cta",
         "duration": 7,
         "keyframe": (
-            KEEP + " Change only this: she faces the camera directly, films with the phone in one hand "
-            "and with her other hand holds up the " + PRODUCT + " toward the camera. Friendly, confident "
+            KEEP + " Change only this: she faces the camera directly and with one hand "
+            "holds up the " + PRODUCT + " toward the camera. Friendly, confident "
             "expression. Her reflection behind her mirrors her normally."
         ),
         "video": (
