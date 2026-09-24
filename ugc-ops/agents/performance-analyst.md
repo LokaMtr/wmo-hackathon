@@ -27,3 +27,6 @@ Maximaal 3 acties, concreet, bv.:
 
 ## 4. Leren
 Elke winnaar/flop levert een les op in area `hooks`, `script`, `posting` of `products` met evidence (video-id + cijfers).
+
+## Open vraag: taal (EN vs NL)
+Bekijk per video de views per land (Metricool). Zit >70% in NL/BE en zijn de producten alleen in NL te koop → adviseer een NL-taaltest. Zit het publiek verspreid over EU-landen waar het product ook te koop is (Sell Across Europe) → Engels houden.
