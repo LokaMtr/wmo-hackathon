@@ -367,18 +367,29 @@ def extract_last_frame(video, dest_png):
     return dest_png
 
 
+def video_duration(path):
+    res = subprocess.run([ffmpeg_exe(), "-hide_banner", "-i", str(path)], capture_output=True, text=True)
+    m = re.search(r"Duration: (\d+):(\d+):([\d.]+)", res.stderr)
+    if not m:
+        raise RuntimeError(f"Kon duur van {path} niet lezen")
+    h, mi, se = m.groups()
+    return int(h) * 3600 + int(mi) * 60 + float(se)
+
+
 def normalize_clip(src, dest):
-    """1080x1920, 30fps, h264 + aac. Voegt stilte toe als een clip geen audio heeft."""
+    """1080x1920, 30fps, h264 + aac. Voegt stilte toe als een clip geen audio heeft.
+    -t op de echte duur: apad + -shortest laat de stilte anders eindeloos doorlopen."""
+    dur = f"{video_duration(src):.3f}"
     vf = ("scale=1080:1920:force_original_aspect_ratio=decrease,"
           "pad=1080:1920:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=30")
     if has_audio(src):
         args = ["-i", str(src), "-vf", vf, "-c:v", "libx264", "-preset", "medium", "-crf", "18",
                 "-pix_fmt", "yuv420p", "-af", "apad", "-c:a", "aac", "-ar", "44100", "-ac", "2",
-                "-shortest", str(dest)]
+                "-t", dur, str(dest)]
     else:
         args = ["-i", str(src), "-f", "lavfi", "-i", "anullsrc=r=44100:cl=stereo",
                 "-vf", vf, "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-                "-pix_fmt", "yuv420p", "-c:a", "aac", "-shortest", str(dest)]
+                "-pix_fmt", "yuv420p", "-c:a", "aac", "-t", dur, str(dest)]
     run_ffmpeg(args)
 
 
