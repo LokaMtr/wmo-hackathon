@@ -38,6 +38,8 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 ## posting
 - [posting] Metricool beste tijden Amsterdam: ~10:00 en ~18:00 (wo/do het sterkst).
 - [posting] Oranje winkelwagentje kan via GEEN API; alleen in de TikTok-app. Metricool 'melding'-modus downloadt enkel de video. Beter: TikTok-drafts via Higgsfield (koppeling nog maken).
+- [posting] Metricool-analytics van TikTok lopen >24u achter; metrics pas bij de volgende run invullen, lege rijen ≠ 0 views.
+- [posting] Planning in Metricool is leidend. Meldt Loka een extra/overgeslagen post: video op posted zetten en de rest van de planning opschuiven.
 
 ## budget
 - [budget] ~40% van de credits ging naar redo's. Frames eerst beoordelen, std i.p.v. pro, 3 clips i.p.v. 4 → ~30 credits/video.
