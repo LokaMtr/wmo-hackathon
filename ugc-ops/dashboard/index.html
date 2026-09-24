@@ -1,0 +1,379 @@
+<title>Mila Control Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EEF0F3; --surface:#FFFFFF; --surface-2:#F6F7F9; --ink:#15161A; --muted:#626672; --line:#DCDFE5;
+  --accent:#E4561E; --accent-ink:#FFFFFF; --accent-soft:#FDE8DF;
+  --good:#1F8A5B; --good-soft:#DDF3E8; --warn:#B7791F; --warn-soft:#FBEFD6; --bad:#C0392B; --bad-soft:#F9DEDA; --info:#3563C9; --info-soft:#E0E9FB;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#111216; --surface:#1A1B21; --surface-2:#22242B; --ink:#EDEEF2; --muted:#9CA0AC; --line:#2E3038;
+    --accent:#FF6A2E; --accent-ink:#1A0B04; --accent-soft:#3A1F14;
+    --good:#4CC38A; --good-soft:#15301F; --warn:#E3AE4F; --warn-soft:#33280F; --bad:#F0776A; --bad-soft:#3A1916; --info:#7FA2F0; --info-soft:#18223A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#111216; --surface:#1A1B21; --surface-2:#22242B; --ink:#EDEEF2; --muted:#9CA0AC; --line:#2E3038;
+  --accent:#FF6A2E; --accent-ink:#1A0B04; --accent-soft:#3A1F14;
+  --good:#4CC38A; --good-soft:#15301F; --warn:#E3AE4F; --warn-soft:#33280F; --bad:#F0776A; --bad-soft:#3A1916; --info:#7FA2F0; --info-soft:#18223A;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.55 var(--body);margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:20px 120px;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:28px;font-weight:800}
+h2{font-size:20px;font-weight:800}
+h3{font-size:17px;font-weight:600}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.cart{width:38px;height:38px;border-radius:9px;background:var(--accent);display:grid;place-items:center;flex:none}
+.cart svg{width:22px;height:22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.stat .v{font-family:var(--mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+nav.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
+nav.tabs button{font:600 14px var(--body);color:var(--muted);background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs .count{font-family:var(--mono);font-size:12px;background:var(--surface-2);border-radius:99px;padding:1px 7px;margin-left:6px}
+button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.panel{display:flex;flex-direction:column;gap:16px}
+.brief{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;gap:14px}
+.brief .headline{font-family:var(--display);font-size:24px;font-weight:800;line-height:1.2;text-wrap:balance}
+.brief p{margin:0;max-width:70ch}
+.brief ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px;max-width:75ch}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.actions li{padding-left:2px}
+.archive{display:flex;gap:6px;flex-wrap:wrap}
+.chipbtn{font:500 13px var(--mono);border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:99px;padding:4px 10px;cursor:pointer}
+.chipbtn[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar select,.toolbar input{font:14px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden}
+.idea.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.idea .imgs{display:flex;gap:2px;background:var(--surface-2);height:150px}
+.idea .imgs img{flex:1;min-width:0;object-fit:cover;height:100%}
+.idea .imgs .noimg{flex:1;display:grid;place-items:center;color:var(--muted);font-size:13px}
+.idea .body{padding:14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.idea .row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.score{font-family:var(--mono);font-size:20px;font-weight:500;min-width:48px;text-align:right}
+.bar{height:5px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent)}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font:600 11px var(--body);letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:99px;background:var(--surface-2);color:var(--muted)}
+.pill.opkomend{background:var(--good-soft);color:var(--good)}
+.pill.piek{background:var(--warn-soft);color:var(--warn)}
+.pill.uitgemolken{background:var(--bad-soft);color:var(--bad)}
+.pill.new{background:var(--info-soft);color:var(--info)}
+.pill.selected,.pill.in_production{background:var(--accent-soft);color:var(--accent)}
+.pill.done,.pill.posted,.pill.winner{background:var(--good-soft);color:var(--good)}
+.pill.rejected,.pill.flop{background:var(--bad-soft);color:var(--bad)}
+.pill.scheduled,.pill.promise{background:var(--warn-soft);color:var(--warn)}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:13px}
+.meta dt{color:var(--muted)} .meta dd{margin:0}
+details{border-top:1px solid var(--line);padding-top:8px}
+summary{cursor:pointer;font-weight:600;font-size:14px}
+.concept{background:var(--surface-2);border-radius:8px;padding:10px 12px;margin-top:8px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.concept b{font-family:var(--display)}
+.concept ol{margin:4px 0 0;padding-left:18px}
+.idea footer{display:flex;gap:8px;align-items:center;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface-2);flex-wrap:wrap}
+.idea footer label{display:flex;gap:6px;align-items:center;font-weight:600;font-size:14px;cursor:pointer;margin-right:auto}
+.idea footer input{width:18px;height:18px;accent-color:var(--accent)}
+.idea footer select{font:13px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 6px}
+.selbar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--surface);padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;z-index:5}
+.btn{font:600 14px var(--body);border:0;border-radius:8px;padding:10px 16px;cursor:pointer}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:inherit;border:1px solid currentColor;opacity:.8}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.lgroup{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.lgroup ul{margin:0;padding-left:16px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.lgroup .ev{color:var(--muted);font-size:12.5px}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:28px;text-align:center;color:var(--muted)}
+.toast{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:8px 14px;border-radius:8px;font-weight:600;z-index:9}
+textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px}
+.offline{background:var(--warn-soft);color:var(--warn);border-radius:8px;padding:10px 14px;font-size:14px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="cart" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 8H6.2"/><circle cx="9.5" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg></div>
+      <div>
+        <h1>Mila Control Room</h1>
+        <div class="muted">@xmilabby · TikTok Shop NL · <span id="lastRun" class="mono">—</span></div>
+      </div>
+    </div>
+  </header>
+
+  <div id="offline" class="offline" hidden>De opslag van dit dashboard is in deze weergave niet beschikbaar. Open het via claude.ai om briefings en ideeën te zien.</div>
+
+  <section class="stats" aria-label="Kerncijfers">
+    <div class="stat"><span class="label">Credits over</span><span class="v" id="sCredits">—</span></div>
+    <div class="stat"><span class="label">Nieuwe ideeën</span><span class="v" id="sIdeas">—</span></div>
+    <div class="stat"><span class="label">Video's klaar</span><span class="v" id="sMade">—</span></div>
+    <div class="stat"><span class="label">Gepland / gepost</span><span class="v" id="sPosted">—</span></div>
+    <div class="stat"><span class="label">Commissie</span><span class="v" id="sComm">—</span></div>
+  </section>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-briefing" aria-selected="true" data-tab="briefing">Briefing</button>
+    <button role="tab" id="tab-ideas" aria-selected="false" data-tab="ideas">Ideeën<span class="count" id="cIdeas">0</span></button>
+    <button role="tab" id="tab-videos" aria-selected="false" data-tab="videos">Video's &amp; planning<span class="count" id="cVideos">0</span></button>
+    <button role="tab" id="tab-lessons" aria-selected="false" data-tab="lessons">Lessen<span class="count" id="cLessons">0</span></button>
+  </nav>
+
+  <section class="panel" id="p-briefing"></section>
+  <section class="panel" id="p-ideas" hidden>
+    <div class="toolbar">
+      <select id="fStatus" aria-label="Filter op status">
+        <option value="open">Open (nieuw + gekozen)</option>
+        <option value="all">Alles</option>
+        <option value="new">Nieuw</option>
+        <option value="selected">Gekozen</option>
+        <option value="in_production">In productie</option>
+        <option value="done">Klaar</option>
+        <option value="rejected">Afgewezen</option>
+      </select>
+      <select id="fSort" aria-label="Sorteren">
+        <option value="score">Hoogste score</option>
+        <option value="date">Nieuwste eerst</option>
+      </select>
+      <input id="fSearch" type="search" placeholder="Zoek product of categorie" aria-label="Zoeken">
+    </div>
+    <div class="grid" id="ideaGrid"></div>
+  </section>
+  <section class="panel" id="p-videos" hidden></section>
+  <section class="panel" id="p-lessons" hidden></section>
+</div>
+
+<div class="selbar" id="selbar" hidden>
+  <span><b class="mono" id="selCount">0</b> geselecteerd</span>
+  <button class="btn primary" id="copyBtn">Kopieer prompt voor Claude</button>
+  <button class="btn ghost" id="clearSel">Wissen</button>
+</div>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true};
+  const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten"};
+  const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
+
+  try{ const t = localStorage.getItem("mcr_tab"); if(t) showTab(t); }catch(e){}
+  document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => { showTab(b.dataset.tab); try{localStorage.setItem("mcr_tab", b.dataset.tab)}catch(e){} }));
+  function showTab(t){
+    document.querySelectorAll("nav.tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t ? "true":"false"));
+    ["briefing","ideas","videos","lessons"].forEach(p => { const el = document.getElementById("p-"+p); if(el) el.hidden = p!==t; });
+  }
+
+  function img(src){
+    if(!src) return "";
+    const u = /^[0-9a-f]{32}$/.test(src) ? "/_blob/"+src : src;
+    return `<img src="${esc(u)}" alt="" loading="lazy" onerror="this.remove()">`;
+  }
+  function pill(s){ return `<span class="pill ${esc(s)}">${esc(STATUS_NL[s]||s)}</span>`; }
+  function fmtDate(iso){ if(!iso) return "—"; try{ const d = new Date(iso); return d.toLocaleString("nl-NL",{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Amsterdam"}); }catch(e){ return iso; } }
+
+  function renderStats(){
+    const m = state.meta || {};
+    $("#sCredits").textContent = m.credits!=null ? Number(m.credits).toFixed(0) : "—";
+    $("#sIdeas").textContent = state.ideas.filter(i=>i.status==="new").length;
+    $("#sMade").textContent = state.videos.filter(v=>v.status==="made").length;
+    $("#sPosted").textContent = state.videos.filter(v=>v.status==="scheduled").length + " / " + state.videos.filter(v=>v.status==="posted").length;
+    $("#sComm").textContent = m.commissionTotal!=null ? "€" + Number(m.commissionTotal).toFixed(2).replace(".",",") : "€0";
+    $("#lastRun").textContent = m.lastRun ? "laatste run " + fmtDate(m.lastRun) : "nog geen run";
+    $("#cIdeas").textContent = state.ideas.filter(i=>["new","selected"].includes(i.status)).length;
+    $("#cVideos").textContent = state.videos.length;
+    $("#cLessons").textContent = state.lessons.length;
+  }
+
+  function renderBriefing(){
+    const el = $("#p-briefing");
+    const list = [...state.briefings].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    if(!list.length){ el.innerHTML = `<div class="empty">Nog geen briefing. De trend-scout schrijft er elke ochtend één.</div>`; return; }
+    const cur = list.find(b=>b.date===state.briefDate) || list[0];
+    const top = state.ideas.filter(i=>i.date===cur.date).sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,5);
+    el.innerHTML = `
+      <div class="archive">${list.slice(0,14).map(b=>`<button class="chipbtn" data-d="${esc(b.date)}" aria-pressed="${b.date===cur.date}">${esc(b.date)}</button>`).join("")}</div>
+      <article class="brief">
+        <span class="label">Briefing ${esc(cur.date)}${cur.generatedAt?" · "+esc(fmtDate(cur.generatedAt)):""}</span>
+        <div class="headline">${esc(cur.headline||"")}</div>
+        <p>${esc(cur.summary||"")}</p>
+        <div class="cols">
+          ${cur.actions&&cur.actions.length?`<div><h3>Beste moves vandaag</h3><ul class="actions">${cur.actions.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>`:""}
+          ${cur.marketNotes&&cur.marketNotes.length?`<div><h3>Markt</h3><ul>${cur.marketNotes.map(a=>`<li>${esc(a)}</li>`).join("")}</ul></div>`:""}
+        </div>
+        ${cur.seasonal?`<p class="muted"><b>Seizoen:</b> ${esc(cur.seasonal)}</p>`:""}
+      </article>
+      ${top.length?`<h2>Top-ideeën van deze briefing</h2><div class="grid">${top.map(ideaCard).join("")}</div>`:""}`;
+    el.querySelectorAll(".chipbtn").forEach(b=>b.addEventListener("click",()=>{state.briefDate=b.dataset.d;renderBriefing();bindIdeaControls(el);}));
+    bindIdeaControls(el);
+  }
+
+  function ideaCard(i){
+    const imgs = (i.imageAssets&&i.imageAssets.length?i.imageAssets:i.images||[]).slice(0,3);
+    const sb = i.scoreBreakdown||{};
+    return `<article class="idea ${state.sel.has(i._id)?"sel":""}" data-id="${esc(i._id)}">
+      <div class="imgs">${imgs.length?imgs.map(img).join(""):`<div class="noimg">geen foto</div>`}</div>
+      <div class="body">
+        <div class="row"><div><h3>${esc(i.product)}</h3><div class="muted" style="font-size:13px">${esc(i.shop||"")}${i.category?" · "+esc(i.category):""}</div></div><div class="score" title="score">${esc(i.score??"–")}</div></div>
+        <div class="bar" aria-hidden="true"><i style="width:${Math.max(0,Math.min(100,Number(i.score)||0))}%"></i></div>
+        <div class="pills">${i.trendStage?pill(i.trendStage):""}${pill(i.status||"new")}</div>
+        <dl class="meta">
+          ${i.price?`<dt>Prijs</dt><dd>${esc(i.price)}</dd>`:""}
+          ${i.commission?`<dt>Commissie</dt><dd>${esc(i.commission)}</dd>`:""}
+          <dt>Score</dt><dd class="mono">trend ${esc(sb.trend??"–")} · comm ${esc(sb.commission??"–")} · verz ${esc(sb.saturation??"–")} · AI ${esc(sb.aiFit??"–")} · seiz ${esc(sb.season??"–")}</dd>
+        </dl>
+        <p style="margin:0;font-size:14px">${esc(i.why||"")}</p>
+        ${i.gap?`<p style="margin:0;font-size:14px"><b>Gat in de markt:</b> ${esc(i.gap)}</p>`:""}
+        ${(i.concepts||[]).length?`<details><summary>${i.concepts.length} concept${i.concepts.length>1?"en":""}</summary>${i.concepts.map(c=>`<div class="concept"><b>${esc(c.name)}</b><span><span class="label">Hook</span> ${esc(c.hook)}</span>${c.setting?`<span class="muted">${esc(c.setting)} · ${esc(c.angle||"")}</span>`:""}${(c.scenes||[]).length?`<ol>${c.scenes.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}${c.cta?`<span><span class="label">CTA</span> ${esc(c.cta)}</span>`:""}</div>`).join("")}</details>`:""}
+        ${(i.risks||[]).length?`<details><summary>Risico's</summary><ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px">${i.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></details>`:""}
+        ${i.productUrl?`<a href="${esc(i.productUrl)}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;font-size:14px">Productpagina ↗</a>`:""}
+      </div>
+      <footer>
+        <label><input type="checkbox" class="selbox" ${state.sel.has(i._id)?"checked":""}> Selecteer</label>
+        <select class="stsel" aria-label="Status" ${state.canWrite?"":"disabled"}>
+          ${["new","selected","in_production","done","rejected"].map(s=>`<option value="${s}" ${i.status===s?"selected":""}>${STATUS_NL[s]}</option>`).join("")}
+        </select>
+      </footer>
+    </article>`;
+  }
+
+  function renderIdeas(){
+    const f = $("#fStatus").value, srt = $("#fSort").value, q = $("#fSearch").value.trim().toLowerCase();
+    let list = state.ideas.filter(i => f==="all" ? true : f==="open" ? ["new","selected"].includes(i.status||"new") : (i.status||"new")===f);
+    if(q) list = list.filter(i => (i.product+" "+(i.category||"")+" "+(i.shop||"")).toLowerCase().includes(q));
+    list.sort(srt==="score" ? (a,b)=>(b.score||0)-(a.score||0) : (a,b)=>String(b.date).localeCompare(String(a.date)));
+    const g = $("#ideaGrid");
+    g.innerHTML = list.length ? list.map(ideaCard).join("") : `<div class="empty">Geen ideeën met dit filter.</div>`;
+    bindIdeaControls(g);
+  }
+
+  function bindIdeaControls(root){
+    root.querySelectorAll(".idea").forEach(card=>{
+      const id = card.dataset.id;
+      card.querySelector(".selbox").addEventListener("change", e=>{ e.target.checked?state.sel.add(id):state.sel.delete(id); renderSel(); card.classList.toggle("sel", e.target.checked); });
+      card.querySelector(".stsel").addEventListener("change", async e=>{
+        const v = e.target.value;
+        try{ await db.doc("ideas/"+id).update({status:v, updatedAt:new Date().toISOString()}); toast("Status: "+STATUS_NL[v]); }
+        catch(err){ state.canWrite=false; toast("Opslaan lukt niet met jouw rechten"); }
+      });
+    });
+  }
+
+  function renderSel(){
+    $("#selbar").hidden = state.sel.size===0;
+    $("#selCount").textContent = state.sel.size;
+  }
+  $("#clearSel").addEventListener("click",()=>{state.sel.clear();renderSel();renderIdeas();renderBriefing();});
+
+  function buildPrompt(){
+    const picked = state.ideas.filter(i=>state.sel.has(i._id));
+    const lines = [];
+    lines.push(`Maak een Mila-video voor ${picked.length===1?"dit product":"deze "+picked.length+" producten"} (1 video per product), uit de Mila Control Room.`);
+    lines.push(`Volg ugc-ops/agents/producer.md en ugc-ops/agents/compliance.md, en lees eerst ugc-ops/memory/lessons.md + de lessons in het dashboard. Budget: std-modus, max ~30 credits per video, frames eerst tonen als er twijfel is.`);
+    lines.push(`Na afloop: video's toevoegen aan dashboard-collectie videos, idee-status op "done", nieuwe lessen opslaan.`);
+    picked.forEach((i,n)=>{
+      lines.push("");
+      lines.push(`=== ${n+1}. ${i.product} (idea id: ${i._id}) ===`);
+      if(i.shop) lines.push(`Shop: ${i.shop}`);
+      if(i.category) lines.push(`Categorie: ${i.category}`);
+      if(i.price) lines.push(`Prijs: ${i.price}`);
+      if(i.commission) lines.push(`Commissie: ${i.commission}`);
+      if(i.productUrl) lines.push(`Productpagina: ${i.productUrl}`);
+      lines.push(`Trendfase: ${i.trendStage||"?"} · Score: ${i.score??"?"}`);
+      if(i.why) lines.push(`Waarom nu: ${i.why}`);
+      if(i.gap) lines.push(`Gat in de markt: ${i.gap}`);
+      (i.signals||[]).forEach(s=>lines.push(`Signaal: ${s}`));
+      (i.concepts||[]).forEach((c,k)=>{
+        lines.push(`Concept ${k+1}: ${c.name} [${c.angle||""}] setting: ${c.setting||""}`);
+        lines.push(`  Hook: ${c.hook}`);
+        (c.scenes||[]).forEach((s,j)=>lines.push(`  Scène ${j+1}: ${s}`));
+        if(c.cta) lines.push(`  CTA: ${c.cta}`);
+      });
+      (i.risks||[]).forEach(r=>lines.push(`Risico: ${r}`));
+      const imgs = [...(i.images||[])];
+      if(imgs.length) lines.push(`Productfoto's (download + gebruik als referentie): ${imgs.join(" ")}`);
+      if((i.imageAssets||[]).length) lines.push(`Dashboard-asset-ids van de foto's: ${i.imageAssets.join(" ")}`);
+    });
+    return lines.join("\n");
+  }
+  $("#copyBtn").addEventListener("click", async ()=>{
+    const text = buildPrompt();
+    try{ await navigator.clipboard.writeText(text); toast("Prompt gekopieerd, plak hem in Claude"); }
+    catch(e){
+      const ta = document.createElement("textarea"); ta.className="fallback"; ta.value=text; ta.setAttribute("aria-label","Prompt");
+      const box = document.getElementById("p-ideas"); box.prepend(ta); showTab("ideas"); ta.focus(); ta.select();
+      toast("Kopiëren geblokkeerd: tekst is geselecteerd, kopieer handmatig");
+    }
+    if(state.canWrite){
+      for(const id of state.sel){ const i = state.ideas.find(x=>x._id===id); if(i && i.status==="new"){ try{ await db.doc("ideas/"+id).update({status:"selected",updatedAt:new Date().toISOString()}); }catch(e){} } }
+    }
+  });
+
+  function renderVideos(){
+    const el = $("#p-videos");
+    const list = [...state.videos].sort((a,b)=>String(a.scheduledAt||"9").localeCompare(String(b.scheduledAt||"9")));
+    if(!list.length){ el.innerHTML = `<div class="empty">Nog geen video's geregistreerd.</div>`; return; }
+    el.innerHTML = `<div class="tablewrap"><table>
+      <thead><tr><th>Video</th><th>Product</th><th>Status</th><th>Gepland</th><th>Views</th><th>Verkopen</th><th>Oordeel</th><th>Credits</th></tr></thead>
+      <tbody>${list.map(v=>`<tr>
+        <td><b>${esc(v.title)}</b><div class="muted" style="font-size:12.5px">${esc(v.concept||"")}</div></td>
+        <td>${esc(v.product||"")}</td>
+        <td>${pill(v.status||"made")}</td>
+        <td class="mono">${esc(v.scheduledAt?fmtDate(v.scheduledAt):"—")}</td>
+        <td class="mono">${esc(v.metrics&&v.metrics.views!=null?v.metrics.views:"—")}</td>
+        <td class="mono">${esc(v.sales??"—")}</td>
+        <td>${v.verdict?pill(v.verdict):"—"}${v.why?`<div class="muted" style="font-size:12.5px">${esc(v.why)}</div>`:""}</td>
+        <td class="mono">${esc(v.credits??"—")}</td>
+      </tr>`).join("")}</tbody></table></div>`;
+  }
+
+  function renderLessons(){
+    const el = $("#p-lessons");
+    if(!state.lessons.length){ el.innerHTML = `<div class="empty">Nog geen lessen.</div>`; return; }
+    const by = {};
+    state.lessons.forEach(l=>{ (by[l.area]=by[l.area]||[]).push(l); });
+    const order = ["production","script","hooks","products","posting","compliance","budget"];
+    const areas = Object.keys(by).sort((a,b)=>order.indexOf(a)-order.indexOf(b));
+    el.innerHTML = `<p class="muted" style="margin:0">Elke agent leest dit vóór hij begint. Nieuwe lessen komen er automatisch bij.</p><div class="lessons">${areas.map(a=>`<section class="lgroup"><h3>${esc(AREA_NL[a]||a)} <span class="mono muted" style="font-size:13px">${by[a].length}</span></h3><ul>${by[a].sort((x,y)=>String(y.createdAt).localeCompare(String(x.createdAt))).map(l=>`<li>${esc(l.rule)}${l.evidence?`<div class="ev">${esc(l.evidence)}</div>`:""}</li>`).join("")}</ul></section>`).join("")}</div>`;
+  }
+
+  let toastT;
+  function toast(msg){ let t=document.querySelector(".toast"); if(!t){t=document.createElement("div");t.className="toast";t.setAttribute("role","status");document.body.appendChild(t);} t.textContent=msg; t.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>{t.hidden=true},2600); }
+
+  ["#fStatus","#fSort"].forEach(s=>$(s).addEventListener("change",renderIdeas));
+  $("#fSearch").addEventListener("input",renderIdeas);
+
+  function renderAll(){ renderStats(); renderBriefing(); renderIdeas(); renderVideos(); renderLessons(); }
+  renderAll();
+
+  let db = null;
+  (async ()=>{
+    db = await window.claude?.use?.("db");
+    if(!db){ $("#offline").hidden = false; return; }
+    const sub = (col, key, fn) => db.collection(col).onSnapshot(s=>{ state[key] = s.docs.map(d=>({...d.data(), _id:d.id})); fn&&fn(); renderAll(); }, ()=>{});
+    sub("briefings","briefings"); sub("ideas","ideas"); sub("videos","videos"); sub("lessons","lessons");
+    db.doc("meta/state").onSnapshot(s=>{ state.meta = s.exists ? s.data() : null; renderStats(); }, ()=>{});
+    try{ const user = await window.claude.use("user"); const w = user && user.can ? await user.can("data.write") : null; if(w===false) state.canWrite=false; }catch(e){}
+  })();
+})();
+</script>
