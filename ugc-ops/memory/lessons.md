@@ -17,6 +17,8 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [production] ffmpeg concat: `apad` + `-shortest` loopt eindeloos; `-t` op echte duur gebruiken (gefixt in mila_mirror.py).
 - [production] Higgsfield raadt soms een preset aan i.p.v. te genereren → opnieuw indienen met `declined_preset_id`.
 
+- [production] Seedance 2.0 Mini (1 cr/s) vs Kling 3.0 std (1,75 cr/s), zelfde frame+prompt: Kling duidelijk beter (stem/lipsync) volgens Loka. Kling blijft standaard voor pratende clips. (test 25-09, 6 credits)
+
 ## compliance
 - [compliance] NSFW-filter blokkeert: satijnen jurken, hemdjes/tanktops, korte rompers met staande poses, "bed" + referentiebeeld. Oplossing: bedekkender outfit (sweater/hoodie), hoger inkaderen. Blokkades kosten niets.
 - [compliance] Geen echte Disney/merk-content; eigen tekenfilm in klassieke stijl werkt net zo goed. (beamer)
