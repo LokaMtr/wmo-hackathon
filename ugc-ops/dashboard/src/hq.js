@@ -386,7 +386,7 @@
   const labels = {};
   AGENTS.forEach(a=>{ const d = document.createElement("button"); d.type = "button"; d.className = "hq-name"; d.innerHTML = `<i>${a.icon}</i>${esc(a.name)}`; d.setAttribute("aria-label", a.name); d.style.setProperty("--c", hex(a.color)); d.onclick = ()=>showCard(a); overlay.appendChild(d); labels[a.id] = d; });
   const bubbles = [];
-  function say(who, text, ms=3400, kind=""){ const d = document.createElement("div"); d.className = "hq-bubble " + kind; d.textContent = text; overlay.appendChild(d); bubbles.push({who, d, until:performance.now()+ms}); }
+  function say(who, text, ms=3400, kind=""){ if(mobile()){ while(bubbles.filter(b=>performance.now()<b.until).length >= 2){ const o = bubbles.find(b=>performance.now()<b.until); if(!o) break; o.until = performance.now()-1; } } const d = document.createElement("div"); d.className = "hq-bubble " + kind; d.textContent = text; overlay.appendChild(d); bubbles.push({who, d, until:performance.now()+ms}); }
   const v3 = new T.Vector3();
   function project(pos, dy){ v3.set(pos.x, pos.y+dy, pos.z).project(cam); return [(v3.x*0.5+0.5)*stage.clientWidth, (-v3.y*0.5+0.5)*stage.clientHeight]; }
   const corePos = new T.Vector3(0,2.2,0);
