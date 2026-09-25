@@ -1164,11 +1164,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
   function face(a, pos){ a.wantFace = Math.atan2(pos.x-a.g.position.x, pos.z-a.g.position.z); }
   function update(a, dt, t){
     if(a.mixer) a.mixer.update(dt);
-    if(a.headBone && a.look){ const L = a.look;
-      if(a.seated && !a.talking){ L.next -= dt; if(L.next <= 0){ L.target = Math.random() < 0.45 ? 0 : (Math.random()-0.5)*0.9; L.next = 3 + Math.random()*7; } }
-      else L.target = 0;
-      L.yaw += (L.target - L.yaw) * Math.min(1, dt*1.6);
-      a.headBone.rotation.y += L.yaw; a.headBone.rotation.x += a.seated ? Math.sin(t*L.speed + L.phase)*0.04 : 0; }
+    if(a.look && !a.beanFeet){ const k = a.seated && !a.target ? 1 : 0; a.body.scale.y = 1 + k*Math.sin(t*1.4 + a.look.phase)*0.008; }
     if(a.target){
       const p = a.g.position, dx = a.target.x-p.x, dz = a.target.z-p.z, d = Math.hypot(dx,dz);
       if(d < 0.06){ a.target = null; a.running = false; play(a, "Idle"); const f = a.then; a.then = null; f && f(); }
