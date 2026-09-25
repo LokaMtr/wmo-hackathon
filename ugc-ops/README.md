@@ -25,6 +25,9 @@ Collecties:
 - `lessons/<id>`: geleerde lessen (wat werkt / wat niet); **elke agent leest deze eerst**
 - `meta/state`: credits, uitgaven, commissie, laatste run
 
+## HQ 3D + chat
+Het dashboard opent op **HQ 3D**: alle agents als cartoonfiguren in één kantoor, die echte data uit de database aan elkaar doorgeven. De chat rechts schrijft naar collectie `chat` en vuurt trigger `controlRoomChat` af in de Claude-sessie; Claude antwoordt met een doc `{role:'claude', text, at, agent}` in `chat`.
+
 ## Zelflerend
 1. Elke agent leest bij start `memory/lessons.md` **en** de collectie `lessons` in het dashboard.
 2. Elke fout die opnieuw gemaakt moest worden, elke hook die wel of niet werkte en elk product dat verzadigd bleek wordt een nieuwe les (in beide).
