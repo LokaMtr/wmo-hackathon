@@ -1,0 +1,119 @@
+<canvas id="bgfx" aria-hidden="true"></canvas>
+<div class="wrap">
+  <header class="cmdbar glass">
+    <div class="logo">
+      <div class="reactor" aria-hidden="true"></div>
+      <div><h1>MILA · CONTROL</h1><div class="sub">@XMILABBY · TIKTOK SHOP EU · <span id="lastRun">—</span></div></div>
+    </div>
+    <div class="chips">
+      <span class="chip"><span class="dot"></span><span id="chipOnline">10 AGENTS ONLINE</span></span>
+      <span class="chip" id="chipNext">VOLGENDE POST —</span>
+      <button class="btn cyan" id="scoutBtn">⟡ Trend-scout</button>
+    </div>
+  </header>
+
+  <div id="offline" class="offline" hidden>De opslag van dit dashboard is in deze weergave niet beschikbaar. Open het via claude.ai om alles live te zien.</div>
+
+  <section class="kpis" aria-label="Kerncijfers">
+    <div class="kpi glass" style="--k:rgba(46,230,255,.22);--k2:#2EE6FF">
+      <div class="top"><span class="label">Credits</span><svg class="ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3"/><circle id="kCredRing" cx="18" cy="18" r="15" fill="none" stroke="#2EE6FF" stroke-width="3" stroke-linecap="round" stroke-dasharray="0 95"/></svg></div>
+      <div class="v" id="sCredits">—</div><div class="foot" id="sCreditsFoot">Higgsfield-saldo</div>
+    </div>
+    <div class="kpi glass" style="--k:rgba(47,224,138,.2);--k2:#2FE08A">
+      <div class="top"><span class="label">Nieuwe ideeën</span><span class="count" id="sIdeasTop">—</span></div>
+      <div class="v" id="sIdeas">—</div><div class="meter"><i id="sIdeasBar" style="width:0"></i></div><div class="foot">beste score</div>
+    </div>
+    <div class="kpi glass" style="--k:rgba(76,141,255,.22);--k2:#4C8DFF">
+      <div class="top"><span class="label">Gepland</span></div>
+      <div class="v" id="sSched">—</div><div class="foot" id="sSchedFoot">posts in de wachtrij</div>
+    </div>
+    <div class="kpi glass" style="--k:rgba(255,106,46,.22);--k2:#FF6A2E">
+      <div class="top"><span class="label">Gepost</span></div>
+      <div class="v" id="sPosted">—</div><div class="meter"><i id="sPostedBar" style="width:0"></i></div><div class="foot" id="sPostedFoot">van alle video's</div>
+    </div>
+    <div class="kpi glass" style="--k:rgba(255,197,61,.2);--k2:#FFC53D">
+      <div class="top"><span class="label">Commissie</span></div>
+      <div class="v" id="sComm">€0</div><div class="foot" id="sCommFoot">totaal verdiend</div>
+    </div>
+  </section>
+
+  <nav class="tabs glass" role="tablist">
+    <span class="ink" aria-hidden="true"></span>
+    <button role="tab" id="tab-hq" aria-selected="true" data-tab="hq">◈ HQ</button>
+    <button role="tab" id="tab-briefing" aria-selected="false" data-tab="briefing">Briefing</button>
+    <button role="tab" id="tab-ideas" aria-selected="false" data-tab="ideas">Ideeën <span class="count" id="cIdeas">0</span></button>
+    <button role="tab" id="tab-videos" aria-selected="false" data-tab="videos">Planning <span class="count" id="cVideos">0</span></button>
+    <button role="tab" id="tab-lessons" aria-selected="false" data-tab="lessons">Geheugen <span class="count" id="cLessons">0</span></button>
+  </nav>
+
+  <section class="panel" id="p-hq">
+    <div class="hq">
+      <div class="hq-stage" id="hqStage">
+        <canvas id="hqCanvas" aria-label="3D-commandocentrum met het agent-team"></canvas>
+        <div class="hq-frame" aria-hidden="true"></div>
+        <div class="hq-bubbles" id="hqBubbles"></div>
+        <div class="hud-top">
+          <div class="hud-id"><span class="ring" aria-hidden="true"></span><div><div class="hud-title">J.A.R.V.I.S</div><div class="hud-sub" id="hudState">OPSTARTEN…</div></div></div>
+          <div class="hud-gauges">
+            <div class="gauge" title="Tijd (Amsterdam)"><svg viewBox="0 0 62 62"><circle cx="31" cy="31" r="26" fill="none" stroke="rgba(46,230,255,.15)" stroke-width="4"/><circle id="hudClockArc" cx="31" cy="31" r="26" fill="none" stroke="#FF6A2E" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 163"/></svg><span>TIJD</span><b id="hudClockTxt">--:--</b></div>
+            <div class="gauge" title="Higgsfield-credits"><svg viewBox="0 0 62 62"><circle cx="31" cy="31" r="26" fill="none" stroke="rgba(46,230,255,.15)" stroke-width="4"/><circle id="hudCredArc" cx="31" cy="31" r="26" fill="none" stroke="#2EE6FF" stroke-width="4" stroke-linecap="round" stroke-dasharray="0 163"/></svg><span>CREDITS</span><b id="hudCredTxt">—</b></div>
+          </div>
+        </div>
+        <div class="hud-feed" id="hudFeed"></div>
+        <div class="hud-log" id="hudLog" aria-live="polite"></div>
+        <div class="hud-btns">
+          <button id="hudFeedBtn" title="Missie-feed" aria-label="Missie-feed tonen">☰</button>
+          <button id="hudFx" title="Glow-effecten" aria-label="Glow-effecten">✦</button>
+          <button id="hudCam" title="Camera resetten" aria-label="Camera resetten">⟲</button>
+          <button id="hudSound" title="JARVIS-stem" aria-label="JARVIS-stem">🔇</button>
+        </div>
+        <div class="hq-card" id="hqCard" hidden></div>
+        <div class="hq-loading" id="hqLoading">TEAM LADEN<i></i></div>
+        <div class="hq-fallback" id="hqFallback" hidden></div>
+      </div>
+      <aside class="hq-chat" aria-label="Chat met JARVIS">
+        <div class="hq-chat-head"><div class="reactor" aria-hidden="true"></div><div><b>JARVIS</b><span class="muted">Opdrachten gaan rechtstreeks naar Claude. Plak of sleep screenshots en PDF's erbij.</span></div></div>
+        <div class="hq-log" id="hqLog"></div>
+        <div class="quick" id="hqQuick">
+          <button type="button" data-q="Hoe staan de views en likes?">📈 Views?</button>
+          <button type="button" data-q="Wat moet ik vandaag doen?">🗓 Vandaag</button>
+          <button type="button" data-q="Maak een nieuwe video van het beste idee.">🎬 Nieuwe video</button>
+          <button type="button" data-q="Start de trend-scout en geef me de top 3.">🔭 Trends</button>
+        </div>
+        <div class="hq-tray" id="hqTray" hidden></div>
+        <form id="hqForm"><button type="button" class="attach" id="hqAttach" aria-label="Bijlage toevoegen" title="Foto, screenshot of PDF toevoegen">📎</button><textarea id="hqInput" rows="2" placeholder="Zeg het maar, baas…"></textarea><button class="btn primary" type="submit">Stuur</button><input type="file" id="hqFile" multiple accept="image/*,video/mp4,video/webm,application/pdf,.txt,.md,.csv,.json" hidden></form>
+        <div id="hqStatus"></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="panel" id="p-briefing" hidden></section>
+  <section class="panel" id="p-ideas" hidden>
+    <div class="toolbar">
+      <select id="fStatus" aria-label="Filter op status">
+        <option value="open">Open (nieuw + gekozen)</option>
+        <option value="all">Alles</option>
+        <option value="new">Nieuw</option>
+        <option value="selected">Gekozen</option>
+        <option value="in_production">In productie</option>
+        <option value="done">Klaar</option>
+        <option value="rejected">Afgewezen</option>
+      </select>
+      <select id="fSort" aria-label="Sorteren">
+        <option value="score">Hoogste score</option>
+        <option value="date">Nieuwste eerst</option>
+      </select>
+      <input id="fSearch" type="search" placeholder="Zoek product of categorie…" aria-label="Zoeken">
+    </div>
+    <div class="grid" id="ideaGrid" style="margin-top:14px"></div>
+  </section>
+  <section class="panel" id="p-videos" hidden></section>
+  <section class="panel" id="p-lessons" hidden></section>
+</div>
+
+<div class="selbar" id="selbar" hidden>
+  <span class="mono"><b id="selCount">0</b> GESELECTEERD</span>
+  <button class="btn primary" id="copyBtn">Kopieer prompt</button>
+  <button class="btn cyan" id="sendSelBtn">Stuur naar JARVIS</button>
+  <button class="btn ghost" id="clearSel">Wissen</button>
+</div>
