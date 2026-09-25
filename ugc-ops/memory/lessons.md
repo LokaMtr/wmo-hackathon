@@ -39,6 +39,9 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 ## products
 - [products] Goed AI-maakbaar: wearables (romper), gadgets met zichtbaar effect (beamer), potjes/flessen om vast te houden. Moeilijk: vormveranderende stof in handen, vloeistof in de mond.
 
+- [products] EU-bestsellers op TikTok Shop zijn goedkoop (€5–25); producten van €30–45 alleen met cadeau-framing (Sinterklaas/kerst). (scout 25-09, FastMoss april)
+- [products] bol.com en amazon.nl blokkeren scrapen: NL-prijzen en commissie altijd via screenshots van Loka checken. (scout 25-09)
+
 ## posting
 - [posting] Metricool beste tijden Amsterdam: ~10:00 en ~18:00 (wo/do het sterkst).
 - [posting] Oranje winkelwagentje kan via GEEN API; alleen in de TikTok-app. Metricool 'melding'-modus downloadt enkel de video. Beter: TikTok-drafts via Higgsfield (koppeling nog maken).
