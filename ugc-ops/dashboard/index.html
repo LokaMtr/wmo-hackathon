@@ -340,10 +340,10 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
     const list = [...state.videos].sort((a,b)=>String(a.scheduledAt||"9").localeCompare(String(b.scheduledAt||"9")));
     if(!list.length){ el.innerHTML = `<div class="empty">Nog geen video's geregistreerd.</div>`; return; }
     el.innerHTML = `<div class="tablewrap"><table>
-      <thead><tr><th>Video</th><th>Product</th><th>Status</th><th>Gepland</th><th>Views</th><th>Verkopen</th><th>Oordeel</th><th>Credits</th></tr></thead>
+      <thead><tr><th>Video</th><th>Productnaam (TikTok)</th><th>Status</th><th>Gepland</th><th>Views</th><th>Verkopen</th><th>Oordeel</th><th>Credits</th></tr></thead>
       <tbody>${list.map(v=>`<tr>
         <td><b>${esc(v.title)}</b><div class="muted" style="font-size:12.5px">${esc(v.concept||"")}</div></td>
-        <td>${esc(v.product||"")}</td>
+        <td>${v.product?`<button class="chipbtn copyname" data-name="${esc(v.product)}" title="Kopieer productnaam">${esc(v.product)}</button>`:"—"}</td>
         <td>${pill(v.status||"made")}</td>
         <td class="mono">${esc(v.scheduledAt?fmtDate(v.scheduledAt):"—")}</td>
         <td class="mono">${esc(v.metrics&&v.metrics.views!=null?v.metrics.views:"—")}</td>
@@ -351,6 +351,10 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
         <td>${v.verdict?pill(v.verdict):"—"}${v.why?`<div class="muted" style="font-size:12.5px">${esc(v.why)}</div>`:""}</td>
         <td class="mono">${esc(v.credits??"—")}</td>
       </tr>`).join("")}</tbody></table></div>`;
+    el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
+      try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd"); }
+      catch(e){ const r=document.createRange(); r.selectNodeContents(b); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }
+    }));
   }
 
   function renderLessons(){

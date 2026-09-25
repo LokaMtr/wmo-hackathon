@@ -24,4 +24,5 @@ Vraag de route aan `agents/higgsfield-expert.md` (model/modus/duur, `get_cost`).
 3. Frames eerst bekijken (1 contactsheet), pas dan video.
 4. Clip-prompt: preserve-regel → MOVEMENT STYLE → WHAT WOULD BE WRONG → getimede acties + `[Mila, …]:` dialoog → camera/licht → audio → no subtitles.
 5. Na render: contactsheet per clip checken op product-vervorming, handen, mond, extra objecten (telefoon/statief!), maat van kleding.
-6. Kosten + lessen bijwerken in dashboard (`videos`, `meta/state`, `lessons`).
+6. `videos.product` = productnaam voor de TikTok-productlink (max ~30 tekens, Engels, herhaalt de woorden uit de video, 1 emoji); details in `productInfo`.
+7. Kosten + lessen bijwerken in dashboard (`videos`, `meta/state`, `lessons`).

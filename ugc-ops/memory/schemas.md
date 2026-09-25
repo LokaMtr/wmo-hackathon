@@ -28,7 +28,7 @@
 ```
 
 ## videos/<id>
-`{title, product, concept, file, credits, status: "made|scheduled|posted", scheduledAt, metricoolId, metrics:{views,likes,comments,shares,avgWatch}, sales, verdict: "winner|promise|flop|pending", why, createdAt}`
+`{title, product (= productnaam voor de TikTok-productlink, max ~30 tekens, sluit aan op de woorden in de video), productInfo (echte naam, prijs, commissie), concept, file, credits, status: "made|scheduled|posted", scheduledAt, metricoolId, metrics:{views,likes,comments,shares,avgWatch}, sales, verdict: "winner|promise|flop|pending", why, createdAt}`
 
 ## lessons/<id>
 `{area, rule, evidence, createdAt}`
