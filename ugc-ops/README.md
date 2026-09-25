@@ -6,7 +6,12 @@ Een klein team van agents dat TikTok Shop-affiliate video's met AI-creator "Mila
 |---|---|---|
 | Trend-scout | `agents/trend-scout.md` | dagelijks 08:00 (routine) of op verzoek |
 | Prestatie-analist | `agents/performance-analyst.md` | dagelijks na de scout, of op verzoek |
-| Producer | `agents/scriptwriter.md` (UGC-scripts, hooks) en `agents/producer.md` | als Loka een idee uit het dashboard kopieert |
+| Scriptwriter (UGC-legend) | `agents/scriptwriter.md` | vóór elke productie |
+| Higgsfield-expert | `agents/higgsfield-expert.md` | vóór elke productie: model, modus, duur, kosten |
+| Producer | `agents/producer.md` | als Loka een idee uit het dashboard kopieert |
+| QA-checker | `agents/qa-checker.md` + `scripts/qa_check.py` | na frames, na clips, na final |
+| Deal-jager | `agents/deal-hunter.md` | bij elk nieuw product (screenshots van Loka) en bij winnaars |
+| Comment-manager | `agents/comment-manager.md` | als Loka comments stuurt; reply-video-ideeën |
 | Compliance-check | `agents/compliance.md` | vóór elke render en vóór elke post |
 | Budgetwaker | `agents/budget.md` | bij elke run |
 
@@ -27,4 +32,4 @@ Collecties:
 4. Een les die door nieuwe data wordt tegengesproken wordt aangepast, niet gestapeld.
 
 ## Werkstroom
-Scout → ideeën in dashboard → Loka selecteert → "Kopieer prompt" → plakt in Claude Code → Producer maakt video → gepland (Metricool) → analist meet → lessen.
+Scout → ideeën in dashboard → Loka selecteert → deal-jager checkt commissie → "Kopieer prompt" → scriptwriter → Higgsfield-expert kiest route → producer → QA-checker → gepland (Metricool) → comment-manager → analist meet → lessen.
