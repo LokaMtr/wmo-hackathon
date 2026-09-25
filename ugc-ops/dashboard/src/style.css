@@ -356,3 +356,8 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 .kcopy{font:500 11.5px var(--mono);color:var(--ink);background:rgba(169,139,255,.14);border:1px solid rgba(169,139,255,.45);border-radius:99px;padding:5px 11px;cursor:pointer;min-height:30px}
 .kf-note{font-size:12.5px;color:var(--muted)}
 @media (max-width:640px){.kit-body{grid-template-columns:1fr}.kit-vid{max-width:220px;margin:0 auto;width:100%}.kit-btns .btn{flex:1 1 auto;text-align:center}}
+.kit-slides{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;grid-column:1/-1}
+.kslide{position:relative;padding:0;border:0;border-radius:10px;overflow:hidden;cursor:pointer;background:#000;aspect-ratio:9/16}
+.kslide img{width:100%;height:100%;object-fit:cover;display:block}
+.kslide span{position:absolute;left:4px;bottom:4px;font:600 11px var(--mono);color:#fff;background:rgba(0,0,0,.55);border-radius:99px;padding:3px 7px}
+.vkit:has(.kit-slides) .kit-body{grid-template-columns:1fr}

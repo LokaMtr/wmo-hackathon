@@ -213,14 +213,15 @@
       </article>`;
     };
     const kit = x => {
-      if(!x.videoAsset && !x.caption) return "";
+      if(!x.videoAsset && !x.caption && !(x.slideAssets||[]).length) return "";
       const open = state.openKits.has(x._id);
       const field = (k,label,val) => val ? `<div class="kf"><div class="kf-h"><span class="label">${label}</span><button class="kcopy" data-k="${k}">Kopieer</button></div><div class="kf-v">${esc(val)}</div></div>` : "";
-      return `<details class="vkit" data-id="${esc(x._id)}" ${open?"open":""}><summary>🎬 Post-kit <span class="muted">video + titel + caption</span></summary>
+      return `<details class="vkit" data-id="${esc(x._id)}" ${open?"open":""}><summary>${(x.slideAssets||[]).length?"🖼 Post-kit <span class=\"muted\">foto's + titel + caption</span>":"🎬 Post-kit <span class=\"muted\">video + titel + caption</span>"}</summary>
         <div class="kit-body">
           ${x.videoAsset?`<div class="kit-vid"><video playsinline controls preload="none" data-src="/_blob/${esc(x.videoAsset)}"></video></div>`:""}
+          ${(x.slideAssets||[]).length?`<div class="kit-slides">${x.slideAssets.map((a,n)=>`<button class="kslide" data-n="${n}" title="Foto ${n+1} downloaden"><img loading="lazy" alt="Slide ${n+1}" data-src="/_blob/${esc(a)}"><span>${n+1} ⬇</span></button>`).join("")}</div>`:""}
           <div class="kit-fields">
-            <div class="kit-btns">${x.videoAsset?`<button class="btn primary kdl">⬇ Download video</button><a class="btn ghost" href="/_blob/${esc(x.videoAsset)}" target="_blank" rel="noopener">Open video</a>`:""}<button class="btn cyan kall">📋 Alles kopiëren</button></div>
+            <div class="kit-btns">${(x.slideAssets||[]).length?`<button class="btn primary kdlall">⬇ Download alle ${x.slideAssets.length} foto's</button>`:""}${x.videoAsset?`<button class="btn primary kdl">⬇ Download video</button><a class="btn ghost" href="/_blob/${esc(x.videoAsset)}" target="_blank" rel="noopener">Open video</a>`:""}<button class="btn cyan kall">📋 Alles kopiëren</button></div>
             ${field("tiktokTitle","Titel",x.tiktokTitle)}${field("caption","Caption",x.caption)}${field("firstComment","Eerste comment",x.firstComment)}${field("product","Product koppelen",x.product)}
             <div class="kf-note">Zet in TikTok aan: <b>AI-gegenereerd</b> + <b>commerciële content</b>.</div>
           </div>
@@ -240,7 +241,19 @@
     el.querySelectorAll(".vkit").forEach(d=>{
       const x = v.find(y=>y._id===d.dataset.id); if(!x) return;
       const vid = d.querySelector("video");
-      const load = () => { if(vid && !vid.src) vid.src = vid.dataset.src; };
+      const load = () => { if(vid && !vid.src) vid.src = vid.dataset.src; d.querySelectorAll("img[data-src]").forEach(i=>{ if(!i.src) i.src = i.dataset.src; }); };
+      const saveBlob = async (assetId, name) => {
+        let downloads = null; try{ downloads = await window.claude.use("downloads"); }catch(e){}
+        if(!downloads){ toast("Downloaden kan hier niet, open de foto en sla hem op"); return false; }
+        try{ const blob = await (await fetch("/_blob/" + assetId)).blob(); await downloads.save({filename:name, data:blob}); return true; }
+        catch(e){ if(e && e.code!=="declined") toast(e && e.code==="rate_limited" ? "Even wachten en opnieuw proberen" : "Download mislukt"); return false; }
+      };
+      d.querySelectorAll(".kslide").forEach(b=>b.addEventListener("click", async ()=>{ const n = +b.dataset.n; if(await saveBlob(x.slideAssets[n], `mila-${x._id}-${n+1}.jpg`)) toast(`Foto ${n+1} opgeslagen`); }));
+      const dla = d.querySelector(".kdlall"); if(dla) dla.addEventListener("click", async ()=>{
+        dla.disabled = true; let ok = 0;
+        for(let n=0;n<x.slideAssets.length;n++){ dla.textContent = `Foto ${n+1}/${x.slideAssets.length}…`; if(await saveBlob(x.slideAssets[n], `mila-${x._id}-${n+1}.jpg`)) ok++; else break; }
+        dla.disabled = false; dla.textContent = `⬇ Download alle ${x.slideAssets.length} foto's`; if(ok) toast(`${ok} foto's opgeslagen`);
+      });
       if(d.open) load();
       d.addEventListener("toggle", ()=>{ if(d.open){ state.openKits.add(x._id); load(); } else state.openKits.delete(x._id); });
       d.querySelectorAll(".kcopy").forEach(b=>b.addEventListener("click", ()=>copy(x[b.dataset.k], "Gekopieerd", b.closest(".kf").querySelector(".kf-v"))));
