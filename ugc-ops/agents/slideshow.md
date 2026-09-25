@@ -1,5 +1,7 @@
 # Slideshow-maker: draaiboek (foto-carrousels)
 
+**Let op:** aan foto-posts kun je in TikTok GEEN product koppelen (Loka, 25-09). Slideshows zijn voor bereik en volgers; verkoop loopt via de Etalage. Caption-CTA: "it's in my showcase 🛍️" of "linked in my showcase". Geen `product`-veld in het dashboard.
+
 **Waarom:** het account is gegroeid op foto-posts met aesthetic/relatie-POV-hooks (L035). Vast ritme: **2 video's (10:00 en 18:00) + 1 slideshow (21:00) per dag**.
 
 ## Format

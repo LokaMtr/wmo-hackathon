@@ -719,7 +719,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
           ${(x.slideAssets||[]).length?`<div class="kit-slides">${x.slideAssets.map((a,n)=>`<button class="kslide" data-n="${n}" title="Foto ${n+1} downloaden"><img loading="lazy" alt="Slide ${n+1}" data-src="/_blob/${esc(a)}"><span>${n+1} ⬇</span></button>`).join("")}</div>`:""}
           <div class="kit-fields">
             <div class="kit-btns">${(x.slideAssets||[]).length?`<button class="btn primary kdlall">⬇ Download alle ${x.slideAssets.length} foto's</button>`:""}${x.videoAsset?`<button class="btn primary kdl">⬇ Download video</button><a class="btn ghost" href="/_blob/${esc(x.videoAsset)}" target="_blank" rel="noopener">Open video</a>`:""}<button class="btn cyan kall">📋 Alles kopiëren</button></div>
-            ${field("tiktokTitle","Titel",x.tiktokTitle)}${field("caption","Caption",x.caption)}${field("firstComment","Eerste comment",x.firstComment)}${field("product","Product koppelen",x.product)}
+            ${field("tiktokTitle","Titel",x.tiktokTitle)}${field("caption","Caption",x.caption)}${field("firstComment","Eerste comment",x.firstComment)}${x.format==="slideshow"?"":field("product","Product koppelen",x.product)}
             <div class="kf-note">Zet in TikTok aan: <b>AI-gegenereerd</b> + <b>commerciële content</b>.</div>
           </div>
         </div></details>`;
@@ -754,7 +754,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
       if(d.open) load();
       d.addEventListener("toggle", ()=>{ if(d.open){ state.openKits.add(x._id); load(); } else state.openKits.delete(x._id); });
       d.querySelectorAll(".kcopy").forEach(b=>b.addEventListener("click", ()=>copy(x[b.dataset.k], "Gekopieerd", b.closest(".kf").querySelector(".kf-v"))));
-      const all = d.querySelector(".kall"); if(all) all.addEventListener("click", ()=>copy([x.tiktokTitle&&("TITEL: "+x.tiktokTitle), x.caption&&("CAPTION:\n"+x.caption), x.firstComment&&("EERSTE COMMENT: "+x.firstComment), x.product&&("PRODUCT: "+x.product)].filter(Boolean).join("\n\n"), "Titel, caption en comment gekopieerd"));
+      const all = d.querySelector(".kall"); if(all) all.addEventListener("click", ()=>copy([x.tiktokTitle&&("TITEL: "+x.tiktokTitle), x.caption&&("CAPTION:\n"+x.caption), x.firstComment&&("EERSTE COMMENT: "+x.firstComment), x.format!=="slideshow"&&x.product&&("PRODUCT: "+x.product)].filter(Boolean).join("\n\n"), "Titel, caption en comment gekopieerd"));
       const dl = d.querySelector(".kdl"); if(dl) dl.addEventListener("click", async ()=>{
         const name = "mila-" + x._id + ".mp4";
         let downloads = null; try{ downloads = await window.claude.use("downloads"); }catch(e){}
