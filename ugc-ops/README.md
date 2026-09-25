@@ -26,7 +26,7 @@ Collecties:
 - `meta/state`: credits, uitgaven, commissie, laatste run
 
 ## HQ 3D + chat
-Het dashboard opent op **HQ 3D**: alle agents als cartoonfiguren in één kantoor, die echte data uit de database aan elkaar doorgeven. De chat rechts schrijft naar collectie `chat` en vuurt trigger `controlRoomChat` af in de Claude-sessie; Claude antwoordt met een doc `{role:'claude', text, at, agent}` in `chat`.
+Het dashboard opent op **HQ 3D (JARVIS)**: three.js r128 + UnrealBloom/FXAA + GSAP, holografische kern met states (stand-by / bezig / antwoord), live data op muur- en bureauschermen, missie-feed (heeft jou nodig / bezig / klaar), log, klok, credits-meter, camera-fly-ins en optionele JARVIS-stem (speechSynthesis). Ideeën uit claude-office, ai-office en openclaw-jarvis-ui (MIT/ISC), alles zelf geschreven. De agents geven echte data uit de database aan elkaar door. De chat rechts schrijft naar collectie `chat` en vuurt trigger `controlRoomChat` af in de Claude-sessie; Claude antwoordt met een doc `{role:'claude', text, at, agent}` in `chat`.
 
 ## Zelflerend
 1. Elke agent leest bij start `memory/lessons.md` **en** de collectie `lessons` in het dashboard.
