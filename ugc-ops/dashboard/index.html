@@ -1064,7 +1064,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
     if(a.cur && a.cur!==next) a.cur.fadeOut(fade);
     next.fadeIn(fade).play(); a.cur = next; a.curName = name;
   }
-  function sit(a){ a.wantFace = a.facing; a.seated = true; if(a.actions) play(a, "Sitting", false, 0.35); }
+  function sit(a){ a.wantFace = a.facing; a.seated = true; if(a.actions) play(a, "Sitting", true, 0.35); }
   function stand(a, cb){ if(a.seated && a.actions){ a.seated = false; play(a, "Standing", true, 0.2); setTimeout(cb, 420); } else { a.seated = false; cb(); } }
   function makeBean(a){
     const b = a.body, M = TOON(a.color);
@@ -1102,9 +1102,10 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
       a.body.add(m); a.g.updateMatrixWorld(true);
       const head = m.getObjectByName("Head_1") || m.getObjectByName("Head"), torso = m.getObjectByName("Torso_1") || m.getObjectByName("Torso");
       if(head) try{ accessory(a, head, torso); }catch(e){}
+      a.headBone = head; a.look = {phase:Math.random()*100, speed:0.25+Math.random()*0.2, next:2+Math.random()*6, yaw:0, target:0};
       a.mixer = new T.AnimationMixer(m); a.actions = {};
       gltf.animations.forEach(c=>a.actions[c.name] = a.mixer.clipAction(c));
-      a.mixer.addEventListener("finished", e=>{ if(e.action===a.actions.Standing) return; if(a.target) play(a, a.running?"Running":"Walking"); else if(a.seated) play(a,"Sitting"); else play(a,"Idle"); });
+      a.mixer.addEventListener("finished", e=>{ if(e.action===a.actions.Standing || e.action===a.actions.Sitting) return; if(a.target) play(a, a.running?"Running":"Walking"); else if(a.seated) play(a,"Sitting"); else play(a,"Idle"); });
       sit(a);
     });
     robotsReady = true;
@@ -1163,6 +1164,11 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
   function face(a, pos){ a.wantFace = Math.atan2(pos.x-a.g.position.x, pos.z-a.g.position.z); }
   function update(a, dt, t){
     if(a.mixer) a.mixer.update(dt);
+    if(a.headBone && a.look){ const L = a.look;
+      if(a.seated && !a.talking){ L.next -= dt; if(L.next <= 0){ L.target = Math.random() < 0.45 ? 0 : (Math.random()-0.5)*0.9; L.next = 3 + Math.random()*7; } }
+      else L.target = 0;
+      L.yaw += (L.target - L.yaw) * Math.min(1, dt*1.6);
+      a.headBone.rotation.y += L.yaw; a.headBone.rotation.x += a.seated ? Math.sin(t*L.speed + L.phase)*0.04 : 0; }
     if(a.target){
       const p = a.g.position, dx = a.target.x-p.x, dz = a.target.z-p.z, d = Math.hypot(dx,dz);
       if(d < 0.06){ a.target = null; a.running = false; play(a, "Idle"); const f = a.then; a.then = null; f && f(); }
