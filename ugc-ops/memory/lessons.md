@@ -42,4 +42,5 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [posting] Planning in Metricool is leidend. Meldt Loka een extra/overgeslagen post: video op posted zetten en de rest van de planning opschuiven.
 
 ## budget
+- [budget] Oogmasker: 1 basisbeeld + 3 frames + 3 std-clips (6+5+5s) = 29 credits, geen redo's. Productfoto uit screenshot croppen (alleen product op wit) werkt als packshot.
 - [budget] ~40% van de credits ging naar redo's. Frames eerst beoordelen, std i.p.v. pro, 3 clips i.p.v. 4 → ~30 credits/video.

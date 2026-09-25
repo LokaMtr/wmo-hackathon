@@ -36,3 +36,6 @@ Schrijf naar het dashboard (ArtifactData, zie `memory/config.json`):
 
 ## 6. Leren
 Nieuwe inzichten (bv. "categorie X verzadigd", "bron Y gaf vroege signalen") → les in `lessons` + `memory/lessons.md`.
+
+## Extra gratis bron
+TikTok Creative Center (ads.tiktok.com/business/creativecenter): top products, trending hashtags en songs per land (NL/BE/DE). Geen officiële gratis API voor trends: Research API = alleen academisch, TikTok Shop Open Platform = alleen goedgekeurde partners.
