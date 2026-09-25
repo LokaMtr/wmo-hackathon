@@ -308,7 +308,8 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
   #scoutBtn{flex:none;padding:8px 12px}
   nav.tabs{position:sticky;top:calc(6px + env(safe-area-inset-top,0px));z-index:25;background:rgba(24,19,31,.92)}
   nav.tabs button{padding:9px 14px;font-size:13px}
-  .hq-stage{height:calc(100svh - 150px);min-height:440px;max-height:760px;border-radius:22px}
+  .hq-stage{height:min(calc(100svh - 140px),128vw);min-height:420px;max-height:720px;border-radius:22px}
+  .hud-log div:not(:first-child){display:none}
   .hud-top{left:10px;right:10px;top:10px}
   .hud-id{padding:5px 10px 5px 5px}
   .hud-title{font-size:12.5px}
@@ -318,7 +319,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
   .hud-feed{display:none;left:10px;right:10px;width:auto;top:60px}
   .hq-stage.feed-open .hud-feed{display:flex}
   #hudFeedBtn,#hudChatBtn{display:block}
-  .hud-log{left:10px;bottom:66px;right:10px;width:auto;max-height:30px;padding:6px 10px}
+  .hud-log{left:10px;bottom:66px;right:10px;width:auto;padding:6px 12px}
   .hud-btns{left:10px;right:10px;bottom:10px;justify-content:space-between}
   #hudChatBtn{width:auto;flex:1;border-radius:99px;background:linear-gradient(135deg,#FF8E6E,#FF5A3A);color:#1E0A05;font:700 14px var(--body);border:0}
   .hq-name{padding:3px;font-size:0;gap:0}

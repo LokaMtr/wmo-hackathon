@@ -77,7 +77,7 @@
   let renderer;
   try{ renderer = new T.WebGLRenderer({canvas, antialias:false, powerPreference:"high-performance"}); }catch(e){ fallback("3D (WebGL) wordt niet ondersteund op dit apparaat. De regie-chat werkt wel."); initChat(); return; }
   const lowEnd = (navigator.deviceMemory && navigator.deviceMemory < 4) || Math.min(screen.width, screen.height) < 500 || matchMedia("(pointer:coarse)").matches;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, lowEnd ? 1.25 : 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = lowEnd ? T.PCFShadowMap : T.PCFSoftShadowMap;
 
   const scene = new T.Scene();
@@ -85,7 +85,7 @@
   const cam = new T.OrthographicCamera(-10,10,10,-10,0.1,200);
   const view = {az:Math.PI/4, zoom:1, tx:0, tz:0, drift:0};
   let lastInteract = performance.now();
-  function placeCam(){ const r = 30, az = view.az + view.drift; cam.position.set(view.tx + Math.sin(az)*r, 21, view.tz + Math.cos(az)*r); cam.lookAt(view.tx, 0.8, view.tz); }
+  function placeCam(){ const r = 30, az = view.az + view.drift; cam.position.set(view.tx + Math.sin(az)*r, 21, view.tz + Math.cos(az)*r); cam.lookAt(view.tx, 0.8, view.tz); if(stage.clientWidth < 760){ cam.position.y += 0; } }
   placeCam();
 
   // warm studiolicht
@@ -521,7 +521,7 @@
       composer = new T.EffectComposer(renderer);
       composer.addPass(new T.RenderPass(scene, cam));
       bloom = new T.UnrealBloomPass(new T.Vector2(512,512), 0.55, 0.55, 0.86); composer.addPass(bloom);
-      if(T.FXAAShader && T.ShaderPass && !lowEnd){ fxaa = new T.ShaderPass(T.FXAAShader); composer.addPass(fxaa); }
+      if(T.FXAAShader && T.ShaderPass){ fxaa = new T.ShaderPass(T.FXAAShader); composer.addPass(fxaa); }
       if(T.ShaderPass){ finalPass = new T.ShaderPass(FinalShader); composer.addPass(finalPass); }
     }
   }catch(e){ composer = null; }
@@ -530,7 +530,7 @@
     const w = stage.clientWidth, h = stage.clientHeight; if(!w||!h) return;
     renderer.setSize(w, h, false);
     if(composer){ composer.setSize(w, h); const pr = renderer.getPixelRatio(); if(fxaa) fxaa.material.uniforms.resolution.value.set(1/(w*pr), 1/(h*pr)); if(lowEnd && bloom) bloom.resolution.set(w/2, h/2); }
-    const aspect = w/h, wide = w > 760, base = Math.max(12.5, (aspect<0.9?15:(wide?24:22))/aspect)/view.zoom;
+    const aspect = w/h, wide = w > 760, base = (aspect<0.95 ? Math.max(15, 18.5/aspect) : Math.max(12.5, (wide?24:22)/aspect))/view.zoom;
     const shift = wide ? (276/w)*base*aspect*0.42 : 0;
     cam.left = -base*aspect/2 + shift; cam.right = base*aspect/2 + shift; cam.top = base/2; cam.bottom = -base/2; cam.updateProjectionMatrix();
   }
