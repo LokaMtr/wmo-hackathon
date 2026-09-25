@@ -13,7 +13,7 @@
         : `<a class="file" href="${esc(blobUrl(a.id))}" target="_blank" rel="noopener">📄 ${esc(a.name)}</a>`).join("")}</div>`;
     }
     function render(){
-      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Stuur het team een opdracht. Plak of sleep foto's, screenshots of PDF's erbij. Het gaat rechtstreeks naar Claude, en het antwoord komt hier terug.</div>`; return; }
+      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Geef de regie een opdracht. Plak of sleep screenshots, foto's of PDF's erbij. Het antwoord komt hier terug en het team loopt ermee aan de slag.</div>`; return; }
       log.innerHTML = msgs.map(m=>`<div class="msg ${m.role==="claude"?"c":"u"}"><div class="who">${m.role==="claude"?"Claude":"Jij"} · ${esc(fmtShort(m.at))}</div>${m.text?`<div>${esc(m.text)}</div>`:""}${attHtml(m.attachments)}</div>`).join("");
       log.scrollTop = log.scrollHeight;
     }

@@ -25,8 +25,12 @@ Collecties:
 - `lessons/<id>`: geleerde lessen (wat werkt / wat niet); **elke agent leest deze eerst**
 - `meta/state`: credits, uitgaven, commissie, laatste run
 
-## HQ 3D + chat
-Het dashboard opent op **HQ 3D (JARVIS)**: three.js r128 + UnrealBloom/FXAA + GSAP, holografische kern met states (stand-by / bezig / antwoord), live data op muur- en bureauschermen, missie-feed (heeft jou nodig / bezig / klaar), log, klok, credits-meter, camera-fly-ins en optionele JARVIS-stem (speechSynthesis). Ideeën uit claude-office, ai-office en openclaw-jarvis-ui (MIT/ISC), alles zelf geschreven. De agents geven echte data uit de database aan elkaar door. De chat rechts schrijft naar collectie `chat` en vuurt trigger `controlRoomChat` af in de Claude-sessie; Claude antwoordt met een doc `{role:'claude', text, at, agent}` in `chat`.
+## Mila Studio (dashboard) + regie-chat
+Bron in `dashboard/src/` (style.css, body.html, app.js, hq.js, initchat.js); bouwen met `python3 ugc-ops/dashboard/build.py` → `index.html` (één bestand; robotmodel Quaternius RobotExpressive CC0 ingebakken als base64 uit `dashboard/assets/robot.glb`).
+- Merk: *mila studio*, creator-studio bij nacht (inkt, koraal, lila, crème; Unbounded/Manrope/DM Mono).
+- Tab **Studio**: 3D-studio (three.js r128 + bloom + GSAP) met 10 robot-agents die aan hun bureau zitten, naar elkaar lopen, envelopjes sturen en echte data uit de db bespreken; regietafel met live telefoon (volgende post), ON AIR-lamp, opnameset.
+- **Regie**: chat (collectie `chat`) → trigger `controlRoomChat`; bijlagen via assets. Op mobiel een schuifpaneel.
+- Tabs Briefing, Ideeën (Stuur naar regie), Planning (tijdlijn + productnaam kopiëren), Geheugen.
 
 ## Zelflerend
 1. Elke agent leest bij start `memory/lessons.md` **en** de collectie `lessons` in het dashboard.

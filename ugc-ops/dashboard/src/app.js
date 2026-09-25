@@ -5,27 +5,22 @@
   window.__mcrState = state;
   const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
   const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
-  const AREA_C = {production:"#4C8DFF",script:"#B57CFF",hooks:"#FF5FB0",products:"#2FE08A",posting:"#FF6A2E",compliance:"#A7B4CC",budget:"#FFC53D"};
+  const AREA_C = {production:"#7CC4FF",script:"#A98BFF",hooks:"#FF5C7A",products:"#53E0B5",posting:"#FF6B4A",compliance:"#B8A9BF",budget:"#FFB547"};
   const TZ = "Europe/Amsterdam";
 
-  // ---------- achtergrond: sterren + horizon-raster ----------
+  // ---------- achtergrond: zachte studiolichten ----------
   (function bg(){
-    const c = $("#bgfx"), g = c.getContext("2d"); let w, h, stars = [];
+    const c = $("#bgfx"), g = c.getContext("2d"); let w, h;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    function size(){ const dpr = Math.min(devicePixelRatio||1, 2); w = innerWidth; h = innerHeight; c.width = w*dpr; c.height = h*dpr; g.setTransform(dpr,0,0,dpr,0,0);
-      stars = Array.from({length: Math.round(w*h/9000)}, ()=>({x:Math.random()*w, y:Math.random()*h, r:Math.random()*1.2+0.2, s:Math.random()*0.3+0.05, p:Math.random()*6})); }
+    const blobs = [{x:.12,y:.08,r:.55,c:"255,107,74",a:.16,s:.7},{x:.88,y:.18,r:.5,c:"169,139,255",a:.16,s:.5},{x:.5,y:.95,r:.6,c:"255,92,122",a:.08,s:.4},{x:.7,y:.6,r:.35,c:"83,224,181",a:.05,s:.9}];
+    function size(){ const dpr = Math.min(devicePixelRatio||1, 1.5); w = innerWidth; h = innerHeight; c.width = w*dpr; c.height = h*dpr; g.setTransform(dpr,0,0,dpr,0,0); }
     size(); addEventListener("resize", size);
     function draw(t){
       g.clearRect(0,0,w,h);
-      const rg = g.createRadialGradient(w*0.15, h*0.05, 0, w*0.15, h*0.05, w*0.7); rg.addColorStop(0,"rgba(46,230,255,.10)"); rg.addColorStop(1,"transparent"); g.fillStyle = rg; g.fillRect(0,0,w,h);
-      const rg2 = g.createRadialGradient(w*0.9, h*0.1, 0, w*0.9, h*0.1, w*0.5); rg2.addColorStop(0,"rgba(255,106,46,.08)"); rg2.addColorStop(1,"transparent"); g.fillStyle = rg2; g.fillRect(0,0,w,h);
-      stars.forEach(s=>{ const a = 0.35+0.35*Math.sin(t/1000*s.s*6+s.p); g.fillStyle = `rgba(190,235,255,${a})`; g.beginPath(); g.arc(s.x, (s.y + (reduce?0:t*s.s*0.01))%h, s.r, 0, 7); g.fill(); });
-      const hy = h*0.78; g.strokeStyle = "rgba(46,230,255,.07)"; g.lineWidth = 1;
-      for(let i=-20;i<=20;i++){ g.beginPath(); g.moveTo(w/2 + i*40, hy); g.lineTo(w/2 + i*260, h); g.stroke(); }
-      const off = reduce ? 0 : (t/60)%40;
-      for(let k=0;k<12;k++){ const y = hy + Math.pow((k*40+off)/480, 1.8)*(h-hy); g.globalAlpha = Math.min(1,(y-hy)/(h-hy)+0.1); g.beginPath(); g.moveTo(0,y); g.lineTo(w,y); g.stroke(); }
-      g.globalAlpha = 1;
-      if(!reduce && !document.hidden) requestAnimationFrame(draw);
+      blobs.forEach((b,i)=>{ const x = (b.x + Math.sin(t/9000*b.s+i)*.04)*w, y = (b.y + Math.cos(t/11000*b.s+i)*.04)*h, r = b.r*Math.max(w,h);
+        const rg = g.createRadialGradient(x,y,0,x,y,r); rg.addColorStop(0,`rgba(${b.c},${b.a})`); rg.addColorStop(1,`rgba(${b.c},0)`); g.fillStyle = rg; g.fillRect(0,0,w,h); });
+      g.fillStyle = "rgba(255,236,220,.045)"; for(let y=14;y<h;y+=28) for(let x=14;x<w;x+=28) g.fillRect(x,y,1.2,1.2);
+      if(!reduce && !document.hidden) setTimeout(()=>requestAnimationFrame(draw), 60);
     }
     requestAnimationFrame(draw);
     document.addEventListener("visibilitychange", ()=>{ if(!document.hidden && !reduce) requestAnimationFrame(draw); });
@@ -61,7 +56,7 @@
   function renderStats(){
     const m = state.meta || {}, v = state.videos;
     const c = m.credits;
-    if(c!=null){ countUp($("#sCredits"), Number(c)); $("#kCredRing").setAttribute("stroke-dasharray", `${Math.min(95, c/150*95).toFixed(1)} 95`); $("#kCredRing").setAttribute("stroke", c<40?"#FF5A5A":"#2EE6FF"); $("#sCreditsFoot").textContent = c<40 ? "bijna op · top-up nodig" : "Higgsfield-saldo"; }
+    if(c!=null){ countUp($("#sCredits"), Number(c)); $("#kCredRing").setAttribute("stroke-dasharray", `${Math.min(95, c/150*95).toFixed(1)} 95`); $("#kCredRing").setAttribute("stroke", c<40?"#FF5C7A":"#FF6B4A"); $("#sCreditsFoot").textContent = c<40 ? "bijna op · top-up nodig" : "Higgsfield-saldo"; }
     const newIdeas = state.ideas.filter(i=>i.status==="new");
     countUp($("#sIdeas"), newIdeas.length);
     const best = Math.max(0, ...newIdeas.map(i=>Number(i.score)||0)); $("#sIdeasBar").style.width = best+"%"; $("#sIdeasTop").textContent = best ? best : "—";
@@ -69,7 +64,7 @@
     countUp($("#sSched"), sched.length);
     const next = sched.filter(x=>x.scheduledAt).sort((a,b)=>String(a.scheduledAt).localeCompare(String(b.scheduledAt)))[0];
     $("#sSchedFoot").textContent = next ? "volgende " + fmtDate(next.scheduledAt) : "posts in de wachtrij";
-    $("#chipNext").textContent = next ? "VOLGENDE POST " + new Date(next.scheduledAt).toLocaleString("nl-NL",{weekday:"short",hour:"2-digit",minute:"2-digit",timeZone:TZ}).toUpperCase() : "GEEN POSTS GEPLAND";
+    $("#chipNext").textContent = next ? "▶ volgende post " + new Date(next.scheduledAt).toLocaleString("nl-NL",{weekday:"short",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "geen posts gepland";
     countUp($("#sPosted"), posted.length); $("#sPostedBar").style.width = (v.length ? posted.length/v.length*100 : 0)+"%"; $("#sPostedFoot").textContent = `van ${v.length} video's`;
     countUp($("#sComm"), Number(m.commissionTotal||0), x=>"€"+x.toFixed(2).replace(".",","));
     $("#sCommFoot").textContent = m.salesTotal ? `${m.salesTotal} verkopen` : "nog geen verkopen";
@@ -91,7 +86,7 @@
       <div class="archive" style="margin-bottom:12px">${list.slice(0,14).map(b=>`<button class="chipbtn" data-d="${esc(b.date)}" aria-pressed="${b.date===cur.date}">${esc(b.date)}</button>`).join("")}</div>
       <div class="brief-wrap">
         <article class="brief glass corner">
-          <div class="kicker"><span class="label">Missie-briefing · ${esc(cur.date)}</span><span class="bar"></span><span class="label">${cur.generatedAt?esc(fmtDate(cur.generatedAt)):""}</span></div>
+          <div class="kicker"><span class="label">Briefing · ${esc(cur.date)}</span><span class="bar"></span><span class="label">${cur.generatedAt?esc(fmtDate(cur.generatedAt)):""}</span></div>
           <div class="headline">${esc(cur.headline||"")}</div>
           <p>${esc(cur.summary||"")}</p>
           ${cur.seasonal?`<div><span class="pill piek">seizoen</span> <span class="muted" style="font-size:14px">${esc(cur.seasonal)}</span></div>`:""}
@@ -108,8 +103,8 @@
 
   // ---------- ideeën ----------
   function ring(score){
-    const s = Math.max(0,Math.min(100,Number(score)||0)), col = s>=75?"#2FE08A":s>=60?"#FFC53D":"#FF6A2E";
-    return `<div class="scorering" title="score"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="26" cy="26" r="22" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(s/100*138).toFixed(1)} 138" style="filter:drop-shadow(0 0 4px ${col})"/></svg><b>${esc(score??"–")}</b></div>`;
+    const s = Math.max(0,Math.min(100,Number(score)||0)), col = s>=75?"#53E0B5":s>=60?"#FFB547":"#FF6B4A";
+    return `<div class="scorering" title="score"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="26" cy="26" r="22" fill="none" stroke="${col}" stroke-width="4" stroke-linecap="round" stroke-dasharray="${(s/100*138).toFixed(1)} 138" /></svg><b>${esc(score??"–")}</b></div>`;
   }
   function ideaCard(i){
     const imgs = (i.imageAssets&&i.imageAssets.length?i.imageAssets:i.images||[]).slice(0,3);
@@ -123,10 +118,10 @@
         <div class="facts">${i.price?`<div class="fact"><span>Prijs</span><b title="${esc(i.price)}">${esc(i.price)}</b></div>`:""}${i.commission?`<div class="fact"><span>Commissie</span><b title="${esc(i.commission)}">${esc(i.commission)}</b></div>`:""}</div>
         <div class="sbars">${bars}</div>
         <p class="why">${esc(i.why||"")}</p>
-        ${i.gap?`<p class="why" style="-webkit-line-clamp:2"><b style="color:var(--or)">Gat:</b> ${esc(i.gap)}</p>`:""}
+        ${i.gap?`<p class="why" style="-webkit-line-clamp:2"><b style="color:var(--co)">Gat:</b> ${esc(i.gap)}</p>`:""}
         ${(i.concepts||[]).length?`<details><summary>${i.concepts.length} concept${i.concepts.length>1?"en":""}</summary>${i.concepts.map(c=>`<div class="concept"><b>${esc(c.name)}</b><span><span class="label">Hook</span> ${esc(c.hook)}</span>${c.setting?`<span class="muted">${esc(c.setting)} · ${esc(c.angle||"")}</span>`:""}${(c.scenes||[]).length?`<ol>${c.scenes.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}${c.cta?`<span><span class="label">CTA</span> ${esc(c.cta)}</span>`:""}</div>`).join("")}</details>`:""}
         ${(i.risks||[]).length?`<details><summary>Risico's</summary><ul style="margin:6px 0 0;padding-left:18px;font-size:13.5px">${i.risks.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></details>`:""}
-        ${i.productUrl?`<a href="${esc(i.productUrl)}" target="_blank" rel="noopener" style="font:600 13px var(--mono)">PRODUCTPAGINA ↗</a>`:""}
+        ${i.productUrl?`<a href="${esc(i.productUrl)}" target="_blank" rel="noopener" style="font:600 13px var(--body)">Productpagina ↗</a>`:""}
       </div>
       <footer>
         <button type="button" class="selbtn"><span class="box"></span>${state.sel.has(i._id)?"Gekozen":"Selecteer"}</button>
@@ -151,7 +146,7 @@
       card.querySelector(".selbtn").addEventListener("click", ()=>{ state.sel.has(id)?state.sel.delete(id):state.sel.add(id); renderSel(); document.querySelectorAll(`.idea[data-id="${CSS.escape(id)}"]`).forEach(c=>{ c.classList.toggle("sel", state.sel.has(id)); c.querySelector(".selbtn").lastChild.textContent = state.sel.has(id)?"Gekozen":"Selecteer"; }); });
       card.querySelector(".stsel").addEventListener("change", async e=>{
         const v = e.target.value;
-        try{ await db.doc("ideas/"+id).update({status:v, updatedAt:new Date().toISOString()}); toast("STATUS · "+STATUS_NL[v].toUpperCase()); }
+        try{ await db.doc("ideas/"+id).update({status:v, updatedAt:new Date().toISOString()}); toast("Status: "+STATUS_NL[v]); }
         catch(err){ state.canWrite = false; toast("Opslaan lukt niet met jouw rechten"); }
       });
     });
@@ -183,13 +178,13 @@
   async function markSelected(){ if(!state.canWrite || !db) return; for(const id of state.sel){ const i = state.ideas.find(x=>x._id===id); if(i && i.status==="new"){ try{ await db.doc("ideas/"+id).update({status:"selected",updatedAt:new Date().toISOString()}); }catch(e){} } } }
   $("#copyBtn").addEventListener("click", async ()=>{
     const text = buildPrompt();
-    try{ await navigator.clipboard.writeText(text); toast("PROMPT GEKOPIEERD"); }
+    try{ await navigator.clipboard.writeText(text); toast("Prompt gekopieerd"); }
     catch(e){ const ta = document.createElement("textarea"); ta.className = "fallback"; ta.value = text; ta.setAttribute("aria-label","Prompt"); $("#p-ideas").prepend(ta); showTab("ideas"); ta.focus(); ta.select(); toast("Kopiëren geblokkeerd: tekst is geselecteerd"); }
     markSelected();
   });
   $("#sendSelBtn").addEventListener("click", ()=>{
     const text = buildPrompt(); showTab("hq"); try{ localStorage.setItem("mcr_tab3","hq"); }catch(e){}
-    if(window.__hqSendText){ window.__hqSendText(text); markSelected(); state.sel.clear(); renderSel(); renderIdeas(); }
+    if(window.__hqSendText){ if(window.__openChat) window.__openChat(); window.__hqSendText(text); markSelected(); state.sel.clear(); renderSel(); renderIdeas(); }
     else toast("Chat niet beschikbaar in deze weergave");
   });
 
@@ -207,7 +202,7 @@
       const tm = when ? new Date(when).toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "—";
       const m = x.metrics||{};
       return `<article class="vcard glass ${esc(x.status||"made")}">
-        <div class="vtime">${esc(tm)}<small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small></div>
+        <div class="vphone"><small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small><span>${esc(tm)}</span></div>
         <div style="min-width:0">
           <div class="vtitle">${esc(x.title)}</div>
           <div class="vsub">${esc(x.concept||"")}</div>
@@ -217,14 +212,14 @@
       </article>`;
     };
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
-    el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">${s} GEPLAND</span><span class="chip">${p} GEPOST</span><span class="chip">${mde} WACHTEN OP PLANNING</span><span class="chip">${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} CREDITS TOTAAL</span></div>
+    el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
       <div class="timeline">${keys.map(k=>{
         const label = k==="zz" ? "Niet gepland" : k===todayK ? "Vandaag" : k===tomK ? "Morgen" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{weekday:"long"});
         const sub = k==="zz" ? "" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
         return `<div class="day ${k===todayK?"today":""}"><div class="day-h"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="slots">${groups[k].sort((a,b)=>String(a.scheduledAt||a.postedAt).localeCompare(String(b.scheduledAt||b.postedAt))).map(card).join("")}</div></div>`;
       }).join("")}</div>`;
     el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
-      try{ await navigator.clipboard.writeText(b.dataset.name); toast("PRODUCTNAAM GEKOPIEERD"); }
+      try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd, plak hem in TikTok"); }
       catch(e){ const r = document.createRange(); r.selectNodeContents(b); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }
     }));
   }
@@ -236,7 +231,7 @@
     const areas = ["all", ...Object.keys(AREA_NL).filter(a=>state.lessons.some(l=>l.area===a))];
     const q = state.lessonQ.toLowerCase();
     const list = state.lessons.filter(l=>(state.lessonArea==="all"||l.area===state.lessonArea) && (!q || (l.rule+" "+(l.evidence||"")).toLowerCase().includes(q))).sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
-    el.innerHTML = `<div class="lessons-top" style="margin-bottom:14px">${areas.map(a=>`<button class="chipbtn" data-a="${a}" aria-pressed="${state.lessonArea===a}">${a==="all"?"ALLES":esc((AREA_NL[a]||a).toUpperCase())} · ${a==="all"?state.lessons.length:state.lessons.filter(l=>l.area===a).length}</button>`).join("")}<input id="lq" class="toolbar" type="search" placeholder="Zoek in geheugen…" value="${esc(state.lessonQ)}" style="flex:1;min-width:180px;font:500 14px var(--body);color:var(--ink);background:rgba(8,16,32,.8);border:1px solid var(--line2);border-radius:10px;padding:8px 12px"></div>
+    el.innerHTML = `<div class="lessons-top" style="margin-bottom:14px">${areas.map(a=>`<button class="chipbtn" data-a="${a}" aria-pressed="${state.lessonArea===a}">${a==="all"?"Alles":esc(AREA_NL[a]||a)} · ${a==="all"?state.lessons.length:state.lessons.filter(l=>l.area===a).length}</button>`).join("")}<input id="lq" class="toolbar" type="search" placeholder="Zoek in geheugen…" value="${esc(state.lessonQ)}" style="flex:1;min-width:180px;font:500 14px var(--body);color:var(--ink);background:var(--card);border:1px solid var(--line2);border-radius:99px;padding:10px 16px;min-height:42px"></div>
       <div class="lessons">${list.map(l=>`<article class="lcard glass" style="--lc:${AREA_C[l.area]||"#2EE6FF"}"><span class="area">${esc(AREA_NL[l.area]||l.area)}</span><p>${esc(l.rule)}</p>${l.evidence?`<div class="ev">${esc(l.evidence)}</div>`:""}</article>`).join("") || `<div class="empty">Niets gevonden.</div>`}</div>`;
     el.querySelectorAll("[data-a]").forEach(b=>b.addEventListener("click",()=>{ state.lessonArea = b.dataset.a; renderLessons(); }));
     const lq = el.querySelector("#lq"); lq.addEventListener("input", ()=>{ state.lessonQ = lq.value; const pos = lq.selectionStart; renderLessons(); const n = $("#lq"); n.focus(); n.setSelectionRange(pos,pos); });
@@ -258,9 +253,9 @@
     try{
       const mcp = await window.claude?.use?.("mcp"); if(!mcp) throw {code:"unavailable"};
       await mcp.callTool("Claude Code Remote","fire_trigger",{trigger_id:SCOUT_TRIGGER});
-      b.textContent = "⟡ Scout draait"; toast("TREND-SCOUT GESTART · IDEEËN VERSCHIJNEN VANZELF");
+      b.textContent = "🔭 Scout draait"; toast("Trend-scout gestart, ideeën verschijnen vanzelf");
     }catch(err){
-      b.disabled = false; b.textContent = "⟡ Trend-scout";
+      b.disabled = false; b.textContent = "🔭 Trend-scout";
       const c = err && err.code;
       toast(c==="server_not_connected"||c==="needs_reauth" ? "Verbind Claude Code Remote in claude.ai" : c==="not_granted"||c==="consent_required" ? "Toestemming geweigerd" : c==="unavailable" ? "Knop werkt alleen in claude.ai" : "Starten mislukt");
     }
