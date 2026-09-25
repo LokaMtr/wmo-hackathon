@@ -341,6 +341,25 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
   .brief{padding:18px}
 }
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+/* post-kit */
+.vcard.skipped{--vc:var(--muted);opacity:.55}
+.vkit{grid-column:1/-1;border-top:1px dashed var(--line2,rgba(255,255,255,.12));padding-top:10px;min-width:0}
+.vkit>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;font:600 13.5px var(--body);min-height:36px}
+.vkit>summary::-webkit-details-marker{display:none}
+.vkit>summary::after{content:"▾";margin-left:auto;opacity:.6;transition:transform .2s}
+.vkit[open]>summary::after{transform:rotate(180deg)}
+.vkit>summary .muted{font-weight:500;font-size:12px}
+.kit-body{display:grid;grid-template-columns:160px minmax(0,1fr);gap:16px;margin-top:10px}
+.kit-vid video{width:100%;aspect-ratio:9/16;border-radius:14px;background:#000;display:block;object-fit:cover}
+.kit-fields{display:flex;flex-direction:column;gap:10px;min-width:0}
+.kit-btns{display:flex;gap:8px;flex-wrap:wrap}
+.kit-btns .btn{text-decoration:none}
+.kf{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:9px 12px;min-width:0}
+.kf-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px}
+.kf-v{white-space:pre-wrap;overflow-wrap:anywhere;font:500 13.5px/1.45 var(--body);user-select:text}
+.kcopy{font:500 11.5px var(--mono);color:var(--ink);background:rgba(169,139,255,.14);border:1px solid rgba(169,139,255,.45);border-radius:99px;padding:5px 11px;cursor:pointer;min-height:30px}
+.kf-note{font-size:12.5px;color:var(--muted)}
+@media (max-width:640px){.kit-body{grid-template-columns:1fr}.kit-vid{max-width:220px;margin:0 auto;width:100%}.kit-btns .btn{flex:1 1 auto;text-align:center}}
 
 </style>
 <canvas id="bgfx" aria-hidden="true"></canvas>
@@ -474,9 +493,9 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 (function(){
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:""};
+  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set()};
   window.__mcrState = state;
-  const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
+  const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",skipped:"overgeslagen",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
   const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
   const AREA_C = {production:"#7CC4FF",script:"#A98BFF",hooks:"#FF5C7A",products:"#53E0B5",posting:"#FF6B4A",compliance:"#B8A9BF",budget:"#FFB547"};
   const TZ = "Europe/Amsterdam";
@@ -682,7 +701,22 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
           <div class="vrow">${x.product?`<button class="copyname" data-name="${esc(x.product)}" title="Tik om de productnaam voor TikTok te kopiëren">${esc(x.product)}</button>`:""}${x.verdict&&x.verdict!=="pending"?pill(x.verdict):""}</div>
         </div>
         <div class="vmeta"><div><b>${esc(m.views!=null?m.views:"—")}</b><span>views</span></div><div><b>${esc(m.likes!=null?m.likes:"—")}</b><span>likes</span></div><div><b>${esc(x.credits??"—")}</b><span>credits</span></div></div>
+        ${kit(x)}
       </article>`;
+    };
+    const kit = x => {
+      if(!x.videoAsset && !x.caption) return "";
+      const open = state.openKits.has(x._id);
+      const field = (k,label,val) => val ? `<div class="kf"><div class="kf-h"><span class="label">${label}</span><button class="kcopy" data-k="${k}">Kopieer</button></div><div class="kf-v">${esc(val)}</div></div>` : "";
+      return `<details class="vkit" data-id="${esc(x._id)}" ${open?"open":""}><summary>🎬 Post-kit <span class="muted">video + titel + caption</span></summary>
+        <div class="kit-body">
+          ${x.videoAsset?`<div class="kit-vid"><video playsinline controls preload="none" data-src="/_blob/${esc(x.videoAsset)}"></video></div>`:""}
+          <div class="kit-fields">
+            <div class="kit-btns">${x.videoAsset?`<button class="btn primary kdl">⬇ Download video</button><a class="btn ghost" href="/_blob/${esc(x.videoAsset)}" target="_blank" rel="noopener">Open video</a>`:""}<button class="btn cyan kall">📋 Alles kopiëren</button></div>
+            ${field("tiktokTitle","Titel",x.tiktokTitle)}${field("caption","Caption",x.caption)}${field("firstComment","Eerste comment",x.firstComment)}${field("product","Product koppelen",x.product)}
+            <div class="kf-note">Zet in TikTok aan: <b>AI-gegenereerd</b> + <b>commerciële content</b>.</div>
+          </div>
+        </div></details>`;
     };
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
     el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
@@ -691,6 +725,30 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
         const sub = k==="zz" ? "" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
         return `<div class="day ${k===todayK?"today":""}"><div class="day-h"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="slots">${groups[k].sort((a,b)=>String(a.scheduledAt||a.postedAt).localeCompare(String(b.scheduledAt||b.postedAt))).map(card).join("")}</div></div>`;
       }).join("")}</div>`;
+    const copy = async (text, okMsg, node) => {
+      try{ await navigator.clipboard.writeText(text); toast(okMsg); }
+      catch(e){ if(node){ const r = document.createRange(); r.selectNodeContents(node); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); } toast("Geselecteerd, kopieer handmatig"); }
+    };
+    el.querySelectorAll(".vkit").forEach(d=>{
+      const x = v.find(y=>y._id===d.dataset.id); if(!x) return;
+      const vid = d.querySelector("video");
+      const load = () => { if(vid && !vid.src) vid.src = vid.dataset.src; };
+      if(d.open) load();
+      d.addEventListener("toggle", ()=>{ if(d.open){ state.openKits.add(x._id); load(); } else state.openKits.delete(x._id); });
+      d.querySelectorAll(".kcopy").forEach(b=>b.addEventListener("click", ()=>copy(x[b.dataset.k], "Gekopieerd", b.closest(".kf").querySelector(".kf-v"))));
+      const all = d.querySelector(".kall"); if(all) all.addEventListener("click", ()=>copy([x.tiktokTitle&&("TITEL: "+x.tiktokTitle), x.caption&&("CAPTION:\n"+x.caption), x.firstComment&&("EERSTE COMMENT: "+x.firstComment), x.product&&("PRODUCT: "+x.product)].filter(Boolean).join("\n\n"), "Titel, caption en comment gekopieerd"));
+      const dl = d.querySelector(".kdl"); if(dl) dl.addEventListener("click", async ()=>{
+        const name = "mila-" + x._id + ".mp4";
+        let downloads = null; try{ downloads = await window.claude.use("downloads"); }catch(e){}
+        if(!downloads){ toast("Downloaden kan hier niet, gebruik 'Open video'"); return; }
+        dl.disabled = true; const t0 = dl.textContent; dl.textContent = "Laden…";
+        try{
+          const blob = await (await fetch("/_blob/" + x.videoAsset)).blob();
+          await downloads.save({filename:name, data:blob}); toast("Video opgeslagen");
+        }catch(e){ if(e && e.code!=="declined") toast(e && e.code==="rate_limited" ? "Even wachten en opnieuw proberen" : "Download mislukt, gebruik 'Open video'"); }
+        finally{ dl.disabled = false; dl.textContent = t0; }
+      });
+    });
     el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
       try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd, plak hem in TikTok"); }
       catch(e){ const r = document.createRange(); r.selectNodeContents(b); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }

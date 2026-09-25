@@ -1,9 +1,9 @@
 (function(){
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:""};
+  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set()};
   window.__mcrState = state;
-  const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
+  const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",skipped:"overgeslagen",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
   const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
   const AREA_C = {production:"#7CC4FF",script:"#A98BFF",hooks:"#FF5C7A",products:"#53E0B5",posting:"#FF6B4A",compliance:"#B8A9BF",budget:"#FFB547"};
   const TZ = "Europe/Amsterdam";
@@ -209,7 +209,22 @@
           <div class="vrow">${x.product?`<button class="copyname" data-name="${esc(x.product)}" title="Tik om de productnaam voor TikTok te kopiëren">${esc(x.product)}</button>`:""}${x.verdict&&x.verdict!=="pending"?pill(x.verdict):""}</div>
         </div>
         <div class="vmeta"><div><b>${esc(m.views!=null?m.views:"—")}</b><span>views</span></div><div><b>${esc(m.likes!=null?m.likes:"—")}</b><span>likes</span></div><div><b>${esc(x.credits??"—")}</b><span>credits</span></div></div>
+        ${kit(x)}
       </article>`;
+    };
+    const kit = x => {
+      if(!x.videoAsset && !x.caption) return "";
+      const open = state.openKits.has(x._id);
+      const field = (k,label,val) => val ? `<div class="kf"><div class="kf-h"><span class="label">${label}</span><button class="kcopy" data-k="${k}">Kopieer</button></div><div class="kf-v">${esc(val)}</div></div>` : "";
+      return `<details class="vkit" data-id="${esc(x._id)}" ${open?"open":""}><summary>🎬 Post-kit <span class="muted">video + titel + caption</span></summary>
+        <div class="kit-body">
+          ${x.videoAsset?`<div class="kit-vid"><video playsinline controls preload="none" data-src="/_blob/${esc(x.videoAsset)}"></video></div>`:""}
+          <div class="kit-fields">
+            <div class="kit-btns">${x.videoAsset?`<button class="btn primary kdl">⬇ Download video</button><a class="btn ghost" href="/_blob/${esc(x.videoAsset)}" target="_blank" rel="noopener">Open video</a>`:""}<button class="btn cyan kall">📋 Alles kopiëren</button></div>
+            ${field("tiktokTitle","Titel",x.tiktokTitle)}${field("caption","Caption",x.caption)}${field("firstComment","Eerste comment",x.firstComment)}${field("product","Product koppelen",x.product)}
+            <div class="kf-note">Zet in TikTok aan: <b>AI-gegenereerd</b> + <b>commerciële content</b>.</div>
+          </div>
+        </div></details>`;
     };
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
     el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
@@ -218,6 +233,30 @@
         const sub = k==="zz" ? "" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
         return `<div class="day ${k===todayK?"today":""}"><div class="day-h"><b>${esc(label)}</b><span>${esc(sub)}</span></div><div class="slots">${groups[k].sort((a,b)=>String(a.scheduledAt||a.postedAt).localeCompare(String(b.scheduledAt||b.postedAt))).map(card).join("")}</div></div>`;
       }).join("")}</div>`;
+    const copy = async (text, okMsg, node) => {
+      try{ await navigator.clipboard.writeText(text); toast(okMsg); }
+      catch(e){ if(node){ const r = document.createRange(); r.selectNodeContents(node); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); } toast("Geselecteerd, kopieer handmatig"); }
+    };
+    el.querySelectorAll(".vkit").forEach(d=>{
+      const x = v.find(y=>y._id===d.dataset.id); if(!x) return;
+      const vid = d.querySelector("video");
+      const load = () => { if(vid && !vid.src) vid.src = vid.dataset.src; };
+      if(d.open) load();
+      d.addEventListener("toggle", ()=>{ if(d.open){ state.openKits.add(x._id); load(); } else state.openKits.delete(x._id); });
+      d.querySelectorAll(".kcopy").forEach(b=>b.addEventListener("click", ()=>copy(x[b.dataset.k], "Gekopieerd", b.closest(".kf").querySelector(".kf-v"))));
+      const all = d.querySelector(".kall"); if(all) all.addEventListener("click", ()=>copy([x.tiktokTitle&&("TITEL: "+x.tiktokTitle), x.caption&&("CAPTION:\n"+x.caption), x.firstComment&&("EERSTE COMMENT: "+x.firstComment), x.product&&("PRODUCT: "+x.product)].filter(Boolean).join("\n\n"), "Titel, caption en comment gekopieerd"));
+      const dl = d.querySelector(".kdl"); if(dl) dl.addEventListener("click", async ()=>{
+        const name = "mila-" + x._id + ".mp4";
+        let downloads = null; try{ downloads = await window.claude.use("downloads"); }catch(e){}
+        if(!downloads){ toast("Downloaden kan hier niet, gebruik 'Open video'"); return; }
+        dl.disabled = true; const t0 = dl.textContent; dl.textContent = "Laden…";
+        try{
+          const blob = await (await fetch("/_blob/" + x.videoAsset)).blob();
+          await downloads.save({filename:name, data:blob}); toast("Video opgeslagen");
+        }catch(e){ if(e && e.code!=="declined") toast(e && e.code==="rate_limited" ? "Even wachten en opnieuw proberen" : "Download mislukt, gebruik 'Open video'"); }
+        finally{ dl.disabled = false; dl.textContent = t0; }
+      });
+    });
     el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
       try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd, plak hem in TikTok"); }
       catch(e){ const r = document.createRange(); r.selectNodeContents(b); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }

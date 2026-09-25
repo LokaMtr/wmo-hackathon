@@ -38,3 +38,8 @@
 
 ## meta/state
 `{credits, creditsSpentTotal, videosMade, videosPosted, salesTotal, commissionTotal, lastRun}`
+
+### videos: post-kit-velden (sinds 25-09)
+- `videoAsset`: asset-id van de eind-mp4 (Artifact `asset: true` upload, ≤ ~20MB; groter → opnieuw encoden met crf 21). Dashboard toont hem via `/_blob/<id>` met downloadknop.
+- `tiktokTitle`, `caption`, `firstComment`: exact wat in TikTok moet (caption = dezelfde tekst als in Metricool).
+- `status: "skipped"` = overgeslagen door Loka.

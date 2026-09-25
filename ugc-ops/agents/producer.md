@@ -26,3 +26,6 @@ Vraag de route, prompts en montage aan `agents/ai-video-director.md` (model/modu
 5. Na render: contactsheet per clip checken op product-vervorming, handen, mond, extra objecten (telefoon/statief!), maat van kleding.
 6. `videos.product` = productnaam voor de TikTok-productlink (max ~30 tekens, Engels, herhaalt de woorden uit de video, 1 emoji); details in `productInfo`.
 7. Kosten + lessen bijwerken in dashboard (`videos`, `meta/state`, `lessons`).
+
+## Na het maken van een video
+Upload de eind-mp4 als dashboard-asset en zet `videoAsset`, `tiktokTitle`, `caption` en `firstComment` in `videos/<id>` (zie memory/schemas.md), zodat Loka alles in de Planning-tab kan downloaden en kopiëren.
