@@ -29,6 +29,8 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [script] Spreektempo max ~2,5–3 woorden/seconde; elke zin gekoppeld aan een zichtbare actie.
 - [script] Prijs altijd checken tegen de productpagina (coupon vs normaal). (beamer v2: '€40' klopte niet)
 
+- [script] Scripts via agents/scriptwriter.md: teardown → 10 hooks scoren → structuur → 4-clip beat-sheet → zelfkritiek ≥8/10. Loka: scripts moesten 'veel beter'. (eyemask-1 was te vlak: geen probleem, geen re-hook, geen CTA)
+
 ## hooks
 - [hooks] Sterk volgens Loka: sit-test hook, reactie-hooks (snuif), mini-sketch met omslag (3pm), plafond-POV, cadeau-POV. Nog niet gemeten; analist moet bevestigen.
 

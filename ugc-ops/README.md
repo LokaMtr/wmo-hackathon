@@ -6,7 +6,7 @@ Een klein team van agents dat TikTok Shop-affiliate video's met AI-creator "Mila
 |---|---|---|
 | Trend-scout | `agents/trend-scout.md` | dagelijks 08:00 (routine) of op verzoek |
 | Prestatie-analist | `agents/performance-analyst.md` | dagelijks na de scout, of op verzoek |
-| Producer | `agents/producer.md` | als Loka een idee uit het dashboard kopieert |
+| Producer | `agents/scriptwriter.md` (UGC-scripts, hooks) en `agents/producer.md` | als Loka een idee uit het dashboard kopieert |
 | Compliance-check | `agents/compliance.md` | vóór elke render en vóór elke post |
 | Budgetwaker | `agents/budget.md` | bij elke run |
 

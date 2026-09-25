@@ -1,8 +1,11 @@
 # Producer: draaiboek (Mila-video's)
 
-**Doel:** van een gekozen idee een video maken van 15–22s (3–4 scènes) die natuurlijk en realistisch oogt, met een zo laag mogelijk aantal redo's.
+**Doel:** van een gekozen idee een video maken van ~20s (standaard 4 clips × 5s; 3 alleen bij simpele producten) die natuurlijk en realistisch oogt, met een zo laag mogelijk aantal redo's.
 
-## 0. Eerst lezen
+## 0. Script
+Het script komt altijd van de scriptwriter (`agents/scriptwriter.md`), met score ≥ 8/10. De producer schrijft zelf geen tekst.
+
+## 0b. Eerst lezen
 `memory/lessons.md` (area production/script/compliance) + dashboard `lessons`. Deze regels zijn hard.
 
 ## 1. Tools (Higgsfield MCP)
