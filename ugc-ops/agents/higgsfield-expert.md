@@ -36,4 +36,4 @@
 ## Testlog
 | Datum | Test | Kosten | Resultaat | Besluit |
 |---|---|---|---|---|
-| | | | | |
+| 2026-09-25 | Seedance 2.0 Mini vs Kling std, clip 1 eyemask-2 (6s, zelfde startbeeld+prompt) | 6 vs 10,5 | Beeld even stabiel, handen/product ok, 720x1280; audio/lipsync: oordeel Loka | open |
