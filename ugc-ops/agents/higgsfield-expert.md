@@ -1,39 +1,35 @@
-# Higgsfield-expert: draaiboek
+# Higgsfield-expert → opgegaan in de AI-video director
 
-**Doel:** voor elke video de goedkoopste route naar het beste resultaat. Kent alle modellen, prijzen en trucs, test nieuwe opties met kleine proeven en legt de uitkomst vast. De producer vraagt dit agent vóór elke productie: welk model, welke modus, welke duur?
+**Deze rol valt nu onder `agents/ai-video-director.md`** (model- en prijsroutering, prompts, realisme, stem, montage, compliance, experimenten). Dit bestand bevat alleen nog de snelle prijstabel en de **testlog**. Werk beide hier bij na elke test.
 
 ## Altijd eerst (gratis)
-- `models_explore action=get` voor parameters en limieten; `models_explore action=recommend` als er iets nieuws is.
-- `generate_video … get_cost:true` om de prijs te checken voordat je iets indient (kost niets).
+- `models_explore action=get` voor parameters en limieten; `action=recommend` bij iets nieuws.
+- `generate_video/generate_image … get_cost:true` vóór elke generatie (kost niets).
 - `balance` voor en na.
 
-## Prijzen (gemeten 25-09-2026, per video 9:16)
+## Prijzen (gemeten 25-09-2026, 9:16; volledige tabel: ai-video-director.md §2)
 | Model | Instelling | Credits | Per seconde | Notities |
 |---|---|---|---|---|
-| gpt_image_2_5 | beeld | 0,25 | - | frames, basisbeeld, packshot |
-| kling3_0 | std, sound on | 8,75 / 5s · 26,25 / 15s | 1,75 | onze standaard, 716x1280 output |
-| kling3_0 | pro | 10 / 5s | 2,0 | alleen bij hook-problemen |
-| wan2_7 | 720p, 10s | 15 | 1,5 | audio + character-consistent, `audio_references` |
-| seedance_2_0 | std 720p, 10s | 45 | 4,5 | duur; beste referentie-trouw (Mila + product als `image_references`) |
-| seedance_2_0_mini | 720p, 10s | 10 | **1,0** | goedkoopst met audio en `image_references`/`audio_references`; kwaliteit nog niet getest |
-
-## Kansen (nog te testen, telkens met 1 kleine proef)
-1. **Seedance 2.0 Mini** (1 cr/s): 20s video voor ~20 credits i.p.v. ~38. Test: clip 1 van een bestaande video opnieuw (10 credits) en vergelijk lipsync, handen en product.
-2. **Eén lange Kling-clip (10–15s)** i.p.v. losse clips van 5s: zelfde prijs per seconde, maar de stem en het gezicht blijven hetzelfde zonder jumpcut. Kling 3.0 kan multi-shot binnen één generatie.
-3. **Vaste Mila-stem**: nu klinkt Mila per clip anders. Oplossingen: `voice_change` met één vaste stem op de hele video (prijs eerst checken), of `audio_references` (Wan/Seedance) met een referentie-audio van Mila.
-4. **Mila als Reference Element** (`show_reference_elements create`, werkt met Kling 3.0 en Seedance 2.0 via `<<<element_id>>>` in de prompt): consistenter gezicht zonder face-refs per frame.
-5. **`end_image`** bij Kling: begin- en eindbeeld vastzetten = product blijft precies goed aan het eind van de clip.
-6. **Virality Predictor** (`virality_predictor create`) op de final vóór posten: hook-sterkte en retentierisico. Prijs eerst checken; alleen gebruiken als het goedkoop is.
-7. **Upscale** (`upscale_video`) alleen voor een bewezen winnaar (std = 716x1280).
-8. **Marketing Studio** (`marketing_studio_video`, 12–15s, hooks/settings/avatar/product in één klik): alleen testen als de rest faalt; minder controle over Mila.
+| gpt_image_2_5 | low 1k | 0,25 | - | master, frames, packshot (medium 0,5 · high 2k 2,75) |
+| seedream_v5_lite / v5_pro | de-slop | 1,0 / 2,5 | - | realisme-pass op een beeld |
+| soul_2 | 2k | 0,12 | - | persona-beelden |
+| **kling3_0** | **std, sound on** | 8,75 / 5s · 17,5 / 10s · 26,25 / 15s | **1,75** | **standaard voor praatclips**; `end_image` en `<<<element>>>` zonder meerprijs |
+| kling3_0 | std, sound off | 12,5 / 10s | 1,25 | stille B-roll |
+| kling3_0 | pro, sound on | 10 / 5s · 20 / 10s | 2,0 | alleen voor de hook, als std faalt |
+| seedance_2_0_mini | 720p / 480p | 5 / 5s · 5 / 10s (480p) | 1,0 / 0,5 | **alleen B-roll zonder spraak** (stem/lipsync verloor van Kling) |
+| wan2_7 | 720p / 1080p, 10s | 15 / 25 | 1,5 / 2,5 | audio_references; niet getest |
+| seedance_2_0 | fast 720p / std 720p / std 1080p, 10s | 25 / 45 / 90 | 2,5 / 4,5 / 9 | te duur |
+| seedance_2_5 | omni 480p / 720p / 1080p, 10s | 30 / 70 / 120 | 3 / 7 / 12 | Higgsfield-UGC-motor; te duur |
+| minimax_h3 | 2K, 10s | 20 | 2,0 | niet getest |
+| veo3_1_lite | 8s, audio | 12 | 1,5 | Veo-lippen zwak volgens tests |
+| marketing_studio_video | 720p 15s | 75 | 5,0 | weinig controle |
 
 ## Regels
-- Elke nieuwe route eerst testen op **1 clip** van een bestaande video, nooit op een hele nieuwe video.
-- Presets: Higgsfield raadt soms een preset aan ("IN THE DARK") → opnieuw indienen met `declined_preset_id`.
-- Media-rollen: gpt_image_2_5 zet `image` automatisch om naar `image_references` (ok).
-- Leg elke test vast in de tabel hieronder + lesson (area production/budget).
+- Elke nieuwe route eerst op **1 clip** van een bestaande video.
+- Preset aangeraden → opnieuw met `declined_preset_id`.
+- Gpt_image_2_5 zet `image` om naar `image_references` (ok). Seedream accepteert geen job_id: eerst `media_import_url`.
 
 ## Testlog
 | Datum | Test | Kosten | Resultaat | Besluit |
 |---|---|---|---|---|
-| 2026-09-25 | Seedance 2.0 Mini vs Kling std, clip 1 eyemask-2 (6s, zelfde startbeeld+prompt) | 6 vs 10,5 | Beeld even stabiel, handen/product ok, 720x1280; audio/lipsync: oordeel Loka | open |
+| 2026-09-25 | Seedance 2.0 Mini vs Kling std, clip 1 eyemask-2 (6s, zelfde startbeeld+prompt) | 6 vs 10,5 | Beeld even stabiel, handen/product ok; Loka: Kling duidelijk beter op stem en lipsync | **Kling blijft standaard**; Mini alleen voor B-roll zonder spraak |

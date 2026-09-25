@@ -6,7 +6,7 @@
 Het script komt altijd van de scriptwriter (`agents/scriptwriter.md`), met score ≥ 8/10. De producer schrijft zelf geen tekst.
 
 ## 0a. Route en QA
-Vraag de route aan `agents/higgsfield-expert.md` (model/modus/duur, `get_cost`). Na frames én na clips: `agents/qa-checker.md` (`python3 ugc-ops/scripts/qa_check.py <map>`).
+Vraag de route, prompts en montage aan `agents/ai-video-director.md` (model/modus/duur, `get_cost`, templates §4). Na frames én na clips: `agents/qa-checker.md` (`python3 ugc-ops/scripts/qa_check.py <map>`).
 
 ## 0b. Eerst lezen
 `memory/lessons.md` (area production/script/compliance) + dashboard `lessons`. Deze regels zijn hard.

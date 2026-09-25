@@ -7,7 +7,7 @@ Een klein team van agents dat TikTok Shop-affiliate video's met AI-creator "Mila
 | Trend-scout | `agents/trend-scout.md` | dagelijks 08:00 (routine) of op verzoek |
 | Prestatie-analist | `agents/performance-analyst.md` | dagelijks na de scout, of op verzoek |
 | Scriptwriter (UGC-legend) | `agents/scriptwriter.md` | vóór elke productie |
-| Higgsfield-expert | `agents/higgsfield-expert.md` | vóór elke productie: model, modus, duur, kosten |
+| AI-video director | `agents/ai-video-director.md` | vóór elke productie: model, modus, duur, kosten, prompts, realisme, stem, montage, AI-compliance (prijzen + testlog: `agents/higgsfield-expert.md`) |
 | Producer | `agents/producer.md` | als Loka een idee uit het dashboard kopieert |
 | QA-checker | `agents/qa-checker.md` + `scripts/qa_check.py` | na frames, na clips, na final |
 | Deal-jager | `agents/deal-hunter.md` | bij elk nieuw product (screenshots van Loka) en bij winnaars |
