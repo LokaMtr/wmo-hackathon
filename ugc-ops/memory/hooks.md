@@ -15,3 +15,4 @@ De analist vult de cijfers aan zodra Metricool synchroniseert. De scriptwriter k
 | hismile-1 | negatief/shock | A | "I brushed 5 min ago. why is THIS in my sink" | | | |
 | hismile-2 | doelgroep-callout | A | "coffee every day? your toothbrush is not enough" | | | |
 | eyemask-1 | doelgroep-callout | A | "9 hours of screens? this is your 10 minutes" | | | |
+| eyemask-2 | anker/vergelijking | B | "Everyone's buying the one-euro eye masks. Here's why I stopped." | | | |
