@@ -54,3 +54,5 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [products] Productfoto's van webshops kunnen EXIF/GPS bevatten: metadata strippen vóór upload. (L033)
 - [hooks] Teddy-1 na 10u: 202 views, 12 likes, 0 comments. Humor-hook = likes, geen gesprek: zet een vraag in caption/eerste comment. Voorlopig. (L034)
 - [posting] TikTok: aan foto-posts/slideshows kun je geen product koppelen. Slideshows zijn daarom gestopt; alleen video's. (L036)
+- [products] Scoor producten ook op "past dit in een aesthetic scene zonder uitleg?" — niet alleen op AI-maakbaarheid. Voordoen-producten (mondwater, inhaler) passen niet bij dit account; dragen/staan-producten wel. (L037)
+- [products] Bekijk productfoto's echt vóór je een idee opschrijft; een lelijke plastic packshot verraadt dat het product niet in een aesthetic scene past. (L038)
