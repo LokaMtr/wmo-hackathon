@@ -19,10 +19,11 @@ Eén variabele verklaart bijna alles: begint de video met een **situatie tussen 
 |---|---|
 | zo 27 · 10:00 | hismile-1 |
 | zo 27 · 16:00 | sniffit-3pm |
-| zo 27 · 21:00 | beamer-1 |
+| zo 27 · 21:00 | **teddy-3** (nieuw) |
 | ma 28 · 10:00 | shapewear-a |
 | ma 28 · 16:00 | sniffit-1 |
 | ma 28 · 21:00 | eyemask-1 |
+| di 29 · 21:00 | beamer-1 |
 
 Daarna is de voorraad op.
 
@@ -34,7 +35,7 @@ Teddy eerst: dat product is bewezen (5.519 + 766) en de set staat al.
 
 | # | Product | Hook (situatie) | Slot |
 |---|---|---|---|
-| 1 | Teddy romper | "he said it looked ridiculous. he's worn it every night since." | avond |
+| ~~1~~ | ~~Teddy romper~~ | ~~"he said it looked ridiculous"~~ | **klaar, zo 27 · 21:00** |
 | 2 | Teddy romper | "my boyfriend's mum asked me where i got this" | avond |
 | 3 | Paddenstoellamp | "the reason my room looks like that in every video" | avond |
 | 4 | Laagjesketting | "the box that's been on my table for three days" | avond |
@@ -47,4 +48,4 @@ Teddy eerst: dat product is bewezen (5.519 + 766) en de set staat al.
 Elke video: 4 clips, Kling std, laatste 2 seconden een **directe vraag in beeld** (L041), product koppelen in TikTok, AI-label + commerciële content aan.
 
 ## Kosten
-Een video kost 39–61 credits (gemiddeld ~45 ≈ €2,20). Drie per dag is ~135 credits per dag, ~950 per week (~€45). Saldo op 27-09: 34,9 credits — genoeg voor nul nieuwe video's. **Top-up nodig vóór maandagavond.**
+Een video kost 39–61 credits (gemiddeld ~45 ≈ €2,20). Drie per dag is ~135 credits per dag, ~950 per week (~€45). Saldo na de top-up van €60 en na teddy-3: **997,94 credits** (~€60). Genoeg voor ongeveer 20 video's, dus ruim een week bij 3 per dag.
