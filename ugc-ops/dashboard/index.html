@@ -380,6 +380,15 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 .msg .body{margin-top:2px}
 .msg.working .body{opacity:.85}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* planning: komt eraan / gepost */
+.planbar{display:flex;gap:8px;margin-bottom:14px}
+.planbar .pv{font:600 13.5px var(--body);color:var(--muted);background:var(--card);border:1px solid var(--line2);border-radius:99px;padding:9px 16px;cursor:pointer;min-height:40px;display:inline-flex;align-items:center;gap:8px}
+.planbar .pv i{font-style:normal;font:500 11px var(--mono);background:rgba(255,255,255,.08);border-radius:99px;padding:2px 7px}
+.planbar .pv[aria-pressed="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.planbar .pv[aria-pressed="true"] i{background:rgba(12,10,16,.15)}
+.vphone.hasthumb{background-image:var(--thumb);background-size:cover;background-position:center;position:relative;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.vphone.hasthumb::after{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 42%,transparent 62%,rgba(0,0,0,.55));pointer-events:none}
+.vphone.hasthumb small,.vphone.hasthumb span{position:relative;z-index:1}
 
 </style>
 <canvas id="bgfx" aria-hidden="true"></canvas>
@@ -513,7 +522,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 (function(){
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set()};
+  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set(), planView:(()=>{ try{ return localStorage.getItem("mcr_planview")||"open"; }catch(e){ return "open"; } })()};
   window.__mcrState = state;
   const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",skipped:"overgeslagen",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
   const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
@@ -706,15 +715,18 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
     const el = $("#p-videos"), v = state.videos;
     if(!v.length){ el.innerHTML = `<div class="empty">Nog geen video's.</div>`; return; }
     const todayK = dayKey(new Date().toISOString()), tomK = dayKey(new Date(Date.now()+864e5).toISOString());
+    const isDone = x => x.status==="posted" || x.status==="skipped";
+    const list = state.planView==="done" ? v.filter(isDone) : v.filter(x=>!isDone(x));
     const groups = {};
-    v.forEach(x=>{ const k = x.status==="posted" && x.postedAt ? dayKey(x.postedAt) : x.scheduledAt ? dayKey(x.scheduledAt) : "zz"; (groups[k] = groups[k]||[]).push(x); });
+    list.forEach(x=>{ const k = isDone(x) && x.postedAt ? dayKey(x.postedAt) : x.scheduledAt ? dayKey(x.scheduledAt) : "zz"; (groups[k] = groups[k]||[]).push(x); });
     const keys = Object.keys(groups).sort();
+    if(state.planView==="done") keys.reverse();
     const card = x => {
-      const when = x.status==="posted" && x.postedAt ? x.postedAt : x.scheduledAt;
+      const when = (x.status==="posted"||x.status==="skipped") && x.postedAt ? x.postedAt : x.scheduledAt;
       const tm = when ? new Date(when).toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "—";
       const m = x.metrics||{};
       return `<article class="vcard glass ${esc(x.status||"made")}">
-        <div class="vphone"><small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small><span>${esc(tm)}</span></div>
+        <div class="vphone${x.thumbAsset?" hasthumb":""}"${x.thumbAsset?` style="--thumb:url('/_blob/${esc(x.thumbAsset)}')"`:""}><small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small><span>${esc(tm)}</span></div>
         <div style="min-width:0">
           <div class="vtitle">${esc(x.title)}</div>
           <div class="vsub">${esc(x.concept||"")}</div>
@@ -740,7 +752,10 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
         </div></details>`;
     };
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
-    el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
+    const nDone = v.filter(isDone).length, nOpen = v.length - nDone;
+    el.innerHTML = `<div class="planbar"><button class="pv" data-pv="open" aria-pressed="${state.planView!=="done"}">Komt eraan <i>${nOpen}</i></button><button class="pv" data-pv="done" aria-pressed="${state.planView==="done"}">Gepost <i>${nDone}</i></button></div>
+      <div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
+      ${keys.length?"":`<div class="empty">${state.planView==="done"?"Nog niets gepost.":"Niets meer in de wachtrij. Tijd voor nieuwe video's."}</div>`}
       <div class="timeline">${keys.map(k=>{
         const label = k==="zz" ? "Niet gepland" : k===todayK ? "Vandaag" : k===tomK ? "Morgen" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{weekday:"long"});
         const sub = k==="zz" ? "" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
@@ -782,6 +797,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
         finally{ dl.disabled = false; dl.textContent = t0; }
       });
     });
+    el.querySelectorAll(".pv").forEach(b=>b.addEventListener("click", ()=>{ state.planView = b.dataset.pv; try{ localStorage.setItem("mcr_planview", state.planView); }catch(e){} renderVideos(); }));
     el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
       try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd, plak hem in TikTok"); }
       catch(e){ const r = document.createRange(); r.selectNodeContents(b); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }

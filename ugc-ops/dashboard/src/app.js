@@ -1,7 +1,7 @@
 (function(){
   const $ = s => document.querySelector(s);
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set()};
+  const state = {briefings:[], ideas:[], videos:[], lessons:[], meta:null, sel:new Set(), briefDate:null, canWrite:true, lessonArea:"all", lessonQ:"", openKits:new Set(), planView:(()=>{ try{ return localStorage.getItem("mcr_planview")||"open"; }catch(e){ return "open"; } })()};
   window.__mcrState = state;
   const STATUS_NL = {new:"nieuw",selected:"gekozen",in_production:"in productie",done:"klaar",rejected:"afgewezen",made:"klaar",scheduled:"gepland",posted:"gepost",skipped:"overgeslagen",winner:"winnaar",promise:"belofte",flop:"flop",pending:"afwachten",opkomend:"opkomend",piek:"piek",uitgemolken:"uitgemolken"};
   const AREA_NL = {production:"Productie",script:"Script",hooks:"Hooks",products:"Producten",posting:"Posten",compliance:"Compliance",budget:"Budget"};
@@ -194,15 +194,18 @@
     const el = $("#p-videos"), v = state.videos;
     if(!v.length){ el.innerHTML = `<div class="empty">Nog geen video's.</div>`; return; }
     const todayK = dayKey(new Date().toISOString()), tomK = dayKey(new Date(Date.now()+864e5).toISOString());
+    const isDone = x => x.status==="posted" || x.status==="skipped";
+    const list = state.planView==="done" ? v.filter(isDone) : v.filter(x=>!isDone(x));
     const groups = {};
-    v.forEach(x=>{ const k = x.status==="posted" && x.postedAt ? dayKey(x.postedAt) : x.scheduledAt ? dayKey(x.scheduledAt) : "zz"; (groups[k] = groups[k]||[]).push(x); });
+    list.forEach(x=>{ const k = isDone(x) && x.postedAt ? dayKey(x.postedAt) : x.scheduledAt ? dayKey(x.scheduledAt) : "zz"; (groups[k] = groups[k]||[]).push(x); });
     const keys = Object.keys(groups).sort();
+    if(state.planView==="done") keys.reverse();
     const card = x => {
-      const when = x.status==="posted" && x.postedAt ? x.postedAt : x.scheduledAt;
+      const when = (x.status==="posted"||x.status==="skipped") && x.postedAt ? x.postedAt : x.scheduledAt;
       const tm = when ? new Date(when).toLocaleTimeString("nl-NL",{hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "—";
       const m = x.metrics||{};
       return `<article class="vcard glass ${esc(x.status||"made")}">
-        <div class="vphone"><small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small><span>${esc(tm)}</span></div>
+        <div class="vphone${x.thumbAsset?" hasthumb":""}"${x.thumbAsset?` style="--thumb:url('/_blob/${esc(x.thumbAsset)}')"`:""}><small>${esc((STATUS_NL[x.status]||x.status||"").toUpperCase())}</small><span>${esc(tm)}</span></div>
         <div style="min-width:0">
           <div class="vtitle">${esc(x.title)}</div>
           <div class="vsub">${esc(x.concept||"")}</div>
@@ -228,7 +231,10 @@
         </div></details>`;
     };
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
-    el.innerHTML = `<div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
+    const nDone = v.filter(isDone).length, nOpen = v.length - nDone;
+    el.innerHTML = `<div class="planbar"><button class="pv" data-pv="open" aria-pressed="${state.planView!=="done"}">Komt eraan <i>${nOpen}</i></button><button class="pv" data-pv="done" aria-pressed="${state.planView==="done"}">Gepost <i>${nDone}</i></button></div>
+      <div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
+      ${keys.length?"":`<div class="empty">${state.planView==="done"?"Nog niets gepost.":"Niets meer in de wachtrij. Tijd voor nieuwe video's."}</div>`}
       <div class="timeline">${keys.map(k=>{
         const label = k==="zz" ? "Niet gepland" : k===todayK ? "Vandaag" : k===tomK ? "Morgen" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{weekday:"long"});
         const sub = k==="zz" ? "" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{day:"numeric",month:"long"});
@@ -270,6 +276,7 @@
         finally{ dl.disabled = false; dl.textContent = t0; }
       });
     });
+    el.querySelectorAll(".pv").forEach(b=>b.addEventListener("click", ()=>{ state.planView = b.dataset.pv; try{ localStorage.setItem("mcr_planview", state.planView); }catch(e){} renderVideos(); }));
     el.querySelectorAll(".copyname").forEach(b=>b.addEventListener("click", async ()=>{
       try{ await navigator.clipboard.writeText(b.dataset.name); toast("Productnaam gekopieerd, plak hem in TikTok"); }
       catch(e){ const r = document.createRange(); r.selectNodeContents(b); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); toast("Geselecteerd, kopieer handmatig"); }

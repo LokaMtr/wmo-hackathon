@@ -57,3 +57,5 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [products] Scoor producten ook op "past dit in een aesthetic scene zonder uitleg?" — niet alleen op AI-maakbaarheid. Voordoen-producten (mondwater, inhaler) passen niet bij dit account; dragen/staan-producten wel. (L037)
 - [products] Bekijk productfoto's echt vóór je een idee opschrijft; een lelijke plastic packshot verraadt dat het product niet in een aesthetic scene past. (L038)
 - [hooks] Eigen cijfers 26-09: teddy-2 (cadeau-POV, "i said ONE time that i'm always cold") 4.006 views in 18u vs eyemask-2 (vergelijk-review) 54 views in 26u, zelfde dag. Schrijf hooks vanuit een situatie tussen mensen, niet vanuit het product. (L039)
+- [posting] Ritme is 3 posts per dag: 10:00, 16:00, 21:00. Kies per slot een video die bij het dagdeel past. (L040)
+- [hooks] Zet in de laatste 2 seconden een directe vraag in beeld; de enige post met comments is de enige met een vraag. (L041)

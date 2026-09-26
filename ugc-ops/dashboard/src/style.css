@@ -376,3 +376,12 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 .msg .body{margin-top:2px}
 .msg.working .body{opacity:.85}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* planning: komt eraan / gepost */
+.planbar{display:flex;gap:8px;margin-bottom:14px}
+.planbar .pv{font:600 13.5px var(--body);color:var(--muted);background:var(--card);border:1px solid var(--line2);border-radius:99px;padding:9px 16px;cursor:pointer;min-height:40px;display:inline-flex;align-items:center;gap:8px}
+.planbar .pv i{font-style:normal;font:500 11px var(--mono);background:rgba(255,255,255,.08);border-radius:99px;padding:2px 7px}
+.planbar .pv[aria-pressed="true"]{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.planbar .pv[aria-pressed="true"] i{background:rgba(12,10,16,.15)}
+.vphone.hasthumb{background-image:var(--thumb);background-size:cover;background-position:center;position:relative;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.vphone.hasthumb::after{content:"";position:absolute;inset:0;border-radius:12px;background:linear-gradient(180deg,rgba(0,0,0,.45),transparent 42%,transparent 62%,rgba(0,0,0,.55));pointer-events:none}
+.vphone.hasthumb small,.vphone.hasthumb span{position:relative;z-index:1}
