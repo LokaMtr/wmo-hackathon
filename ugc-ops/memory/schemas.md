@@ -46,4 +46,4 @@
 
 ### chat: live stappen (sinds 26-09)
 `chat/c<unix-ms>` = {role:"claude"|"user", at, text, attachments?, agent?, **status**:"working"|"done", **steps**:[{t, s:"run"|"done"|"todo", agent?}]}.
-Claude maakt het doc meteen aan met `status:"working"` en houdt `steps` bij tijdens het werk (hele array meesturen + `if_version`); afsluiten met `status:"done"` + `text`. Het dashboard rendert de stappen live en laat de bijbehorende robot lopen. Prompt staat in trigger `controlRoomChat`.
+`at` altijd in UTC met Z (de chatpagina schrijft `toISOString()`); met een +02:00-offset sorteert het bericht verkeerd. Claude maakt het doc meteen aan met `status:"working"` en houdt `steps` bij tijdens het werk (hele array meesturen + `if_version`); afsluiten met `status:"done"` + `text`. Het dashboard rendert de stappen live en laat de bijbehorende robot lopen. Prompt staat in trigger `controlRoomChat`.
