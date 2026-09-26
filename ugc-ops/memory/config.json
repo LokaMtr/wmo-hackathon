@@ -20,6 +20,7 @@
   "triggers": {
     "daily": "trig_01By66vuLJnNGmwV9dVvFXx8",
     "scoutOnDemand": "trig_01Qm25KzfNSSrR8tuWLoHiiv",
-    "controlRoomChat": "trig_01YaT9EyM6D2LA2d9e7ZHsk4"
+    "controlRoomChat": "trig_01YaT9EyM6D2LA2d9e7ZHsk4",
+    "hourlyMetrics": "trig_017yCP9HPNB2FJsFUjo2WWt8"
   }
 }

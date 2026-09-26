@@ -12,3 +12,6 @@ Deze tekst is de opdracht van de geplande sessie. Werk in repo `LokaMtr/wmo-hack
 5. **Leren**: nieuwe lessen → `lessons` (ArtifactData) én `ugc-ops/memory/lessons.md`; tegengesproken lessen aanpassen.
 6. `meta/state.lastRun` = nu. Commit + push de repo-wijzigingen (alleen `ugc-ops/`).
 7. Nooit credits uitgeven of posten in deze routine; alleen onderzoeken, meten, adviseren.
+
+## Uurlijkse cijfer-sync (elk uur :33, trigger `hourlyMetrics`)
+Licht: alleen Metricool-cijfers + Higgsfield-saldo → `videos/<id>.metrics`, `status/postedAt`, `meta/state`. Geen scout, geen credits, niets posten. Alleen een chat-bericht (collectie `chat`, zelfde stijl als de Regie-chat) als er écht iets nieuws is; anders stil en niets committen. De volledige run blijft 1× per dag om 08:00.
