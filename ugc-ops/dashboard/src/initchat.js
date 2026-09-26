@@ -4,7 +4,7 @@
     const DASH = "https://claude.ai/artifact/VquzgADXaj6cfjJmBkvDKE";
     const OK = ["image/png","image/jpeg","image/gif","image/webp","video/mp4","video/webm","application/pdf","text/plain","text/markdown","text/csv","application/json"];
     const BY_EXT = {md:"text/markdown", txt:"text/plain", csv:"text/csv", json:"application/json", pdf:"application/pdf", mp4:"video/mp4", webm:"video/webm", png:"image/png", jpg:"image/jpeg", jpeg:"image/jpeg", webp:"image/webp", gif:"image/gif"};
-    let db = null, msgs = [], seen = new Set(), first = true, pending = [];
+    let db = null, msgs = [], seen = new Set(), steps = new Set(), answered = new Set(), first = true, pending = [];
     const blobUrl = id => "/_blob/" + id;
     function attHtml(list){
       if(!list || !list.length) return "";
@@ -12,9 +12,16 @@
         ? `<a href="${esc(blobUrl(a.id))}" target="_blank" rel="noopener"><img src="${esc(blobUrl(a.id))}" alt="${esc(a.name)}" loading="lazy"></a>`
         : `<a class="file" href="${esc(blobUrl(a.id))}" target="_blank" rel="noopener">📄 ${esc(a.name)}</a>`).join("")}</div>`;
     }
+    const AG = {director:"Regisseur", producer:"Producer", scriptwriter:"Scriptwriter", scout:"Trend-scout", analist:"Analist", budget:"Budgetwaker", comments:"Comment-manager", deal:"Deal-jager", compliance:"Compliance", qa:"QA-checker"};
+    function stepsHtml(m){
+      const st = (m.steps||[]).filter(x=>x&&x.t);
+      if(!st.length && m.status!=="working") return "";
+      const row = (x,i) => `<div class="step ${esc(x.s||"done")}"><i></i><span>${esc(x.t)}${x.agent&&AG[x.agent]?` <em>${esc(AG[x.agent])}</em>`:""}</span></div>`;
+      return `<div class="steps">${st.map(row).join("")}${m.status==="working"?`<div class="step run"><i></i><span>bezig…</span></div>`:""}</div>`;
+    }
     function render(){
-      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Geef de regie een opdracht. Plak of sleep screenshots, foto's of PDF's erbij. Het antwoord komt hier terug en het team loopt ermee aan de slag.</div>`; return; }
-      log.innerHTML = msgs.map(m=>`<div class="msg ${m.role==="claude"?"c":"u"}"><div class="who">${m.role==="claude"?"Claude":"Jij"} · ${esc(fmtShort(m.at))}</div>${m.text?`<div>${esc(m.text)}</div>`:""}${attHtml(m.attachments)}</div>`).join("");
+      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Geef de regie een opdracht. Plak of sleep screenshots, foto's of PDF's erbij. Je ziet hier live welke stappen Claude zet.</div>`; return; }
+      log.innerHTML = msgs.map(m=>`<div class="msg ${m.role==="claude"?"c":"u"}${m.status==="working"?" working":""}"><div class="who">${m.role==="claude"?"Claude":"Jij"} · ${esc(fmtShort(m.at))}</div>${m.role==="claude"?stepsHtml(m):""}${m.text?`<div class="body">${esc(m.text)}</div>`:""}${attHtml(m.attachments)}</div>`).join("");
       log.scrollTop = log.scrollHeight;
     }
     function renderTray(){
@@ -50,7 +57,17 @@
       if(!db){ st.textContent = "Chat werkt alleen als je het dashboard in claude.ai opent."; return; }
       db.collection("chat").orderBy("at","desc").limit(40).onSnapshot(s=>{
         msgs = s.docs.map(d=>({...d.data(), _id:d.id})).reverse(); render();
-        msgs.forEach(m=>{ if(!seen.has(m._id)){ seen.add(m._id); if(!first && m.role==="claude" && window.__hqReply){ window.__hqReply(m); st.textContent = "Claude heeft geantwoord."; } } });
+        msgs.forEach(m=>{
+          if(m.role!=="claude") { seen.add(m._id); return; }
+          const fresh = !seen.has(m._id); seen.add(m._id);
+          if(first) { (m.steps||[]).forEach((x,i)=>steps.add(m._id+"#"+i)); if(m.status!=="working") answered.add(m._id); return; }
+          (m.steps||[]).forEach((x,i)=>{
+            const k = m._id+"#"+i; if(steps.has(k) || !x || !x.t) return; steps.add(k);
+            if(window.__hqStep) window.__hqStep(x.t, x.agent); st.textContent = x.t;
+          });
+          if(m.status==="working"){ if(fresh) st.textContent = "Claude is bezig…"; return; }
+          if(!answered.has(m._id)){ answered.add(m._id); if(window.__hqReply) window.__hqReply(m); st.textContent = "Claude heeft geantwoord."; }
+        });
         first = false;
       }, ()=>{});
     })();

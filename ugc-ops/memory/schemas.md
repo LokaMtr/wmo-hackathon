@@ -43,3 +43,7 @@
 - `videoAsset`: asset-id van de eind-mp4 (Artifact `asset: true` upload, ≤ ~20MB; groter → opnieuw encoden met crf 21). Dashboard toont hem via `/_blob/<id>` met downloadknop.
 - `tiktokTitle`, `caption`, `firstComment`: exact wat in TikTok moet (caption = dezelfde tekst als in Metricool).
 - `status: "skipped"` = overgeslagen door Loka.
+
+### chat: live stappen (sinds 26-09)
+`chat/c<unix-ms>` = {role:"claude"|"user", at, text, attachments?, agent?, **status**:"working"|"done", **steps**:[{t, s:"run"|"done"|"todo", agent?}]}.
+Claude maakt het doc meteen aan met `status:"working"` en houdt `steps` bij tijdens het werk (hele array meesturen + `if_version`); afsluiten met `status:"done"` + `text`. Het dashboard rendert de stappen live en laat de bijbehorende robot lopen. Prompt staat in trigger `controlRoomChat`.

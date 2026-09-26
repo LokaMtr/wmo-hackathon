@@ -365,6 +365,21 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
 .kslide img{width:100%;height:100%;object-fit:cover;display:block}
 .kslide span{position:absolute;left:4px;bottom:4px;font:600 11px var(--mono);color:#fff;background:rgba(0,0,0,.55);border-radius:99px;padding:3px 7px}
 .vkit:has(.kit-slides) .kit-body{grid-template-columns:1fr}
+/* live stappen in de regie-chat */
+.msg .steps{display:flex;flex-direction:column;gap:5px;margin:2px 0 8px}
+.msg .steps:last-child{margin-bottom:0}
+.msg .step{display:flex;align-items:flex-start;gap:8px;font:500 12.5px/1.4 var(--body);color:var(--jmut)}
+.msg .step em{font-style:normal;font-size:10.5px;font-family:var(--mono);opacity:.75}
+.msg .step i{flex:none;width:13px;height:13px;margin-top:2px;border-radius:50%;border:1.5px solid currentColor;position:relative}
+.msg .step.done{color:var(--mi)}
+.msg .step.done i{background:var(--mi);border-color:var(--mi)}
+.msg .step.done i::after{content:"";position:absolute;left:4px;top:1px;width:3px;height:6px;border:solid #0C0A10;border-width:0 1.6px 1.6px 0;transform:rotate(45deg)}
+.msg .step.run{color:var(--am)}
+.msg .step.run i{border-color:var(--am);border-right-color:transparent;animation:spin .9s linear infinite}
+.msg .step.todo{opacity:.55}
+.msg .body{margin-top:2px}
+.msg.working .body{opacity:.85}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 </style>
 <canvas id="bgfx" aria-hidden="true"></canvas>
@@ -1430,6 +1445,15 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
     setTimeout(()=>{ release(); setOrb("idle"); }, 5200);
   }
   window.__hqRally = t => { rallied = rally(t); };
+  window.__hqStep = (text, agent) => {
+    chatMode = true; clearTimeout(chatTimer); chatTimer = setTimeout(()=>release(), 180000);
+    const a = byId[agent];
+    logLine("claude", a ? agent : null, text);
+    if(a){ packet(corePos, headPos(a), 0xA98BFF, 0.75); say(a.id, short(text, 64), 3400); if(!a.busy){ a.busy = true; play(a, "Yes", true); } }
+    else say("claude", short(text, 72), 3400, "claude");
+    if(orbState!=="thinking") setOrb("thinking");
+    feed();
+  };
   window.__hqReply = m => celebrate(m);
 
   initChat();
@@ -1439,7 +1463,7 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
     const DASH = "https://claude.ai/artifact/VquzgADXaj6cfjJmBkvDKE";
     const OK = ["image/png","image/jpeg","image/gif","image/webp","video/mp4","video/webm","application/pdf","text/plain","text/markdown","text/csv","application/json"];
     const BY_EXT = {md:"text/markdown", txt:"text/plain", csv:"text/csv", json:"application/json", pdf:"application/pdf", mp4:"video/mp4", webm:"video/webm", png:"image/png", jpg:"image/jpeg", jpeg:"image/jpeg", webp:"image/webp", gif:"image/gif"};
-    let db = null, msgs = [], seen = new Set(), first = true, pending = [];
+    let db = null, msgs = [], seen = new Set(), steps = new Set(), answered = new Set(), first = true, pending = [];
     const blobUrl = id => "/_blob/" + id;
     function attHtml(list){
       if(!list || !list.length) return "";
@@ -1447,9 +1471,16 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
         ? `<a href="${esc(blobUrl(a.id))}" target="_blank" rel="noopener"><img src="${esc(blobUrl(a.id))}" alt="${esc(a.name)}" loading="lazy"></a>`
         : `<a class="file" href="${esc(blobUrl(a.id))}" target="_blank" rel="noopener">📄 ${esc(a.name)}</a>`).join("")}</div>`;
     }
+    const AG = {director:"Regisseur", producer:"Producer", scriptwriter:"Scriptwriter", scout:"Trend-scout", analist:"Analist", budget:"Budgetwaker", comments:"Comment-manager", deal:"Deal-jager", compliance:"Compliance", qa:"QA-checker"};
+    function stepsHtml(m){
+      const st = (m.steps||[]).filter(x=>x&&x.t);
+      if(!st.length && m.status!=="working") return "";
+      const row = (x,i) => `<div class="step ${esc(x.s||"done")}"><i></i><span>${esc(x.t)}${x.agent&&AG[x.agent]?` <em>${esc(AG[x.agent])}</em>`:""}</span></div>`;
+      return `<div class="steps">${st.map(row).join("")}${m.status==="working"?`<div class="step run"><i></i><span>bezig…</span></div>`:""}</div>`;
+    }
     function render(){
-      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Geef de regie een opdracht. Plak of sleep screenshots, foto's of PDF's erbij. Het antwoord komt hier terug en het team loopt ermee aan de slag.</div>`; return; }
-      log.innerHTML = msgs.map(m=>`<div class="msg ${m.role==="claude"?"c":"u"}"><div class="who">${m.role==="claude"?"Claude":"Jij"} · ${esc(fmtShort(m.at))}</div>${m.text?`<div>${esc(m.text)}</div>`:""}${attHtml(m.attachments)}</div>`).join("");
+      if(!msgs.length){ log.innerHTML = `<div class="hq-empty">Geef de regie een opdracht. Plak of sleep screenshots, foto's of PDF's erbij. Je ziet hier live welke stappen Claude zet.</div>`; return; }
+      log.innerHTML = msgs.map(m=>`<div class="msg ${m.role==="claude"?"c":"u"}${m.status==="working"?" working":""}"><div class="who">${m.role==="claude"?"Claude":"Jij"} · ${esc(fmtShort(m.at))}</div>${m.role==="claude"?stepsHtml(m):""}${m.text?`<div class="body">${esc(m.text)}</div>`:""}${attHtml(m.attachments)}</div>`).join("");
       log.scrollTop = log.scrollHeight;
     }
     function renderTray(){
@@ -1485,7 +1516,17 @@ textarea.fallback{width:100%;min-height:220px;font:12.5px var(--mono);background
       if(!db){ st.textContent = "Chat werkt alleen als je het dashboard in claude.ai opent."; return; }
       db.collection("chat").orderBy("at","desc").limit(40).onSnapshot(s=>{
         msgs = s.docs.map(d=>({...d.data(), _id:d.id})).reverse(); render();
-        msgs.forEach(m=>{ if(!seen.has(m._id)){ seen.add(m._id); if(!first && m.role==="claude" && window.__hqReply){ window.__hqReply(m); st.textContent = "Claude heeft geantwoord."; } } });
+        msgs.forEach(m=>{
+          if(m.role!=="claude") { seen.add(m._id); return; }
+          const fresh = !seen.has(m._id); seen.add(m._id);
+          if(first) { (m.steps||[]).forEach((x,i)=>steps.add(m._id+"#"+i)); if(m.status!=="working") answered.add(m._id); return; }
+          (m.steps||[]).forEach((x,i)=>{
+            const k = m._id+"#"+i; if(steps.has(k) || !x || !x.t) return; steps.add(k);
+            if(window.__hqStep) window.__hqStep(x.t, x.agent); st.textContent = x.t;
+          });
+          if(m.status==="working"){ if(fresh) st.textContent = "Claude is bezig…"; return; }
+          if(!answered.has(m._id)){ answered.add(m._id); if(window.__hqReply) window.__hqReply(m); st.textContent = "Claude heeft geantwoord."; }
+        });
         first = false;
       }, ()=>{});
     })();

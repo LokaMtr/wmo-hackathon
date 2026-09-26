@@ -593,6 +593,15 @@
     setTimeout(()=>{ release(); setOrb("idle"); }, 5200);
   }
   window.__hqRally = t => { rallied = rally(t); };
+  window.__hqStep = (text, agent) => {
+    chatMode = true; clearTimeout(chatTimer); chatTimer = setTimeout(()=>release(), 180000);
+    const a = byId[agent];
+    logLine("claude", a ? agent : null, text);
+    if(a){ packet(corePos, headPos(a), 0xA98BFF, 0.75); say(a.id, short(text, 64), 3400); if(!a.busy){ a.busy = true; play(a, "Yes", true); } }
+    else say("claude", short(text, 72), 3400, "claude");
+    if(orbState!=="thinking") setOrb("thinking");
+    feed();
+  };
   window.__hqReply = m => celebrate(m);
 
   initChat();
