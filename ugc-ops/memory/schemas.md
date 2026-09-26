@@ -47,3 +47,10 @@
 ### chat: live stappen (sinds 26-09)
 `chat/c<unix-ms>` = {role:"claude"|"user", at, text, attachments?, agent?, **status**:"working"|"done", **steps**:[{t, s:"run"|"done"|"todo", agent?}]}.
 `at` altijd in UTC met Z (de chatpagina schrijft `toISOString()`); met een +02:00-offset sorteert het bericht verkeerd. Claude maakt het doc meteen aan met `status:"working"` en houdt `steps` bij tijdens het werk (hele array meesturen + `if_version`); afsluiten met `status:"done"` + `text`. Het dashboard rendert de stappen live en laat de bijbehorende robot lopen. Prompt staat in trigger `controlRoomChat`.
+
+### meta/state: geld (sinds 27-09)
+- `creditRateEur`: prijs per credit in euro (nu 0,06 — 1.000 credits = €60).
+- `creditsSpentTotal` × tarief = `spendEurTotal` (kosten tot nu toe).
+- `commissionTotal` (omzet) − `spendEurTotal` = netto winst, die het dashboard groen/rood toont.
+- `topupsEur`: wat Loka in totaal aan credits heeft uitgegeven. Bijwerken bij elke top-up.
+Bij elke nieuwe video: `videos/<id>.credits` invullen en `creditsSpentTotal` + `spendEurTotal` ophogen.

@@ -3,7 +3,8 @@
 Deze tekst is de opdracht van de geplande sessie. Werk in repo `LokaMtr/wmo-hackathon`, branch `claude/mila-mirror-tiktok-setup-5zp7gd`.
 
 1. **Lezen**: `ugc-ops/README.md`, `ugc-ops/memory/lessons.md`, `ugc-ops/memory/config.json`, alle draaiboeken in `ugc-ops/agents/`. Lees in het dashboard (ArtifactData, url in config) de collecties `lessons`, `ideas`, `videos` en `meta/state`.
-2. **Budgetwaker** (`agents/budget.md`): Higgsfield `balance` → `meta/state.credits`.
+2. **Budgetwaker** (ook geld): Higgsfield `balance` → `meta/state.credits`; `creditsSpentTotal` en `spendEurTotal` (× `creditRateEur`) bijwerken; bij verkopen ook `commissionTotal` en `salesTotal`, zodat de netto winst in het dashboard klopt.
+2b. **Oud** (`agents/budget.md`): Higgsfield `balance` → `meta/state.credits`.
 3. **Prestatie-analist** (`agents/performance-analyst.md`): Metricool posts + analytics ophalen, `videos` bijwerken (status posted, metrics, verdict na ≥48u), max 3 acties.
 4. **Trend-scout** (`agents/trend-scout.md`): 5 nieuwe ideeën (niet dubbel met bestaande `ideas`), JSON opslaan als `scout.json`, dan
    `python3 ugc-ops/scripts/prepare_ingest.py scout.json <tmp>/ingest <datum>`,

@@ -66,8 +66,17 @@
     $("#sSchedFoot").textContent = next ? "volgende " + fmtDate(next.scheduledAt) : "posts in de wachtrij";
     $("#chipNext").textContent = next ? "▶ volgende post " + new Date(next.scheduledAt).toLocaleString("nl-NL",{weekday:"short",hour:"2-digit",minute:"2-digit",timeZone:TZ}) : "geen posts gepland";
     countUp($("#sPosted"), posted.length); $("#sPostedBar").style.width = (v.length ? posted.length/v.length*100 : 0)+"%"; $("#sPostedFoot").textContent = `van ${v.length} video's`;
-    countUp($("#sComm"), Number(m.commissionTotal||0), x=>"€"+x.toFixed(2).replace(".",","));
-    $("#sCommFoot").textContent = m.salesTotal ? `${m.salesTotal} verkopen` : "nog geen verkopen";
+    const eur = x => "€" + Number(x||0).toFixed(2).replace(".",",");
+    const rate = Number(m.creditRateEur) || 0.06;
+    const spent = Number(m.spendEurTotal!=null ? m.spendEurTotal : (Number(m.creditsSpentTotal)||0)*rate);
+    const rev = Number(m.commissionTotal||0), net = rev - spent;
+    countUp($("#sCost"), spent, eur);
+    $("#sCostFoot").textContent = `${Math.round(Number(m.creditsSpentTotal)||0)} credits · ${eur(rate)} per credit`;
+    const nEl = $("#sNet");
+    countUp(nEl, net, x=>(x<0?"-€":"€") + Math.abs(x).toFixed(2).replace(".",","));
+    nEl.closest(".kpi").style.setProperty("--k2", net>=0 ? "#53E0B5" : "#FF5C7A");
+    nEl.closest(".kpi").style.setProperty("--k", net>=0 ? "rgba(83,224,181,.18)" : "rgba(255,92,122,.2)");
+    $("#sNetFoot").textContent = rev>0 ? `${eur(rev)} binnen · ${m.salesTotal||0} verkopen` : "nog geen verkopen";
     $("#lastRun").textContent = m.lastRun ? "RUN " + new Date(m.lastRun).toLocaleString("nl-NL",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:TZ}).toUpperCase() : "NOG GEEN RUN";
     $("#cIdeas").textContent = state.ideas.filter(i=>["new","selected"].includes(i.status)).length;
     $("#cVideos").textContent = v.length;
@@ -211,7 +220,7 @@
           <div class="vsub">${esc(x.concept||"")}</div>
           <div class="vrow">${x.product?`<button class="copyname" data-name="${esc(x.product)}" title="Tik om de productnaam voor TikTok te kopiëren">${esc(x.product)}</button>`:""}${x.verdict&&x.verdict!=="pending"?pill(x.verdict):""}</div>
         </div>
-        <div class="vmeta"><div><b>${esc(m.views!=null?m.views:"—")}</b><span>views</span></div><div><b>${esc(m.likes!=null?m.likes:"—")}</b><span>likes</span></div><div><b>${esc(x.credits??"—")}</b><span>credits</span></div></div>
+        <div class="vmeta"><div><b>${esc(m.views!=null?m.views:"—")}</b><span>views</span></div><div><b>${esc(m.likes!=null?m.likes:"—")}</b><span>likes</span></div><div><b>${esc(x.credits??"—")}</b><span>${x.credits?esc("€"+(x.credits*((state.meta&&state.meta.creditRateEur)||0.06)).toFixed(2).replace(".",",")):"credits"}</span></div></div>
         ${kit(x)}
       </article>`;
     };
@@ -233,7 +242,7 @@
     const s = v.filter(x=>x.status==="scheduled").length, p = v.filter(x=>x.status==="posted").length, mde = v.filter(x=>x.status==="made").length;
     const nDone = v.filter(isDone).length, nOpen = v.length - nDone;
     el.innerHTML = `<div class="planbar"><button class="pv" data-pv="open" aria-pressed="${state.planView!=="done"}">Komt eraan <i>${nOpen}</i></button><button class="pv" data-pv="done" aria-pressed="${state.planView==="done"}">Gepost <i>${nDone}</i></button></div>
-      <div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits besteed</span></div>
+      <div class="plan-sum" style="margin-bottom:16px"><span class="chip">📅 ${s} gepland</span><span class="chip">✅ ${p} gepost</span><span class="chip">⏳ ${mde} wacht op planning</span><span class="chip">🪙 ${v.reduce((a,x)=>a+(Number(x.credits)||0),0)} credits · €${(v.reduce((a,x)=>a+(Number(x.credits)||0),0)*((state.meta&&state.meta.creditRateEur)||0.06)).toFixed(2).replace(".",",")}</span></div>
       ${keys.length?"":`<div class="empty">${state.planView==="done"?"Nog niets gepost.":"Niets meer in de wachtrij. Tijd voor nieuwe video's."}</div>`}
       <div class="timeline">${keys.map(k=>{
         const label = k==="zz" ? "Niet gepland" : k===todayK ? "Vandaag" : k===tomK ? "Morgen" : new Date(k+"T12:00:00").toLocaleDateString("nl-NL",{weekday:"long"});
