@@ -26,7 +26,8 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | teddy-3 v4 | belichtingssprong vangt de snede nu op i.p.v. erbij op te tellen | flits weg, trilling nog zichtbaar |
 | teddy-3 v5 | nagebootste camerabeweging eruit | trilling weg, licht/donker nog zichtbaar |
 | teddy-3 v6 | alle nagebootste camera-effecten eruit (drift, sprong op de snede, witbalans) | licht/donker weg, clips nog te kort |
-| teddy-3 v7 | **cliplengte volgt het geluid** i.p.v. een zelfbedacht ritme | meten na 48u |
+| teddy-3 v7 | cliplengte volgt het geluid i.p.v. een zelfbedacht ritme | afkappen weg, ruimtetoon nog hoorbaar |
+| teddy-3 v8 | **ruimtetoon eruit** — bleek een lus van haar eigen stem | meten na 48u |
 | teddy-4 | wisselende shotgrootte binnen één set (close-up → medium → wide) i.p.v. 4× hetzelfde kader | — |
 | volgende | eerste clip 1,5s maken: cut vóór de kijker kan wegswipen | — |
 | volgende | b-roll-video met losse voice-over (Mila-stem), zonder gezicht in beeld | — |

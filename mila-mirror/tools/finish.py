@@ -20,7 +20,7 @@ Wat er gebeurt en waarom (gemeten, niet gegokt):
                  Een echte telefoon herstelt zijn belichting na elke scene.
                  Dit is wat vier losse clips laat lezen als één opname.
 5. WB-offset     Elke clip een eigen kleurtemperatuur binnen ±150K.
-6. encode        H.264 high@4.1, 4:2:0, closed GOP, BT.709, 2,5 Mbit.
+7. encode        H.264 high@4.1, 4:2:0, closed GOP, BT.709, 2,5 Mbit.
                  Geen HEVC, geen AV1.
 
 Bewust NIET: filmkorrel, chromatische aberratie, vignet, rolling shutter.
@@ -124,6 +124,15 @@ def room_tone(clips, tmp, seconds=2.0):
     windows = (csum[k:] - csum[:-k]) / k
     start = float(np.argmin(windows)) * hop / sr
 
+    # Controleren of dit echt ruimtetoon is. In Kling-clips is nooit echte stilte:
+    # het stilste stuk bevat vaak nog stem, en die ga je horen als je hem loopt.
+    seg = x[int(start * sr):int(start * sr) + win]
+    rms = float(np.sqrt((seg ** 2).mean() + 1e-12))
+    S = np.abs(np.fft.rfft(seg * np.hanning(len(seg))))
+    tonal = float(S.max() / (S.mean() + 1e-9))     # smalle piek = toon, dus stem
+    if rms > 0.008 or float(np.abs(seg).max()) > 0.12 or tonal > 400:
+        return None                                 # geen bruikbare ruimtetoon
+
     tone = os.path.join(tmp, "tone.wav")
     run([FF, "-y", "-v", "error", "-f", "s16le", "-ar", "48000", "-ac", "1",
          "-ss", f"{start:.2f}", "-i", cat, "-t", f"{seconds}",
@@ -146,6 +155,8 @@ def main():
     ap.add_argument("--bitrate", default="2.5M")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--wb", type=float, default=0.0, help="witbalansspreiding in K; 0 = uit")
+    ap.add_argument("--roomtone", action="store_true",
+                    help="ruimtetoon onder de snedes leggen; standaard uit")
     ap.add_argument("--subs", default=None, help="optioneel .ass-bestand")
     ap.add_argument("clips", nargs="+")
     a = ap.parse_args()
@@ -200,7 +211,7 @@ def main():
         vf += f",subtitles={a.subs}"
     vf += ",format=yuv420p"
 
-    tone = room_tone(normed, tmp)
+    tone = room_tone(normed, tmp) if a.roomtone else None
     total = sum(a.dur)
     # ruimtetoon vooraf op exacte lengte zetten; een oneindige -stream_loop
     # in de filtergraaf laat ffmpeg hangen

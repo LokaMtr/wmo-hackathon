@@ -87,7 +87,9 @@ seconde bepaalt of iemand in inspectiemodus gaat.** **[gemeten]**
 > belichtingsdrift, de sprong op de snede, witbalans per clip — is er in twee
 > rondes uitgegaan omdat Loka het zag. De theorie klopte en de metingen klopten,
 > maar een kijker ziet geen statistiek. Wat overblijft is wat je niet ziet
-> gebeuren: ontruisen, doorlopende ruimtetoon, telefoon-encode. De schakelaars
+> gebeuren: ontruisen en de telefoon-encode. Ook de ruimtetoon is eruit: er zit
+> geen echte stilte in Kling-clips, dus het "stilste" stuk bevatte nog stem en dat
+> hoorde je als lus terug. De schakelaars
 > staan nog in `tools/finish.py` op 0 en gaan pas weer aan met echt
 > telefoonmateriaal om op te kalibreren.
 

@@ -118,3 +118,14 @@ ze niet meer praat maar nog wel gebaart). Geef `--dur` niet mee. Voor teddy-3 we
 4,25 / 5,04 / 5,04 / 4,55.
 
 Het ritme moet uit de inhoud komen, niet uit een getal dat ik mooi vond.
+
+## L050 — Er is geen ruimtetoon in Kling-clips
+Ik zocht het stilste stuk uit het eigen materiaal en loopte dat als ruimtetoon onder de
+video. Gemeten bleek dat fragment een piek op 205 Hz te hebben, haar grondtoon: het stilste
+stuk was nog steeds stem. Die lus liep negen keer onder de video en was hoorbaar.
+
+Kling-clips met sound-on hebben nergens echte stilte. Ruimtetoon staat nu uit
+(`--roomtone` om hem aan te zetten) en er zit een controle op die weigert als het fragment
+niet stil en toonloos is (RMS boven 0,008, piek boven 0,12 of een te smalle spectrale piek).
+
+Echte ruimtetoon moet van buiten komen: 30 seconden stilte opgenomen in een echte kamer.
