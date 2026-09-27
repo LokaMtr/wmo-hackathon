@@ -107,3 +107,14 @@ ontruisen, ruimtetoon, encode. Standaardwaarden in finish.py: shake 0, tremor 0,
 ae-step 0, wb 0.
 
 Regel: voeg geen effect toe dat je niet op echt materiaal hebt kunnen kalibreren.
+
+## L049 — Cliplengte volgt het geluid, niet een bedacht ritme
+Ik knipte op 3,0 / 4,6 / 4,4 om een ongelijk ritme te krijgen. Gemeten: haar stem liep in
+c1 tot 3,3s, in c2 tot 4,7s en in c3 tot 4,9s. Ik kapte haar dus in drie van de vier clips
+middenin een zin af. Loka voelde dat meteen, zonder te kunnen benoemen wat er mis was.
+
+`finish.py` bepaalt de lengte nu zelf uit de geluidsenveloppe plus de beweging (voor als
+ze niet meer praat maar nog wel gebaart). Geef `--dur` niet mee. Voor teddy-3 werd dat
+4,25 / 5,04 / 5,04 / 4,55.
+
+Het ritme moet uit de inhoud komen, niet uit een getal dat ik mooi vond.

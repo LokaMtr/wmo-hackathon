@@ -58,6 +58,37 @@ def norm_clip(src, dur, wb_k, tmp, i):
     return out
 
 
+def natural_end(path, tail=0.45, sr=16000, hop=1600):
+    """Waar loopt een clip vanzelf uit: einde van het geluid plus wat lucht.
+
+    Zelf een lengte kiezen knipt haar middenin een zin af - dat voel je meteen,
+    ook als je niet kunt benoemen wat er mis is. Meet het, verzin het niet.
+    """
+    raw = subprocess.run([FF, "-v", "quiet", "-i", path, "-f", "s16le",
+                          "-ac", "1", "-ar", str(sr), "-"], capture_output=True).stdout
+    x = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
+    dur = len(x) / sr
+    n = len(x) // hop
+    if n < 3:
+        return dur
+    env = np.array([float(np.sqrt((x[i*hop:(i+1)*hop] ** 2).mean() + 1e-12)) for i in range(n)])
+    loud = np.where(env > env.max() * 0.18)[0]
+    end = (loud.max() + 1) * (hop / sr) + tail if len(loud) else 0.0
+
+    # ook het gebaar laten uitlopen: soms praat ze niet meer maar beweegt ze nog
+    w, h = 120, 213
+    raw = subprocess.run([FF, "-v", "quiet", "-i", path, "-vf", f"scale={w}:{h}",
+                          "-f", "rawvideo", "-pix_fmt", "gray", "-"], capture_output=True).stdout
+    a = np.frombuffer(raw, dtype=np.uint8).astype(np.float32)
+    F = a[:len(a) // (w * h) * (w * h)].reshape(-1, h, w)
+    if len(F) > 2:
+        d = np.abs(np.diff(F, axis=0)).mean(axis=(1, 2))
+        busy = np.where(d > d.max() * 0.30)[0]
+        if len(busy):
+            end = max(end, (busy.max() + 1) / 30.0 + 0.25)
+    return min(dur, end) if end else dur
+
+
 def mean_luma(path):
     """Gemiddelde helderheid van een clip, om de belichtingssprong op te kunnen vangen."""
     raw = subprocess.run(
@@ -105,7 +136,8 @@ def room_tone(clips, tmp, seconds=2.0):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
-    ap.add_argument("--dur", nargs="+", type=float, required=True)
+    ap.add_argument("--dur", nargs="+", type=float,
+                    help="lengte per clip; weglaten = automatisch op het einde van het geluid")
     ap.add_argument("--shake", type=float, default=0.0)
     ap.add_argument("--tremor", type=float, default=0.0)
     ap.add_argument("--drift", type=float, default=0.0)
@@ -117,6 +149,9 @@ def main():
     ap.add_argument("--subs", default=None, help="optioneel .ass-bestand")
     ap.add_argument("clips", nargs="+")
     a = ap.parse_args()
+    if a.dur is None:
+        a.dur = [round(natural_end(c), 2) for c in a.clips]
+        print("lengtes automatisch bepaald: " + ", ".join(f"{d:.2f}s" for d in a.dur), flush=True)
     if len(a.clips) != len(a.dur):
         sys.exit("aantal clips en aantal duren moeten gelijk zijn")
 
