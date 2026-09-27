@@ -95,3 +95,15 @@ Loka zag het meteen. Een kijker ziet geen statistiek, die ziet trilling. Zichtba
 erger dan meetbaar mis. De schakelaar blijft in finish.py staan (--shake/--tremor) maar
 staat standaard op 0, en gaat pas aan als er echt telefoonmateriaal is om op te kalibreren
 in plaats van op een geschatte band.
+
+## L048 — Nabootsen van camera-gedrag werkt niet zonder referentie
+Twee rondes achter elkaar zag Loka het effect dat ik had toegevoegd: eerst de trilling,
+daarna de belichting die op en neer ging. Beide waren gebaseerd op een gekalibreerde band
+uit onderzoek, niet op echt materiaal van ons eigen soort beeld. Zonder eigen referentie is
+elk nagebootst camera-effect een gok die zichtbaar wordt.
+
+Alles wat de kijker kan ZIEN gebeuren is nu uit. Wat blijft is wat alleen te merken is:
+ontruisen, ruimtetoon, encode. Standaardwaarden in finish.py: shake 0, tremor 0, drift 0,
+ae-step 0, wb 0.
+
+Regel: voeg geen effect toe dat je niet op echt materiaal hebt kunnen kalibreren.

@@ -83,7 +83,13 @@ seconde bepaalt of iemand in inspectiemodus gaat.** **[gemeten]**
 
 ## Deel 3 — Vier clips laten lezen als één opname
 
-Dit is waar het meeste te winnen valt en het kost niets.
+> **Teruggedraaid op 27-09.** Alles hieronder dat de camera nabootst — trilling,
+> belichtingsdrift, de sprong op de snede, witbalans per clip — is er in twee
+> rondes uitgegaan omdat Loka het zag. De theorie klopte en de metingen klopten,
+> maar een kijker ziet geen statistiek. Wat overblijft is wat je niet ziet
+> gebeuren: ontruisen, doorlopende ruimtetoon, telefoon-encode. De schakelaars
+> staan nog in `tools/finish.py` op 0 en gaan pas weer aan met echt
+> telefoonmateriaal om op te kalibreren.
 
 | Wat | Waarde |
 |---|---|

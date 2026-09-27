@@ -48,8 +48,10 @@ def run(args):
 def norm_clip(src, dur, wb_k, tmp, i):
     """Elke clip op 1080x1920/30fps, met een eigen witbalans-offset."""
     out = os.path.join(tmp, f"n{i}.mp4")
-    vf = ("scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
-          f"colortemperature=temperature={wb_k}:mix=0.35,format=yuv420p")
+    vf = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30"
+    if abs(wb_k - 6500) > 1:
+        vf += f",colortemperature=temperature={wb_k:.0f}:mix=0.35"
+    vf += ",format=yuv420p"
     run([FF, "-y", "-v", "error", "-i", src, "-t", f"{dur}", "-vf", vf,
          "-c:v", "libx264", "-crf", "15", "-preset", "veryfast",
          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", out])
@@ -106,11 +108,12 @@ def main():
     ap.add_argument("--dur", nargs="+", type=float, required=True)
     ap.add_argument("--shake", type=float, default=0.0)
     ap.add_argument("--tremor", type=float, default=0.0)
-    ap.add_argument("--drift", type=float, default=0.04)
+    ap.add_argument("--drift", type=float, default=0.0)
     ap.add_argument("--denoise", type=float, default=3.2)
-    ap.add_argument("--ae-step", type=float, default=0.06)
+    ap.add_argument("--ae-step", type=float, default=0.0)
     ap.add_argument("--bitrate", default="2.5M")
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--wb", type=float, default=0.0, help="witbalansspreiding in K; 0 = uit")
     ap.add_argument("--subs", default=None, help="optioneel .ass-bestand")
     ap.add_argument("clips", nargs="+")
     a = ap.parse_args()
@@ -120,7 +123,7 @@ def main():
     rnd = random.Random(a.seed)
     tmp = tempfile.mkdtemp(prefix="finish_")
 
-    wbs = [6500 + rnd.choice([-150, -90, 90, 150]) for _ in a.clips]
+    wbs = [6500 + (rnd.uniform(-a.wb, a.wb) if a.wb else 0.0) for _ in a.clips]
     normed = [norm_clip(c, d, k, tmp, i) for i, (c, d, k) in enumerate(zip(a.clips, a.dur, wbs))]
 
     lst = os.path.join(tmp, "list.txt")
@@ -146,18 +149,18 @@ def main():
     ph = a.seed * 0.61
     bright = f"{a.drift}*sin(2*PI*t/3.0+{ph:.2f}){steps}"
 
-    s = a.shake
+    s_amp = a.shake
     tr = a.tremor
-    pad = int(math.ceil((s * 1.6 + a.tremor * 1.6) * 2)) * 2
-    vf = (f"hqdn3d={a.denoise}:{a.denoise}:{a.denoise}:{a.denoise},"
-          f"pad=iw+{pad}:ih+{pad}:{pad//2}:{pad//2},"
-          f"crop=1080:1920:"
-          # trage drift = de hand die zichzelf corrigeert; de snelle termen
-          # (~6 en ~9 Hz) zijn de fysiologische tremor. Zonder die snelle
-          # termen meet realism_qa nog steeds 0 px: t*1.7 is 0,27 Hz, geen tremor.
-          f"'{pad//2}+{s}*(sin(t*1.7)+0.6*sin(t*4.3))+{tr}*(sin(t*39.6)+0.6*sin(t*57.2+1.1))':"
-          f"'{pad//2}+{s}*(cos(t*1.3)+0.6*cos(t*3.1))+{tr}*(cos(t*44.9+0.7)+0.6*cos(t*66.0))',"
-          f"eq=eval=frame:brightness='{bright}':contrast=1.02:saturation=0.97")
+    pad = int(math.ceil((a.shake * 1.6 + a.tremor * 1.6) * 2)) * 2
+    vf = f"hqdn3d={a.denoise}:{a.denoise}:{a.denoise}:{a.denoise}"
+    if s_amp or tr:
+        # pad zodat de bewegende crop geen zwarte randen trekt
+        vf += (f",pad=iw+{pad}:ih+{pad}:{pad//2}:{pad//2},"
+               f"crop=1080:1920:"
+               f"'{pad//2}+{s_amp}*(sin(t*1.7)+0.6*sin(t*4.3))+{tr}*(sin(t*39.6)+0.6*sin(t*57.2+1.1))':"
+               f"'{pad//2}+{s_amp}*(cos(t*1.3)+0.6*cos(t*3.1))+{tr}*(cos(t*44.9+0.7)+0.6*cos(t*66.0))'")
+    if a.drift or a.ae_step:
+        vf += f",eq=eval=frame:brightness='{bright}':contrast=1.02:saturation=0.97"
     if a.subs:
         vf += f",subtitles={a.subs}"
     vf += ",format=yuv420p"
