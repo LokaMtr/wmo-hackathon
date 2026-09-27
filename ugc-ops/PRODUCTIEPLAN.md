@@ -1,13 +1,21 @@
 # Productieplan (vanaf 27-09-2026)
 
 ## Wat de cijfers zeggen
-| Video | Hook-type | Views |
-|---|---|---|
-| teddy-2 "i said ONE time that i'm always cold" | cadeau/relatie-POV | **5.519** |
-| teddy-1 "teddy bear season has started" | productmededeling | 766 |
-| hismile-2 "coffee girls, this one's for you" | doelgroep-aanspraak | 351 |
-| shapewear-b "it's not you, it's the shapewear" | geruststelling | 290 |
-| eyemask-2 "the €1 ones vs this" | vergelijk/review | 60 |
+| Video | Hook-type | Views | Reacties |
+|---|---|---|---|
+| teddy-2 "i said ONE time that i'm always cold" | cadeau/relatie-POV | **5.528** | 1 |
+| teddy-1 "teddy bear season has started" | productmededeling | 766 | 0 |
+| hismile-2 "coffee girls, this one's for you" | doelgroep-aanspraak | 444 | **2** |
+| shapewear-b "it's not you, it's the shapewear" | geruststelling | 312 | **2** |
+| hismile-1 "why is THIS in my sink" | schok/nieuwsgierig | 82 (na 5u) | 1 |
+| eyemask-2 "the €1 ones vs this" | vergelijk/review | 60 | 0 |
+
+Stand 27-09 15:47, accountgemiddelde 1.199. eyemask-2 is definitief een flop
+(5% van het gemiddelde na 53 uur).
+
+**Tweede patroon, naast de hook:** de twee video's met reacties hebben allebei een
+vraag in de caption. teddy-2 heeft 5.528 views en één reactie. Views en reacties
+komen dus niet uit dezelfde hoek: de hook haalt ze binnen, de vraag laat ze typen.
 
 Eén variabele verklaart bijna alles: begint de video met een **situatie tussen mensen** of met een **uitleg over een product**. Alles wat hierna gemaakt wordt, begint met een situatie.
 

@@ -153,3 +153,11 @@ structureel meer dan 24 uur achter op de TikTok-app; vaker dan eens per paar uur
 levert alleen ruis. Ritme teruggezet naar elke 4 uur (07:47 / 11:47 / 15:47 / 19:47 / 23:47).
 
 Voor actuele cijfers is de TikTok-app van Loka de bron, niet Metricool.
+
+## L054 — Views en reacties komen niet uit dezelfde hoek
+Stand 27-09: teddy-2 heeft 5.528 views en 1 reactie. hismile-2 (444) en shapewear-b (312)
+hebben er allebei 2. Wat die twee gemeen hebben en teddy-2 niet: een directe vraag in de
+caption zelf, niet alleen in de eerste comment.
+
+De hook bepaalt of iemand kijkt, de vraag bepaalt of iemand typt. Zet dus allebei in élke
+video: een situatie-hook in beeld én een vraag in de caption.
