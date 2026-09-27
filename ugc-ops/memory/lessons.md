@@ -59,3 +59,17 @@ Formaat: `[area] regel (evidence)`. Pas aan als nieuwe data het tegenspreekt.
 - [hooks] Eigen cijfers 26-09: teddy-2 (cadeau-POV, "i said ONE time that i'm always cold") 4.006 views in 18u vs eyemask-2 (vergelijk-review) 54 views in 26u, zelfde dag. Schrijf hooks vanuit een situatie tussen mensen, niet vanuit het product. (L039)
 - [posting] Ritme is 3 posts per dag: 10:00, 16:00, 21:00. Kies per slot een video die bij het dagdeel past. (L040)
 - [hooks] Zet in de laatste 2 seconden een directe vraag in beeld; de enige post met comments is de enige met een vraag. (L041)
+
+## L042 — Tekst over de hele video is een AI-tell
+Vijf tekstblokken achter elkaar leest als een ondertiteling van een advertentie, niet als
+iemand die iets vertelt. Nieuwe standaard: hooktekst in de eerste 3s en de slotvraag in de
+laatste 2,5s, daartussen niets. Wit, geen rand, geen kader.
+
+## L043 — Ongelijke cliplengtes
+4× exact 5s geeft een metronoomritme dat je voelt. Snij naar 3,0 / 4,6 / 4,4 / 5,0 en de
+video voelt gemonteerd in plaats van geplakt. Kost niets en maakt hem ook korter.
+
+## L044 — Voice-over kost 0,1 credit maar alleen bij stille beelden
+Seed Audio TTS is praktisch gratis. Maar Kling-clips met sound-on laten Mila praten, dus
+een losse voice-over loopt uit sync met haar mond. Voice-over is voor b-roll: handen,
+product, kamer — geen gezicht.
