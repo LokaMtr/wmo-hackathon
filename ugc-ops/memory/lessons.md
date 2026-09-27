@@ -78,3 +78,13 @@ product, kamer — geen gezicht.
 De kostenvoorspelling van Higgsfield gaf 0,1 credit voor een Seed Audio-regel; de
 transactiehistorie laat 1,0 per generatie zien. Reken kosten na met `transactions`,
 niet met `get_cost`, voordat je een bedrag doorgeeft.
+
+## L046 — Een belichtingssprong moet de snede opvangen, niet erbij optellen
+Een echte telefoon staat na een snede nog even op de belichting van het vorige shot en
+regelt dan bij. Ik telde er blind een sprong bovenop, met wisselend teken, en dat gaf een
+flits: 44 helderheidsniveaus in een frame, terwijl het zonder afwerking 29 was. Meet de
+gemiddelde helderheid per clip en laat de stap naar het verschil toe lopen, dempend over
+0,35s. Resultaat 17,7 — zachter dan zonder afwerking.
+
+Controleer dit altijd: de grootste sprong tussen twee opeenvolgende frames mag na de
+afwerking niet hoger zijn dan ervoor.

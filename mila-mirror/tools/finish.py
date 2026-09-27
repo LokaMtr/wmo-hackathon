@@ -53,6 +53,16 @@ def norm_clip(src, dur, wb_k, tmp, i):
     return out
 
 
+def mean_luma(path):
+    """Gemiddelde helderheid van een clip, om de belichtingssprong op te kunnen vangen."""
+    raw = subprocess.run(
+        [FF, "-v", "quiet", "-i", path, "-vf", "scale=96:170", "-frames:v", "60",
+         "-f", "rawvideo", "-pix_fmt", "gray", "-"], capture_output=True).stdout
+    if not raw:
+        return 128.0
+    return float(np.frombuffer(raw, dtype=np.uint8).mean())
+
+
 def room_tone(clips, tmp, seconds=2.0):
     """Ruimtetoon uit het stilste stuk eigen materiaal; die loopt straks dwars
     door alle snedes heen, wat vier clips als een opname laat klinken."""
@@ -92,7 +102,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--dur", nargs="+", type=float, required=True)
     ap.add_argument("--shake", type=float, default=2.0)
-    ap.add_argument("--tremor", type=float, default=1.2)
+    ap.add_argument("--tremor", type=float, default=0.9)
     ap.add_argument("--drift", type=float, default=0.04)
     ap.add_argument("--denoise", type=float, default=4.5)
     ap.add_argument("--ae-step", type=float, default=0.06)
@@ -120,9 +130,16 @@ def main():
     for d in a.dur[:-1]:
         t += d
         cuts.append(t)
-    steps = "".join(
-        f"{'+' if i % 2 == 0 else '-'}{a.ae_step}*gte(t,{c:.2f})*exp(-(t-{c:.2f})/0.3)"
-        for i, c in enumerate(cuts))
+    # Een echte telefoon staat na een snede nog even op de belichting van het VORIGE
+    # shot en regelt dan bij. De stap loopt dus naar de sprong toe, niet ervan af:
+    # is het nieuwe shot lichter, dan begint hij donkerder en trekt hij bij.
+    # Blind een sprong optellen geeft een flits (gemeten: 44 niveaus in een frame).
+    lumas = [mean_luma(p) for p in normed]
+    steps = ""
+    for i, c in enumerate(cuts):
+        delta = (lumas[i] - lumas[i + 1]) / 255.0      # + als het nieuwe shot donkerder is
+        amp = max(-a.ae_step, min(a.ae_step, delta * 0.55))
+        steps += f"{amp:+.4f}*gte(t,{c:.2f})*exp(-(t-{c:.2f})/0.35)"
     ph = a.seed * 0.61
     bright = f"{a.drift}*sin(2*PI*t/3.0+{ph:.2f}){steps}"
 
