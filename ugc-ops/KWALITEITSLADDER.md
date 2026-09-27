@@ -23,7 +23,8 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | teddy-2 | cadeau-/relatie-POV als hook | ja — 5.519 views |
 | teddy-3 | tekst van 5 blokken terug naar 2; 17s i.p.v. 20s; ongelijk snijritme | meten na 48u |
 | teddy-3 v3 | telefoon-afwerking: ontruisen, handheld, belichtingssprong op elke snede, witbalans per clip, doorlopende ruimtetoon, telefoon-encode | nee — de belichtingssprong flitste |
-| teddy-3 v4 | belichtingssprong vangt de snede nu op i.p.v. erbij op te tellen; tremor terug naar 0,9px | meten na 48u |
+| teddy-3 v4 | belichtingssprong vangt de snede nu op i.p.v. erbij op te tellen | flits weg, trilling nog zichtbaar |
+| teddy-3 v5 | **nagebootste camerabeweging helemaal eruit** | meten na 48u |
 | teddy-4 | wisselende shotgrootte binnen één set (close-up → medium → wide) i.p.v. 4× hetzelfde kader | — |
 | volgende | eerste clip 1,5s maken: cut vóór de kijker kan wegswipen | — |
 | volgende | b-roll-video met losse voice-over (Mila-stem), zonder gezicht in beeld | — |

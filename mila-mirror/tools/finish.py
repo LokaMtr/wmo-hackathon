@@ -9,8 +9,11 @@ Wat er gebeurt en waarom (gemeten, niet gegokt):
                  weinig (gemeten: noise floor 1,0 tegen 0,45-0,70 bij echte
                  telefoonbeelden). Korrel toevoegen is dus precies de verkeerde
                  kant op. Meet met texture_probe.py voor je dit verandert.
-2. shake 2 px    Gemengde sinussen, geen enkele periode. Onze clips staan op
-                 0,00 px en dat bestaat niet bij een telefoon in een hand.
+2. shake         UIT (Loka, 27-09): nagebootste camerabeweging trilt zichtbaar en
+                 leest als een filter, niet als een hand. Ons materiaal staat op
+                 0,00 px en dat is meetbaar niet echt, maar zichtbaar mis is erger
+                 dan meetbaar mis. Aan te zetten met --shake/--tremor als er ooit
+                 echt telefoonmateriaal is om op te kalibreren.
 3. drift ±0,04   Belichting ademt, periode 3s, faseverschuiving per clip zodat
                  de clips niet in de pas lopen.
 4. AE-stap       Bij elke snede springt de belichting 0,06 en zakt in 0,3s terug.
@@ -101,10 +104,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--dur", nargs="+", type=float, required=True)
-    ap.add_argument("--shake", type=float, default=2.0)
-    ap.add_argument("--tremor", type=float, default=0.9)
+    ap.add_argument("--shake", type=float, default=0.0)
+    ap.add_argument("--tremor", type=float, default=0.0)
     ap.add_argument("--drift", type=float, default=0.04)
-    ap.add_argument("--denoise", type=float, default=4.5)
+    ap.add_argument("--denoise", type=float, default=3.2)
     ap.add_argument("--ae-step", type=float, default=0.06)
     ap.add_argument("--bitrate", default="2.5M")
     ap.add_argument("--seed", type=int, default=7)

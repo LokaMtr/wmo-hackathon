@@ -88,3 +88,10 @@ gemiddelde helderheid per clip en laat de stap naar het verschil toe lopen, demp
 
 Controleer dit altijd: de grootste sprong tussen twee opeenvolgende frames mag na de
 afwerking niet hoger zijn dan ervoor.
+
+## L047 — Nagebootste camerabeweging: niet doen
+Meetbaar klopte het (0,00 px is geen telefoon, 0,34 px wel), maar zichtbaar trilde het.
+Loka zag het meteen. Een kijker ziet geen statistiek, die ziet trilling. Zichtbaar mis is
+erger dan meetbaar mis. De schakelaar blijft in finish.py staan (--shake/--tremor) maar
+staat standaard op 0, en gaat pas aan als er echt telefoonmateriaal is om op te kalibreren
+in plaats van op een geschatte band.
