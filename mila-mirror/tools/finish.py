@@ -25,11 +25,18 @@ Dat is een filmlook, geen telefoonlook, en het overleeft 2,5 Mbit toch niet.
 """
 import argparse, math, os, random, subprocess, sys, tempfile
 
+import numpy as np
+
 FF = "/usr/local/lib/python3.11/dist-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2"
 
 
+import time as _t
+
+
 def run(args):
+    _s = _t.time()
     p = subprocess.run(args, capture_output=True, text=True)
+    print(f"  [{_t.time()-_s:5.1f}s] {args[args.index(chr(45)+chr(121))+1 if False else 0].split(chr(47))[-1]} ... {args[-1].split(chr(47))[-1]}", flush=True)
     if p.returncode:
         sys.exit(f"ffmpeg faalde:\n{' '.join(args[:6])}...\n{p.stderr[-1500:]}")
     return p
@@ -41,38 +48,43 @@ def norm_clip(src, dur, wb_k, tmp, i):
     vf = ("scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,"
           f"colortemperature=temperature={wb_k}:mix=0.35,format=yuv420p")
     run([FF, "-y", "-v", "error", "-i", src, "-t", f"{dur}", "-vf", vf,
-         "-c:v", "libx264", "-crf", "16", "-preset", "medium",
+         "-c:v", "libx264", "-crf", "15", "-preset", "veryfast",
          "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", out])
     return out
 
 
 def room_tone(clips, tmp, seconds=2.0):
-    """Ruimtetoon uit het stilste stukje eigen materiaal; loopt straks dwars
-    door alle snedes heen, wat vier clips als één opname laat klinken."""
+    """Ruimtetoon uit het stilste stuk eigen materiaal; die loopt straks dwars
+    door alle snedes heen, wat vier clips als een opname laat klinken."""
     cat = os.path.join(tmp, "alla.wav")
     args = [FF, "-y", "-v", "error"]
     for c in clips:
         args += ["-i", c]
     n = len(clips)
     args += ["-filter_complex", "".join(f"[{i}:a]" for i in range(n)) + f"concat=n={n}:v=0:a=1[a]",
-             "-map", "[a]", "-ar", "48000", "-ac", "2", cat]
+             "-map", "[a]", "-ar", "48000", "-ac", "1", "-f", "s16le", cat]
     run(args)
-    # stilste venster zoeken via astats per 0,5s
-    p = run([FF, "-v", "info", "-i", cat, "-af",
-             "astats=metadata=1:reset=15,ametadata=print:key=lavfi.astats.Overall.RMS_level",
-             "-f", "null", "-"])
-    vals = []
-    for line in p.stderr.splitlines():
-        if "RMS_level=" in line:
-            try: vals.append(float(line.split("RMS_level=")[1]))
-            except ValueError: pass
-    idx = min(range(len(vals)), key=lambda i: vals[i]) if vals else 0
-    start = idx * 0.5
+
+    x = np.fromfile(cat, dtype=np.int16).astype(np.float32) / 32768.0
+    sr, win = 48000, int(48000 * seconds)
+    if len(x) < win + sr:
+        return None
+    # energie per 0,1s, dan het stilste aaneengesloten venster zoeken
+    hop = sr // 10
+    e = np.array([float(np.sqrt((x[i:i + hop] ** 2).mean() + 1e-12))
+                  for i in range(0, len(x) - hop, hop)])
+    k = max(1, win // hop)
+    csum = np.concatenate([[0.0], np.cumsum(e)])
+    windows = (csum[k:] - csum[:-k]) / k
+    start = float(np.argmin(windows)) * hop / sr
+
     tone = os.path.join(tmp, "tone.wav")
-    run([FF, "-y", "-v", "error", "-ss", f"{start:.2f}", "-i", cat, "-t", f"{seconds}",
-         "-af", "afade=t=in:d=0.2,afade=t=out:st=%.2f:d=0.2,highpass=f=90,lowpass=f=12000" % (seconds - 0.2),
-         tone])
-    return tone
+    run([FF, "-y", "-v", "error", "-f", "s16le", "-ar", "48000", "-ac", "1",
+         "-ss", f"{start:.2f}", "-i", cat, "-t", f"{seconds}",
+         "-af", f"afade=t=in:d=0.2,afade=t=out:st={seconds-0.2:.2f}:d=0.2,"
+                "highpass=f=90,lowpass=f=12000",
+         "-ac", "2", tone])
+    return tone if os.path.getsize(tone) > 5000 else None
 
 
 def main():
@@ -80,8 +92,9 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--dur", nargs="+", type=float, required=True)
     ap.add_argument("--shake", type=float, default=2.0)
+    ap.add_argument("--tremor", type=float, default=1.2)
     ap.add_argument("--drift", type=float, default=0.04)
-    ap.add_argument("--denoise", type=float, default=6.0)
+    ap.add_argument("--denoise", type=float, default=4.5)
     ap.add_argument("--ae-step", type=float, default=0.06)
     ap.add_argument("--bitrate", default="2.5M")
     ap.add_argument("--seed", type=int, default=7)
@@ -114,12 +127,16 @@ def main():
     bright = f"{a.drift}*sin(2*PI*t/3.0+{ph:.2f}){steps}"
 
     s = a.shake
-    pad = int(math.ceil(s * 2)) * 2
+    tr = a.tremor
+    pad = int(math.ceil((s * 1.6 + a.tremor * 1.6) * 2)) * 2
     vf = (f"hqdn3d={a.denoise}:{a.denoise}:{a.denoise}:{a.denoise},"
           f"pad=iw+{pad}:ih+{pad}:{pad//2}:{pad//2},"
           f"crop=1080:1920:"
-          f"'{pad//2}+{s}*(sin(t*1.7)+0.6*sin(t*4.3)+0.25*sin(t*9.1))':"
-          f"'{pad//2}+{s}*(cos(t*1.3)+0.6*cos(t*3.1)+0.25*cos(t*7.7))',"
+          # trage drift = de hand die zichzelf corrigeert; de snelle termen
+          # (~6 en ~9 Hz) zijn de fysiologische tremor. Zonder die snelle
+          # termen meet realism_qa nog steeds 0 px: t*1.7 is 0,27 Hz, geen tremor.
+          f"'{pad//2}+{s}*(sin(t*1.7)+0.6*sin(t*4.3))+{tr}*(sin(t*39.6)+0.6*sin(t*57.2+1.1))':"
+          f"'{pad//2}+{s}*(cos(t*1.3)+0.6*cos(t*3.1))+{tr}*(cos(t*44.9+0.7)+0.6*cos(t*66.0))',"
           f"eq=eval=frame:brightness='{bright}':contrast=1.02:saturation=0.97")
     if a.subs:
         vf += f",subtitles={a.subs}"
@@ -129,14 +146,18 @@ def main():
     total = sum(a.dur)
     # ruimtetoon vooraf op exacte lengte zetten; een oneindige -stream_loop
     # in de filtergraaf laat ffmpeg hangen
-    bed = os.path.join(tmp, "bed.wav")
-    run([FF, "-y", "-v", "error", "-stream_loop", "-1", "-i", tone, "-t", f"{total:.2f}",
-         "-ar", "48000", "-ac", "2", bed])
-    run([FF, "-y", "-v", "error", "-i", base, "-i", bed,
+    if tone:
+        bed = os.path.join(tmp, "bed.wav")
+        run([FF, "-y", "-v", "error", "-stream_loop", "-1", "-i", tone, "-t", f"{total:.2f}",
+             "-ar", "48000", "-ac", "2", bed])
+        ain = ["-i", bed]
+        afilter = (f"[1:a]volume=0.10[tone];"
+                   f"[0:a][tone]amix=inputs=2:duration=first:normalize=0,")
+    else:
+        ain, afilter = [], "[0:a]"
+    run([FF, "-y", "-v", "error", "-i", base] + ain + [
          "-filter_complex",
-         f"[0:v]{vf}[v];"
-         f"[1:a]volume=0.10[tone];"
-         f"[0:a][tone]amix=inputs=2:duration=first:normalize=0,"
+         f"[0:v]{vf}[v];" + afilter +
          f"highpass=f=90,lowpass=f=13000,loudnorm=I=-14:TP=-1.5:LRA=11[a]",
          "-map", "[v]", "-map", "[a]",
          "-c:v", "libx264", "-preset", "veryfast", "-profile:v", "high", "-level", "4.1",

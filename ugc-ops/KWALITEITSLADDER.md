@@ -21,15 +21,18 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | Video | Nieuw sinds de vorige | Werkte het |
 |---|---|---|
 | teddy-2 | cadeau-/relatie-POV als hook | ja — 5.519 views |
-| teddy-3 | tekst van 5 blokken terug naar 2; 17s i.p.v. 20s; ongelijk snijritme; audio genormaliseerd | meten na 48u |
+| teddy-3 | tekst van 5 blokken terug naar 2; 17s i.p.v. 20s; ongelijk snijritme | meten na 48u |
+| teddy-3 v3 | telefoon-afwerking: ontruisen, 2px handheld + tremor, belichtingssprong op elke snede, witbalans per clip, doorlopende ruimtetoon, telefoon-encode | meten na 48u |
 | teddy-4 | wisselende shotgrootte binnen één set (close-up → medium → wide) i.p.v. 4× hetzelfde kader | — |
 | volgende | eerste clip 1,5s maken: cut vóór de kijker kan wegswipen | — |
 | volgende | b-roll-video met losse voice-over (Mila-stem), zonder gezicht in beeld | — |
 
 ## Voice-over
 
-Seed Audio kost **0,1 credit** per regel, dus praktisch gratis. Vier stemkandidaten staan
-klaar in `mila-mirror/out/teddy3/vo/`. Loka kiest er één en die wordt Mila's vaste stem.
+Seed Audio kost **1 credit per regel** (de kostenvoorspelling zei 0,1, maar de
+transactiehistorie toont 1,0 per generatie — de voorspelling klopt niet). Nog steeds goedkoop,
+maar niet gratis. Vier stemkandidaten staan klaar in `mila-mirror/out/teddy3/vo/`.
+Loka kiest er één en die wordt Mila's vaste stem.
 
 Let op: alleen bruikbaar bij clips **zonder** pratende mond in beeld. De Kling-clips van
 teddy-3 laten haar praten, dus daar liep een voice-over uit sync — daar blijft het

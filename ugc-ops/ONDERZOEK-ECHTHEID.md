@@ -107,7 +107,7 @@ beeldingreep ook. Alles staat in `tools/finish.py`. **[gemeten/praktijk]**
 | | nu | beter | kosten |
 |---|---|---|---|
 | Kling-modus | `std` + geluid aan | **`pro` + geluid uit** | 8,75 → **7,5 credits** |
-| stem | Kling's eigen stem ("robotachtig", lipsync loopt weg na 7–10 s) | eigen TTS + **Sync Lipsync 3** | 0,1 credit per regel |
+| stem | Kling's eigen stem ("robotachtig", lipsync loopt weg na 7–10 s) | eigen TTS + **Sync Lipsync 3** | 1 credit per regel |
 | beweging | uit het niets gegenereerd | **Genjutsu motion transfer** vanaf echte video | nog te prijzen |
 
 `pro` zonder geluid is dus **goedkoper én beter** dan wat we nu draaien. We

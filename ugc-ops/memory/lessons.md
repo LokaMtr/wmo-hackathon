@@ -73,3 +73,8 @@ video voelt gemonteerd in plaats van geplakt. Kost niets en maakt hem ook korter
 Seed Audio TTS is praktisch gratis. Maar Kling-clips met sound-on laten Mila praten, dus
 een losse voice-over loopt uit sync met haar mond. Voice-over is voor b-roll: handen,
 product, kamer — geen gezicht.
+
+## L045 — get_cost is niet de echte prijs
+De kostenvoorspelling van Higgsfield gaf 0,1 credit voor een Seed Audio-regel; de
+transactiehistorie laat 1,0 per generatie zien. Reken kosten na met `transactions`,
+niet met `get_cost`, voordat je een bedrag doorgeeft.
