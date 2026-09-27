@@ -129,3 +129,20 @@ Kling-clips met sound-on hebben nergens echte stilte. Ruimtetoon staat nu uit
 niet stil en toonloos is (RMS boven 0,008, piek boven 0,12 of een te smalle spectrale piek).
 
 Echte ruimtetoon moet van buiten komen: 30 seconden stilte opgenomen in een echte kamer.
+
+## L051 — Geen mechanismen in beeld
+Clip 3 van teddy-3: haar vingers hangen de hele clip op dezelfde hoogte aan de rits, maar
+je hoort wel een ritsgeluid, en halverwege verschijnt er een madeliefje aan de
+ritssluiting dat er daarvoor niet was. Loka zag het meteen.
+
+Dit is de categorie die CHI 2025 "functioneel" noemt: dingen die zo niet kunnen werken.
+21% van wat mensen benoemen, en het lastigst zelf te zien omdat je het pas merkt als je
+erop let. Een rits, knoop, gesp, dop of slot laten bedienen is dus uit den boze.
+
+Vervangen door: handen in de mouwen, armen om zichzelf heen. Geen mechanisme, niks dat kan
+verschijnen. Kling pro (10 credits) i.p.v. std voor de betere lipsync.
+
+## L052 — Kledingcontinuïteit expliciet in élk frameprompt
+In teddy-3 houdt ze in clip 2 een lange romper omhoog (benen tot de grond) maar draagt ze
+in clip 3 en 4 een korte met blote benen. Hetzelfde product, twee modellen. Zet lengte en
+model letterlijk in elk frameprompt, niet alleen in het eerste.

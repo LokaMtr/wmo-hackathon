@@ -9,6 +9,8 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | Onderdeel | Regel |
 |---|---|
 | Hook | Situatie tussen mensen in de eerste 1,5s. Nooit een productmededeling. (L039) |
+| Geen mechanismen | Nooit een rits, knoop, gesp, dop of slot laten bedienen. Die bewegen niet mee met het geluid en er verschijnen dingen. Handen in de mouwen, tegen het lijf, of buiten beeld. (L051) |
+| Kledingcontinuïteit | Het kledingstuk dat ze omhooghoudt moet hetzelfde zijn als wat ze draagt. Zet lengte en model expliciet in élk frameprompt. |
 | Tekst in beeld | **Maximaal 2 momenten**: hook (0–3s) en slotvraag (laatste 2,5s). Daartussen niets. |
 | Tekststijl | Wit, geen zwarte rand of kader, zachte schaduw. Zoals TikTok zelf tekst zet. |
 | Lengte | Wat de clips toelaten, meestal 17–20s. Niet korter forceren. |
@@ -27,7 +29,8 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | teddy-3 v5 | nagebootste camerabeweging eruit | trilling weg, licht/donker nog zichtbaar |
 | teddy-3 v6 | alle nagebootste camera-effecten eruit (drift, sprong op de snede, witbalans) | licht/donker weg, clips nog te kort |
 | teddy-3 v7 | cliplengte volgt het geluid i.p.v. een zelfbedacht ritme | afkappen weg, ruimtetoon nog hoorbaar |
-| teddy-3 v8 | **ruimtetoon eruit** — bleek een lus van haar eigen stem | meten na 48u |
+| teddy-3 v8 | ruimtetoon eruit — bleek een lus van haar eigen stem | geluid schoon, clip 3 kapot |
+| teddy-3 v9 | **clip 3 opnieuw, zonder mechanisme** + Kling pro | meten na 48u |
 | teddy-4 | wisselende shotgrootte binnen één set (close-up → medium → wide) i.p.v. 4× hetzelfde kader | — |
 | volgende | eerste clip 1,5s maken: cut vóór de kijker kan wegswipen | — |
 | volgende | b-roll-video met losse voice-over (Mila-stem), zonder gezicht in beeld | — |
