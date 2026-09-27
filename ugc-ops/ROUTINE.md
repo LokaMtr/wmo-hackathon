@@ -17,5 +17,5 @@ Deze tekst is de opdracht van de geplande sessie. Werk in repo `LokaMtr/wmo-hack
 ## Ritme
 3 posts per dag: 10:00, 16:00, 21:00 (Europe/Amsterdam). Alleen situatie-hooks, geen review-hooks. Zie PRODUCTIEPLAN.md.
 
-## Uurlijkse cijfer-sync (elk uur :33, trigger `hourlyMetrics`)
+## Uurlijkse cijfer-sync (elke 4 uur :33, trigger `hourlyMetrics`)
 Licht: alleen Metricool-cijfers + Higgsfield-saldo → `videos/<id>.metrics`, `status/postedAt`, `meta/state`. Geen scout, geen credits, niets posten. Alleen een chat-bericht (collectie `chat`, zelfde stijl als de Regie-chat) als er écht iets nieuws is; anders stil en niets committen. De volledige run blijft 1× per dag om 08:00.

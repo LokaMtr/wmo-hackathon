@@ -146,3 +146,10 @@ verschijnen. Kling pro (10 credits) i.p.v. std voor de betere lipsync.
 In teddy-3 houdt ze in clip 2 een lange romper omhoog (benen tot de grond) maar draagt ze
 in clip 3 en 4 een korte met blote benen. Hetzelfde product, twee modellen. Zet lengte en
 model letterlijk in elk frameprompt, niet alleen in het eerste.
+
+## L053 — Metricool ververst ongeveer een keer per dag
+Acht uurlijkse syncs op 27-09 gaven acht keer exact dezelfde vier rijen. Metricool loopt
+structureel meer dan 24 uur achter op de TikTok-app; vaker dan eens per paar uur pollen
+levert alleen ruis. Ritme teruggezet naar elke 4 uur (07:47 / 11:47 / 15:47 / 19:47 / 23:47).
+
+Voor actuele cijfers is de TikTok-app van Loka de bron, niet Metricool.
