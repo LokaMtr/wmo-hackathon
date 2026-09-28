@@ -233,3 +233,22 @@ een zin over dát product. Dus:
   precies hetzelfde beeldmateriaal opnieuw posten. Een account met 400k volgers is daarop
   gedemonetiseerd. Gebruik remix om GOEDKOPER te maken wat we toch zouden posten, niet om
   MEER te posten van hetzelfde.
+
+## L062 — De foto-posts doen 10 tot 50x onze video's
+Uit de TikTok-grid van 28-09: de drie oudste posts zijn foto-posts en staan op **50.100,
+29.200 en 18.300 views**. Elke video die wij daarna maakten zit tussen 0 en 5.544.
+
+Die foto's zijn van vóór onze campagne. Maar het is hetzelfde account en hetzelfde gezicht,
+en ze halen tien tot vijftig keer zoveel bereik.
+
+Op 25-09 schrapten we slideshows omdat je er geen product aan kunt koppelen. Dat klopte,
+maar we wisten toen niet dat ze zó veel beter liepen. **Bereik en verkoop zijn twee
+verschillende problemen en we hebben ze door elkaar gehaald.**
+
+Wat de foto-posts gemeen hebben: een tekst met een spanningsboog ("My dad taking a pic of
+me vs...", "The picture I wanted him to save", "A man needs 2 things in life..."), geen
+product, geen verkooppraatje. Puur een situatie waar je het einde van wilt zien.
+
+## L063 — Vier keer hetzelfde kader is geen video
+teddy-4: negen frames lang exact hetzelfde shot. teddy-2 (5.544) heeft product-hero,
+medium, wijd met de hele kamer, en close-up. Shotplan schrijven vóór de prompts.
