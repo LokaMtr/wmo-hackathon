@@ -41,3 +41,34 @@ welk shot het is — en niet meer wie ze is of hoe het product eruitziet.
 
 Dat scheelt ook prompt-ruimte, en die ruimte gaat naar de beweging in het shot. Dat is
 precies waar het tot nu toe misging.
+
+---
+
+## Vastgelegde referenties (28-09-2026)
+
+| Sheet | Higgsfield media_id | Wat erop staat |
+|---|---|---|
+| **Mila** | `1bc969bd-2ac1-47d4-bc55-8b0ba8abe6f1` | 4x ten voeten uit (voor, driekwart, profiel, achter) + 3x gezicht (voor, driekwart, profiel). Vrijwel geen make-up, sproeten, zichtbare huidtextuur. |
+| **Kameo kussen** | `591066c9-fe2b-48e9-bf36-6522dce1229a` | voor, zijprofiel, bovenaanzicht, driekwart, macro honingraat |
+| **Khamrah parfum** | `131b59a9-48d8-4fb7-b140-fbebee425749` | flesje voor, driekwart, zij, macro dop en glas, flesje naast doos |
+
+De oude vier losse gezichtsreferenties (`20ca8397…`, `c1e0450e…`, `e7f04c0c…`,
+`8cae6b93…`) worden niet meer gebruikt. Ze waren vrijwel allemaal frontaal (L070).
+
+Eerste poging aan de Mila-sheet kreeg een volledig Instagram-gezicht (contouring,
+wimpers, aangezette lippen) ondanks "natural minimal makeup" in de prompt. Opgelost door
+make-up niet te beschrijven maar uit te sluiten: "essentially bare-faced, no contour, no
+false lashes, no lip liner, girl-next-door, not a model". Een positieve omschrijving laat
+het model ruimte; een lijst van wat níet mag, niet.
+
+## Rolverdeling in elke prompt (L069)
+
+```
+@Image1 (Mila-sheet) bepaalt alleen: gezicht, haar, huid, lichaamsbouw.
+  Niet overnemen: de witte achtergrond, de pose, het tanktopje en de joggingbroek.
+@Image2 (product-sheet) bepaalt alleen: vorm, kleur, materiaal en verhoudingen van het product.
+  Niet overnemen: de witte studioachtergrond, de rangschikking in panelen.
+```
+
+Kleding wordt per video apart in de prompt beschreven, volledig van hoofd tot voeten
+(L052). De sheet draagt bewust neutrale kleding zodat die niet meelekt.
