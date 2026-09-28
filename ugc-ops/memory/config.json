@@ -8,12 +8,18 @@
   },
   "higgsfield": {
     "workspace": "pro",
-    "faceRefs": [
+    "characterSheet": "1bc969bd-2ac1-47d4-bc55-8b0ba8abe6f1",
+    "productSheets": {
+      "kameo": "591066c9-fe2b-48e9-bf36-6522dce1229a",
+      "khamrah": "131b59a9-48d8-4fb7-b140-fbebee425749"
+    },
+    "faceRefsDeprecated": [
       "20ca8397-b24f-4704-99cc-f63c36851896",
       "c1e0450e-c152-40c5-884d-70e00e16fadb",
       "e7f04c0c-cb9b-4a8a-9186-73c67696a1b0",
       "8cae6b93-21d9-4ca2-a46f-53b48436076c"
-    ]
+    ],
+    "note": "Gebruik characterSheet + productSheets met rolverdeling (ugc-ops/refs/README.md). Oude faceRefs niet meer gebruiken (L070)."
   },
   "repoBranch": "claude/mila-mirror-tiktok-setup-5zp7gd",
   "briefingTimeLocal": "08:00 Europe/Amsterdam",
@@ -22,5 +28,6 @@
     "scoutOnDemand": "trig_01Qm25KzfNSSrR8tuWLoHiiv",
     "controlRoomChat": "trig_01YaT9EyM6D2LA2d9e7ZHsk4",
     "hourlyMetrics": "trig_017yCP9HPNB2FJsFUjo2WWt8"
-  }
+  },
+  "language": "en"
 }
