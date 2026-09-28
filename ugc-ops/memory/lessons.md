@@ -370,3 +370,18 @@ claims.
 
 Dat is exact de vorm die bij ons twee keer nul verkocht (mondwater, inhalator). Een
 product dat de ene toets haalt en de andere niet, valt af. Niet onderhandelen.
+
+## L078 — Elk shot moet een cameraman hebben die kan bestaan
+kameo-1, shots 3 en 4 (eerste versie): een close-up op matrashoogte recht voor haar
+gezicht, en een shot recht van bovenaf terwijl ze met beide armen naast zich op bed ligt.
+Niemand kan dat gefilmd hebben. Loka zag het meteen ("wie houdt de camera vast?"), ook
+zonder te kunnen benoemen wat er mis was. Dat is precies hoe AI herkend wordt: niet aan
+één fout pixel maar aan een situatie die niet kan.
+
+Per shot moet één van deze drie waar zijn, en het beeld moet laten zien welke:
+- **selfie**: telefoon in haar eigen hand, arm zichtbaar richting de lens
+- **neergezet**: telefoon staat ergens stil (voeteneind, plank), vaste hoogte, geen beweging
+- **POV**: haar eigen handen in beeld, camera op ooghoogte
+
+Een shot van bovenaf mag alleen als selfie (arm omhoog) of met iets waar de telefoon aan
+hangt. "Handheld" in een prompt zonder te zeggen wiens hand, is een onzichtbare cameraman.

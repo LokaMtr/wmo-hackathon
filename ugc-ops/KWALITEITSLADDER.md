@@ -11,6 +11,7 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 2. Nieuwe opzet of nieuw model? Eerst één clip, frame checken, dan de rest.
 3. Staat de kledinglengte en het model letterlijk in élk frameprompt? (L052)
 4. Zit er een mechanisme in beeld dat bediend wordt? Dan herschrijven. (L051)
+5. Wie houdt per shot de camera vast: zij (selfie, arm zichtbaar), niemand (neergezet, stil), of haar handen (POV)? Geen antwoord = herschrijven. (L078)
 
 ## Standaard (geldt nu voor elke video)
 
