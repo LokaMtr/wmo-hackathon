@@ -178,3 +178,14 @@ Dat betekent dat de hook-theorie is opgebouwd op één uitschieter. Negen video'
 Niet wegpoetsen: onze verklaring voor teddy-2 kan achteraf-redenering zijn geweest. Wat
 overeind blijft is alleen dat eyemask-2 (66) meetbaar slechter is dan de rest, niet dat we
 weten hoe je een video van 5.000 maakt.
+
+## L057 — Eerste verkoop (28-09): €29 GMV, €2,90 commissie
+Negen video's, 8.045 views totaal, één verkoop. Conversie op views: 0,012%.
+
+Wat dit verandert aan de analyse van L056: views zijn niet het enige dat telt. Een video met
+257 views kan net zo goed de verkoop hebben gedaan als die met 5.538. Zolang TikTok Shop
+niet per video toont welke video converteerde, kunnen we dat niet uit elkaar trekken —
+maar de aanname "meer views = meer omzet" is niet bewezen op dit account.
+
+Stand: omzet €2,90, kosten €39,96, netto −€37,06. Terugverdienpunt bij deze marge
+(10% commissie op €29) ligt op ongeveer 14 verkopen.
