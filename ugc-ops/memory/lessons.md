@@ -396,3 +396,11 @@ Taal van het account: **Engels**, met een lichte Europese tongval. Bijschriften 
 
 Voortaan: wil ik iets aan taal, persona, niche of postfrequentie veranderen, dan vraag ik
 het vooraf met mijn argument erbij, en maak ik niets totdat hij ja zegt.
+
+## L080 — Metricool updateScheduledPost: stuur geen twitterData/instagramData mee
+`getScheduledPosts` geeft `twitterData` en `instagramData` terug, maar als je die bij een
+update terugstuurt terwijl alleen TikTok in `providers` staat, weigert de API met
+"networkData contains data for network 'twitter' not listed in providers". Alleen
+`tiktokData` meesturen. `uuid` hoort als losse parameter naast `id` en `blogId`, en
+`timezone` niet op topniveau. Het id verandert na een update (kameo-1: 383680580 →
+383823470), de uuid blijft.
