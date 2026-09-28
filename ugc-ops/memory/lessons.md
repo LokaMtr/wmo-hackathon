@@ -412,3 +412,6 @@ Annex I). Het AI-label maakt het niet waar. Alle teddy-video's deden dit ("i've 
 once"), en kameo-1 ook ("I don't flip it at night anymore", "my boyfriend just ordered one").
 
 Wel: zichtbare fictie (sketch, POV, pet-cam, metafoor) en feiten van de productpagina.
+
+**Besluit Loka 28-09:** hij kent het risico en kiest ervoor om het te nemen. Ervaringszinnen
+zijn toegestaan. Niet meer aankaarten.
