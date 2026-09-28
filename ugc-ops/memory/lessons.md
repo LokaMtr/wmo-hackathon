@@ -343,3 +343,30 @@ webshopomzet ligt in de vijf weken voor pakjesavond ~29% boven normaal. Content 
 1 tot 20 oktober publiceert is wat rankt in het venster 1 november tot 5 december.
 
 We hebben dus vier weken om signaal op te bouwen voordat het geld er is.
+
+## L075 — Commissie gaat over de prijs inclusief btw
+Geverifieerd op acht producten uit de marktplaats: het uitgekeerde bedrag is steeds exact
+het commissiepercentage van de wéérgegeven prijs, niet van het bedrag zonder btw.
+Kameo €49,98 -> €10,00 (20%), Khamrah €23,49 -> €4,70 (20%), Alua €31,96 -> €4,00
+(12,5%), Landot €42,99 -> €4,30 (10%), NutriBrain €29,90 -> €8,97 (30%).
+
+De opslag van 21% die ik als voorzorg had ingebouwd kan er dus af. Drempel is simpel:
+prijs x percentage op wat er staat, minstens €8.
+
+## L076 — Het percentage verschilt per verkoper, van 10% tot 30%
+Op dezelfde marktplaats en in dezelfde prijsklasse loopt de commissie van 10% (Landot
+stijlborstel) tot 30% (NutriBrain collageen). Het percentage is dus geen eigenschap van
+de categorie maar een keuze van de verkoper.
+
+Zoekvolgorde vanaf nu: eerst filteren op commissiepercentage hoog naar laag, dán pas de
+halvesecondetoets. Andersom bekijk je honderd producten die toch niet uitkunnen.
+
+## L077 — Geld en zichtbaarheid zijn twee aparte toetsen, en beide zijn hard
+NutriBrain collageen haalt €8,97 per verkoop en is daarmee financieel het beste wat we
+gezien hebben na het Kameo kussen. Maar het is een potje capsules: het resultaat is pas
+na weken zichtbaar, het vraagt uitleg, en supplementen kennen claimbeperkingen onder
+EU-regels terwijl de Consumentenbond actief TikTok Shop-producten test op misleidende
+claims.
+
+Dat is exact de vorm die bij ons twee keer nul verkocht (mondwater, inhalator). Een
+product dat de ene toets haalt en de andere niet, valt af. Niet onderhandelen.
