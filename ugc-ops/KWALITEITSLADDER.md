@@ -16,7 +16,7 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 | Lengte | Wat de clips toelaten, meestal 17–20s. Niet korter forceren. |
 | Ritme | Laat `finish.py` de lengte bepalen (geen `--dur` meegeven): die knipt waar het geluid en de beweging ophouden. Zelf een lengte kiezen kapt haar middenin een zin af. |
 | Geluid | Loudnorm naar −14 LUFS, anders klinkt hij zachter dan alles eromheen. |
-| Einde | Directe vraag, in beeld én als eerste comment. |
+| Einde | Directe vraag, in beeld, **in de caption zelf** én als eerste comment. De caption is de plek die het verschil maakte. (L054) |
 
 ## Per video: wat is er nieuw
 

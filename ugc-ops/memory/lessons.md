@@ -161,3 +161,8 @@ caption zelf, niet alleen in de eerste comment.
 
 De hook bepaalt of iemand kijkt, de vraag bepaalt of iemand typt. Zet dus allebei in élke
 video: een situatie-hook in beeld én een vraag in de caption.
+
+## L055 — Vraag toegevoegd aan alle ingeplande captions (28-09)
+shapewear-a, sniffit-1, eyemask-1 en beamer-1 hadden alle vier geen vraag in de caption.
+Toegevoegd zonder iets opnieuw te renderen, dus gratis. Vanaf nu hoort de vraag bij het
+post-kit en niet bij de nabewerking: schrijven doe je hem tegelijk met de hook.
