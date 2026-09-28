@@ -290,3 +290,33 @@ Eerste versie van de A/B/C-test had als hook "day 4 in the same thing" terwijl d
 laat zien hoe het pakket binnenkomt en ze het aantrekt. Hook en beeld vertelden een
 ander verhaal. Bij hergebruikte clips (remix) eerst kijken wat de body vertélt, dan pas
 de hook schrijven.
+
+## L068 — Onze prompts beschreven een sfeer, geen beginbeeld
+Uit fal.ai's promptgids: STARTING STATE hoort een apart veld te zijn, en camerabeweging
+hoort aan een gebeurtenis te hangen ("de camera pant niet tot de bal beide handen heeft
+verlaten"), niet aan een stemming. Onze prompts stonden vol met "handheld phone look" en
+"no camera movement of its own": dat is sfeer, daar doet het model niets mee.
+
+Modellen bouwen vanzelf rustig op als je beeld nul niet vastlegt. Dat is letterlijk het
+dode openingsbeeld waar we iedereen op verliezen.
+
+## L069 — Eén referentie, één taak, plus een expliciete ontkenning
+"Do not make an image and a video reference do the same job." Bij elke referentie hoort
+te staan wat hij bepaalt en wat er níet van overgenomen mag worden. Wij stuurden vier
+gezichtsfoto's en een productfoto mee zonder rolverdeling; het model mocht zelf kiezen.
+
+## L070 — Hoekspreiding verslaat aantal referenties
+Vier beelden met voren, driekwart, profiel en achter zijn beter dan twaalf frontale
+beelden: hoeken geven het model geometrie, en geometrie overleeft een verandering van
+pose. Onze vier referenties waren vrijwel allemaal frontaal, wat verklaart waarom het
+gezicht per video verschoof.
+
+## L071 — Kling wint van Seedance op camerabeweging
+Seedance 2.5 bestaat sinds 31-07-2026 maar staat niet in onze catalogus, en het is
+hoe dan ook niet wat we ervoor zochten: Kling 3.0 won twee van drie vergelijkende runs
+op vloeiende camerabogen, ByteDance noemt in hun eigen paper "physical plausibility of
+complex motions" als zwakte, en de gemelde faalvorm is morphing bij snelle actie.
+Seedance is bovendien het duurst per seconde.
+
+Waar Seedance wel in wint is referentievolume: 30 beelden, 10 video's, 10 geluiden in
+één generatie. Dat is een reden voor de body van een video, nooit voor de hook.
