@@ -189,3 +189,12 @@ maar de aanname "meer views = meer omzet" is niet bewezen op dit account.
 
 Stand: omzet €2,90, kosten €39,96, netto −€37,06. Terugverdienpunt bij deze marge
 (10% commissie op €29) ligt op ongeveer 14 verkopen.
+
+## L058 — Alleen de teddy romper verkoopt
+TikTok Shop 20-26 sep: teddy romper €29,62 / 1 stuk. Sniffit, mokken, Hismile, parfum en
+de jurk allemaal €0. Zeven video's over vijf andere producten hebben nul opgeleverd.
+
+De verkoop viel vóór 27-09, dus hij komt van teddy-1 of teddy-2, niet van teddy-3.
+
+Consequentie voor de planning: niet spreiden over producten maar stapelen op het enige dat
+converteert. Een product dat niet verkoopt na twee video's krijgt geen derde.

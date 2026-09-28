@@ -15,6 +15,31 @@
 
 Stand 28-09 15:48.
 
+## Eén product verkoopt, de rest niet (28-09)
+
+TikTok Shop, 20-26 sep:
+
+| Product | GMV | Verkocht |
+|---|---|---|
+| **Teddy romper** | **€29,62** | **1** |
+| Sniffit Thai Blend | €0 | 0 |
+| Mokkenset | €0 | 0 |
+| Hismile mondspoeling | €0 | 0 |
+| Aprizo parfum | €0 | 0 |
+| Jurk met split | €0 | 0 |
+
+Zeven video's over vijf andere producten: nul verkopen. Twee teddy-video's: één verkoop.
+De verkoop viel in de week 20-26 sep, dus hij komt van teddy-1 (24-09) of teddy-2 (25-09) —
+teddy-3 stond toen nog niet live.
+
+**Dit is een ander signaal dan views.** We zijn aan het spreiden over zes producten terwijl
+er maar één is die iets doet. Kleine aantallen, maar het is het enige dat we over omzet
+weten, en omzet is waar het om gaat.
+
+**Voorstel: stop met spreiden. De volgende vier video's allemaal teddy romper.**
+Andere producten pas weer als teddy een tweede verkoop heeft gedaan, of na vier video's
+zonder resultaat.
+
 ## Wat teddy-3 ons leert
 
 teddy-3 volgde alle regels: relatie-hook, situatie tussen twee mensen, vraag in de
