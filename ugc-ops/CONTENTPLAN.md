@@ -42,19 +42,19 @@ Met de winnende hook testen we waarom iemand het zou willen.
 
 | Code | Verhaal | Openingszin |
 |---|---|---|
-| K-lelijk | lelijk maar ik geef 'm niet af | "Het lelijkste ding in m'n kamer, en je krijgt 'm niet." |
-| K-koud | het omdraaien naar de koude kant | "Ik heb drie jaar lang elke nacht m'n kussen omgedraaid." |
-| K-relatie | partner pikt 'm | "Hij heeft z'n eigen kussen. Waarom ligt ie dan op de mijne." |
-| K-gast | buitenstaander ziet het | "POV: iemand komt op je bed zitten en vraagt wat dít is." |
+| K-lelijk | lelijk maar ik geef 'm niet af | "This is genuinely the ugliest thing in my room, and you're not getting it." |
+| K-koud | het omdraaien naar de koude kant | "I flipped my pillow to the cold side every night for three years." |
+| K-relatie | partner pikt 'm | "He has his own pillow. So why is he always on mine." |
+| K-gast | buitenstaander ziet het | "POV: someone sits on your bed and asks what THAT is." |
 | K-asmr | geen tekst, alleen drukken en terugveren | pure loop, test of beeld alleen genoeg is |
 
 **Khamrah parfum (gok):**
 
 | Code | Verhaal | Openingszin |
 |---|---|---|
-| P-compliment | mensen vragen erom | "Drie mensen vroegen vandaag wat ik op had." |
-| P-herfst | seizoensritueel | "Deze komt pas uit de kast als het buiten koud is." |
-| P-geur | beschrijven wat je ruikt | "Ik ruik letterlijk naar een koffietentje in december." |
+| P-compliment | mensen vragen erom | "Three people asked what I was wearing today." |
+| P-herfst | seizoensritueel | "This one only comes out once it's cold outside." |
+| P-geur | beschrijven wat je ruikt | "I literally smell like a coffee shop in December." |
 
 Geen vergelijkingen met dure merken ("ruikt als Kilian"). Dat is een claim over andermans
 product en daar let de Consumentenbond nu juist op.
@@ -63,7 +63,11 @@ product en daar let de Consumentenbond nu juist op.
 
 Pas als hook en verhaal werken: blijft Khamrah naast Kameo, of maakt die plaats voor een
 nieuw product van €40+ met 20%+ (L076)? En in de week van 13 oktober komt de cadeaulaag
-erbij, richting Sinterklaas: "voor iemand die altijd klaagt dat ie het warm heeft".
+erbij, richting Sinterklaas: "for the one who always complains they're too hot".
+
+## Taal
+
+Alles in het Engels, stem, tekst en bijschrift, net als de rest van het account (L079).
 
 ## Hoe we meten
 

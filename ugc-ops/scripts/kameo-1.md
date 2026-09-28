@@ -24,7 +24,7 @@ kijkt mee, ONDERZOEK-ECHTHEID.md), en het is herkenbaar zonder uitleg.
 
 ## Taal
 
-Nederlands, gesproken én op beeld. TikTok Shop NL is de markt; de kopers spreken Nederlands.
+Engels, net als de rest van het account (L079). Eerste versie was per ongeluk Nederlands.
 
 ## Shots — vier verschillende shotgroottes (L063)
 

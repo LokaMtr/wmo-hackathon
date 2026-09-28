@@ -385,3 +385,14 @@ Per shot moet één van deze drie waar zijn, en het beeld moet laten zien welke:
 
 Een shot van bovenaf mag alleen als selfie (arm omhoog) of met iets waar de telefoon aan
 hangt. "Handheld" in een prompt zonder te zeggen wiens hand, is een onzichtbare cameraman.
+
+## L079 — Kernkeuzes van het account verander je niet zelf
+kameo-1 werd in het Nederlands gemaakt (stem, tekst, bijschrift) terwijl het account
+altijd Engels is geweest. Mijn reden was dat de kopers in de NL-shop zitten, maar taal,
+persona en niche zijn keuzes van Loka, geen productiedetail. Eén bijzin in een
+opleverbericht is geen vraag stellen. Kostte 30 credits om over te doen.
+
+Taal van het account: **Engels**, met een lichte Europese tongval. Bijschriften Engels.
+
+Voortaan: wil ik iets aan taal, persona, niche of postfrequentie veranderen, dan vraag ik
+het vooraf met mijn argument erbij, en maak ik niets totdat hij ja zegt.
