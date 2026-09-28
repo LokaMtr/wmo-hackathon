@@ -252,3 +252,23 @@ product, geen verkooppraatje. Puur een situatie waar je het einde van wilt zien.
 ## L063 — Vier keer hetzelfde kader is geen video
 teddy-4: negen frames lang exact hetzelfde shot. teddy-2 (5.544) heeft product-hero,
 medium, wijd met de hele kamer, en close-up. Shotplan schrijven vóór de prompts.
+
+## L064 — Kijktijd is 1,9s, ongeacht views of hook
+teddy-2 (5.544 views) en teddy-3 (358 views) hebben allebei exact 1,9 seconden gemiddelde
+kijktijd, 0,6-1,0% uitgekeken, en bij allebei stopt de massa op 0:01. Vijftien keer verschil
+in bereik, identieke kijktijd.
+
+Het ligt dus niet aan de hook-tekst, het product of de montage. Het ligt aan het format:
+elke video opent met een vrouw die medium shot op een bed zit en gaat praten. Dat is het
+beeld waar de duim overheen gaat.
+
+Consequentie: geen nieuwe video's in deze vorm maken tot het openingsshot getest is.
+Drie varianten van dezelfde video die alleen in de eerste seconde verschillen.
+
+## L065 — Alleen producten die je in één frame ziet, verkopen
+Vijf producten, negen video's, één verkoop. Het enige dat verkocht is ook het enige dat je
+zonder uitleg herkent. Mondwater, inhalator, oogmasker en shapewear moeten alle vier
+uitgelegd worden en verkochten alle vier nul.
+
+Dat hangt samen met L064: een product dat je moet uitleggen heeft geen eerste beeld.
+Criteria staan in agents/scout.md.
