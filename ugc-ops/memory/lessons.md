@@ -320,3 +320,26 @@ Seedance is bovendien het duurst per seconde.
 
 Waar Seedance wel in wint is referentievolume: 30 beelden, 10 video's, 10 geluiden in
 één generatie. Dat is een reden voor de body van een video, nooit voor de hook.
+
+## L072 — De teddy romper kon rekenkundig nooit uit
+€29,62 bij 10% is €2,90 per verkoop. Bij een videokost van 25 tot 45 credits moest elke
+video een verkoop opleveren om quitte te draaien. Dat is geen contentprobleem.
+
+Drempel vanaf nu: minstens €8 per verkoop. Per categorie betekent dat wonen €40+,
+parfum €32+, sieraden €40+, kleding €53+. Elektronica valt af.
+
+Nog te verifiëren en het verschuift alles met 21%: rekent TikTok Shop EU de commissie
+over de prijs met of zonder btw.
+
+## L073 — TikTok Shop NL is vijftien weken oud
+Gelanceerd 15 juni 2026. Er bestaat dus geen betrouwbare NL-bestsellerdata; wie die
+aanbiedt extrapoleert uit DE/FR/ES/IT. Belangrijker: de verzadiging in NL is daardoor
+laag, en dat is het enige structurele voordeel dat dit account heeft. Het verdwijnt
+ergens in Q1 2027.
+
+## L074 — Er ligt een harde publicatiedeadline
+Dit is het eerste Sinterklaas- en kerstseizoen met TikTok Shop live in NL. Nederlandse
+webshopomzet ligt in de vijf weken voor pakjesavond ~29% boven normaal. Content die je
+1 tot 20 oktober publiceert is wat rankt in het venster 1 november tot 5 december.
+
+We hebben dus vier weken om signaal op te bouwen voordat het geld er is.
