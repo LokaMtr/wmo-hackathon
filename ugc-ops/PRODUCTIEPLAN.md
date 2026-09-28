@@ -1,17 +1,33 @@
 # Productieplan (vanaf 27-09-2026)
 
 ## Wat de cijfers zeggen
-| Video | Hook-type | Views | Reacties |
-|---|---|---|---|
-| teddy-2 "i said ONE time that i'm always cold" | cadeau/relatie-POV | **5.528** | 1 |
-| teddy-1 "teddy bear season has started" | productmededeling | 766 | 0 |
-| hismile-2 "coffee girls, this one's for you" | doelgroep-aanspraak | 444 | **2** |
-| shapewear-b "it's not you, it's the shapewear" | geruststelling | 312 | **2** |
-| hismile-1 "why is THIS in my sink" | schok/nieuwsgierig | 82 (na 5u) | 1 |
-| eyemask-2 "the €1 ones vs this" | vergelijk/review | 60 | 0 |
+| Video | Hook-type | Views | Reacties | Leeftijd |
+|---|---|---|---|---|
+| teddy-2 "i said ONE time that i'm always cold" | cadeau/relatie-POV | **5.538** | 1 | 70u |
+| teddy-1 "teddy bear season has started" | productmededeling | 769 | 0 | 91u |
+| hismile-2 "coffee girls, this one's for you" | doelgroep-aanspraak | 516 | **2** | 46u |
+| shapewear-b "it's not you, it's the shapewear" | geruststelling | 333 | **2** | 54u |
+| sniffit-3pm "3pm brain reboot" | mini-sketch | 278 | 0 | 48u |
+| **teddy-3 "he mocked it for four days"** | relatie-POV vervolg | **257** | 1 | 20u |
+| hismile-1 "why is THIS in my sink" | schok/nieuwsgierig | 136 | 1 | 29u |
+| shapewear-a "the sit test" | test/demo | 72 | 1 | 5u |
+| eyemask-2 "the €1 ones vs this" | vergelijk/review | 66 | 0 | 77u |
 
-Stand 27-09 15:47, accountgemiddelde 1.199. eyemask-2 is definitief een flop
-(5% van het gemiddelde na 53 uur).
+Stand 28-09 15:48.
+
+## Wat teddy-3 ons leert
+
+teddy-3 volgde alle regels: relatie-hook, situatie tussen twee mensen, vraag in de
+caption, bewezen product, de hele telefoon-afwerking. Na 20 uur: **257 views**. teddy-2
+zat op dat moment al boven de 2.000.
+
+Eerlijke conclusie: **de hook-theorie verklaart niet alles.** Eén video met 5.538 views
+tegen acht met 66-769 is geen patroon, dat is één uitschieter. Het kan de hook zijn
+geweest, het kan het tijdstip zijn geweest, het kan toeval zijn. Met negen video's kunnen
+we dat niet uit elkaar trekken.
+
+Wat we wél weten: het accountgemiddelde zonder teddy-2 is 303. TikTok serveert dit account
+structureel klein uit. Meer video's maken volgens dezelfde theorie lost dat niet op.
 
 **Tweede patroon, naast de hook:** de twee video's met reacties hebben allebei een
 vraag in de caption. teddy-2 heeft 5.528 views en één reactie. Views en reacties

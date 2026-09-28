@@ -166,3 +166,15 @@ video: een situatie-hook in beeld én een vraag in de caption.
 shapewear-a, sniffit-1, eyemask-1 en beamer-1 hadden alle vier geen vraag in de caption.
 Toegevoegd zonder iets opnieuw te renderen, dus gratis. Vanaf nu hoort de vraag bij het
 post-kit en niet bij de nabewerking: schrijven doe je hem tegelijk met de hook.
+
+## L056 — teddy-3 haalde 257 views ondanks alle regels
+teddy-3 deed alles goed volgens onze eigen standaard: relatie-hook, situatie tussen mensen,
+vraag in de caption, bewezen product, volledige afwerking. Na 20 uur 257 views. teddy-2 zat
+op dat moment boven de 2.000.
+
+Dat betekent dat de hook-theorie is opgebouwd op één uitschieter. Negen video's: één op
+5.538 en acht tussen 66 en 769. Het accountgemiddelde zonder teddy-2 is 303.
+
+Niet wegpoetsen: onze verklaring voor teddy-2 kan achteraf-redenering zijn geweest. Wat
+overeind blijft is alleen dat eyemask-2 (66) meetbaar slechter is dan de rest, niet dat we
+weten hoe je een video van 5.000 maakt.
