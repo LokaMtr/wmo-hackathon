@@ -272,3 +272,21 @@ uitgelegd worden en verkochten alle vier nul.
 
 Dat hangt samen met L064: een product dat je moet uitleggen heeft geen eerste beeld.
 Criteria staan in agents/scout.md.
+
+## L066 — Kledingcontinuïteit hoort ook in de vídeoprompt, niet alleen in het frame
+Bij de B-opening stond de volledige lengte wel in de frameprompt maar niet in de
+videoprompt ("worn by a blonde woman"). Kling trok terug naar een hoodie met blote
+benen: ander kledingstuk, ander model. Tweede poging mét "full-length legs down to her
+ankles, not a hoodie" gaf het juiste kledingstuk maar een ander gezicht en de reveal
+kwam pas op 4,2s.
+
+Twee dingen: L052 geldt voor élke prompt in de keten, en een reveal die van een
+camerabeweging moet komen kun je beter door een snede laten doen. De eerste 2 seconden
+macro plus een harde snede geeft dezelfde reveal, kost niets en gaat niet mis.
+Prijs van de les: 15 credits.
+
+## L067 — Tekst moet bij de beelden passen, niet alleen bij het product
+Eerste versie van de A/B/C-test had als hook "day 4 in the same thing" terwijl de body
+laat zien hoe het pakket binnenkomt en ze het aantrekt. Hook en beeld vertelden een
+ander verhaal. Bij hergebruikte clips (remix) eerst kijken wat de body vertélt, dan pas
+de hook schrijven.
