@@ -404,3 +404,11 @@ update terugstuurt terwijl alleen TikTok in `providers` staat, weigert de API me
 `tiktokData` meesturen. `uuid` hoort als losse parameter naast `id` en `blogId`, en
 `timezone` niet op topniveau. Het id verandert na een update (kameo-1: 383680580 →
 383823470), de uuid blijft.
+
+## L081 — Mila mag geen ervaring claimen
+Een AI-persona die zegt dat ze iets gebruikt, meemaakte of dat anderen het kochten, geeft een
+verzonnen getuigenis (FTC Endorsement Guides; EU-richtlijn oneerlijke handelspraktijken,
+Annex I). Het AI-label maakt het niet waar. Alle teddy-video's deden dit ("i've worn it
+once"), en kameo-1 ook ("I don't flip it at night anymore", "my boyfriend just ordered one").
+
+Wel: zichtbare fictie (sketch, POV, pet-cam, metafoor) en feiten van de productpagina.
