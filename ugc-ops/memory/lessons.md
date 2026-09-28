@@ -208,3 +208,15 @@ bij als tweede regel, want dat zegt iets over het tempo, maar het is niet de kos
 
 Stand 28-09: €2,90 binnen, €60 betaald, netto −€57,10. Terugverdienpunt bij €2,90 per
 verkoop: 21 verkopen.
+
+## L060 — Nooit een videobatch zonder medias
+Op 28-09 vier Kling-clips ingestuurd zonder `medias` met het startframe. Zonder referentie
+genereert Kling uit de tekst alleen: een andere vrouw, andere kamer, andere kleding.
+Onbruikbaar, niet te annuleren, 40 credits weg.
+
+**Regel: een `generate_video`- of `generate_video_batch`-call zonder `medias` gaat niet weg.**
+Lees de call terug vóór het versturen en controleer dat elk item een `start_image` heeft.
+
+Bij een nieuwe opzet (nieuw model, nieuwe modus, nieuwe referentie): eerst één clip
+insturen en een frame controleren, dan pas de rest. Dat had dit op 10 credits gehouden in
+plaats van 40.

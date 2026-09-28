@@ -4,6 +4,14 @@ Elke video moet één ding beter doen dan de vorige, en dat ding wordt hier opge
 Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video minstens
 één nieuwe techniek, en die blijft in de standaard zitten als hij werkt.
 
+## Vóór elke generatie controleren
+
+1. Heeft **elk** item in de batch een `medias` met `start_image`? Zonder referentie
+   genereert Kling een willekeurig persoon. (L060)
+2. Nieuwe opzet of nieuw model? Eerst één clip, frame checken, dan de rest.
+3. Staat de kledinglengte en het model letterlijk in élk frameprompt? (L052)
+4. Zit er een mechanisme in beeld dat bediend wordt? Dan herschrijven. (L051)
+
 ## Standaard (geldt nu voor elke video)
 
 | Onderdeel | Regel |
