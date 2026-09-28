@@ -220,3 +220,16 @@ Lees de call terug vóór het versturen en controleer dat elk item een `start_im
 Bij een nieuwe opzet (nieuw model, nieuwe modus, nieuwe referentie): eerst één clip
 insturen en een frame controleren, dan pas de rest. Dat had dit op 10 credits gehouden in
 plaats van 40.
+
+## L061 — Clips hergebruiken: wat wel en niet kan
+Gemeten over 52 clips in de bak: er is er geen één echt stil. In vrijwel elke clip zegt ze
+een zin over dát product. Dus:
+
+- **Binnen één product: ja.** 20 teddy-clips over vier sets. Andere volgorde, andere
+  hooktekst, andere caption = een andere video voor 0 credits. `tools/remix.py` doet dat.
+- **Tussen producten: nee.** Een beamer-clip in een teddy-video klopt niet met wat je hoort.
+  Muten kan niet: haar mond beweegt dan zonder geluid.
+- **Meer posten per dag hiermee: nee.** TikTok weegt "unoriginal content" mee en dat is
+  precies hetzelfde beeldmateriaal opnieuw posten. Een account met 400k volgers is daarop
+  gedemonetiseerd. Gebruik remix om GOEDKOPER te maken wat we toch zouden posten, niet om
+  MEER te posten van hetzelfde.
