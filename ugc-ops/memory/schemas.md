@@ -54,3 +54,17 @@
 - `commissionTotal` (omzet) − `spendEurTotal` = netto winst, die het dashboard groen/rood toont.
 - `topupsEur`: wat Loka in totaal aan credits heeft uitgegeven. Bijwerken bij elke top-up.
 Bij elke nieuwe video: `videos/<id>.credits` invullen en `creditsSpentTotal` + `spendEurTotal` ophogen.
+
+
+## Geldblok in meta/state — wat is wat (bijgewerkt 28-09)
+
+| Veld | Betekenis |
+|---|---|
+| `topupsEur` | **Wat er echt betaald is.** Dit is de kostenpost in het dashboard. |
+| `creditsSpentTotal` | Credits die op zijn. |
+| `spendEurTotal` | Waarde van die verbruikte credits (`creditsSpentTotal` × `creditRateEur`). Informatief, niet de kostenpost. |
+| `commissionTotal` | Wat TikTok Shop uitbetaalt. |
+| `gmvTotal` | Omzet van de verkochte producten, niet onze omzet. |
+
+Netto winst = `commissionTotal` − `topupsEur`. Verbruikte credits zijn niet de kosten:
+een top-up is uitgegeven geld, ook als de credits nog op de plank liggen.

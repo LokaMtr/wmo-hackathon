@@ -198,3 +198,13 @@ De verkoop viel vóór 27-09, dus hij komt van teddy-1 of teddy-2, niet van tedd
 
 Consequentie voor de planning: niet spreiden over producten maar stapelen op het enige dat
 converteert. Een product dat niet verkoopt na twee video's krijgt geen derde.
+
+## L059 — Kosten zijn wat er betaald is, niet wat er verbruikt is
+Ik rapporteerde €39,96 aan kosten (verbruikte credits) terwijl Loka €60 had betaald voor de
+top-up. Dat geld is uitgegeven of de credits nou op zijn of niet. Loka corrigeerde dit.
+
+Netto winst in het dashboard = commissie − top-ups. De verbruikte credits staan er nog wel
+bij als tweede regel, want dat zegt iets over het tempo, maar het is niet de kostenpost.
+
+Stand 28-09: €2,90 binnen, €60 betaald, netto −€57,10. Terugverdienpunt bij €2,90 per
+verkoop: 21 verkopen.

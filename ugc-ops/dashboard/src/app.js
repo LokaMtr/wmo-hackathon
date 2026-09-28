@@ -68,15 +68,23 @@
     countUp($("#sPosted"), posted.length); $("#sPostedBar").style.width = (v.length ? posted.length/v.length*100 : 0)+"%"; $("#sPostedFoot").textContent = `van ${v.length} video's`;
     const eur = x => "€" + Number(x||0).toFixed(2).replace(".",",");
     const rate = Number(m.creditRateEur) || 0.06;
-    const spent = Number(m.spendEurTotal!=null ? m.spendEurTotal : (Number(m.creditsSpentTotal)||0)*rate);
+    // Kosten = wat er echt betaald is aan top-ups, niet wat er aan credits op is.
+    // Dat geld is uitgegeven of de credits nou verbruikt zijn of niet.
+    const paid = Number(m.topupsEur || 0);
+    const used = Number(m.spendEurTotal!=null ? m.spendEurTotal : (Number(m.creditsSpentTotal)||0)*rate);
+    const spent = paid || used;
     const rev = Number(m.commissionTotal||0), net = rev - spent;
     countUp($("#sCost"), spent, eur);
-    $("#sCostFoot").textContent = `${Math.round(Number(m.creditsSpentTotal)||0)} credits · ${eur(rate)} per credit`;
+    $("#sCostFoot").textContent = paid
+      ? `${eur(paid)} betaald · ${eur(used)} ervan verbruikt (${Math.round(Number(m.creditsSpentTotal)||0)} credits)`
+      : `${Math.round(Number(m.creditsSpentTotal)||0)} credits · ${eur(rate)} per credit`;
     const nEl = $("#sNet");
     countUp(nEl, net, x=>(x<0?"-€":"€") + Math.abs(x).toFixed(2).replace(".",","));
     nEl.closest(".kpi").style.setProperty("--k2", net>=0 ? "#53E0B5" : "#FF5C7A");
     nEl.closest(".kpi").style.setProperty("--k", net>=0 ? "rgba(83,224,181,.18)" : "rgba(255,92,122,.2)");
-    $("#sNetFoot").textContent = rev>0 ? `${eur(rev)} binnen · ${m.salesTotal||0} verkopen` : "nog geen verkopen";
+    $("#sNetFoot").textContent = rev>0
+      ? `${eur(rev)} binnen · ${m.salesTotal||0} verkopen · nog ${Math.max(0, Math.ceil((spent-rev)/(rev/Math.max(1,Number(m.salesTotal)||1))))} te gaan`
+      : "nog geen verkopen";
     $("#lastRun").textContent = m.lastRun ? "RUN " + new Date(m.lastRun).toLocaleString("nl-NL",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:TZ}).toUpperCase() : "NOG GEEN RUN";
     $("#cIdeas").textContent = state.ideas.filter(i=>["new","selected"].includes(i.status)).length;
     $("#cVideos").textContent = v.length;
