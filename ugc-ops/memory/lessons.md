@@ -426,3 +426,10 @@ Ik had alleen gecontroleerd op fouten (één flesje, zelfde trui, geen bolletjes
 de vraag die de kijker stelt: ziet ze er goed uit, snap ik het meteen, is het leuk.
 Drie vaste vragen erbij in de checklist (6, 7, 8). Emotie in prompts: "calm, subtle,
 relaxed", nooit laten raden; gezichtslicht altijd egaal met vullicht.
+
+## L083 — Elke video in het dashboard krijgt videoAsset én thumbAsset
+Sinds de nieuwe start (28-09) zette ik videos-docs aan zonder de mp4 en een thumbnail als
+artifact-asset te uploaden. Gevolg: geen thumbnails in de lijst en geen video in de post-kit,
+waardoor Loka niets kon posten vanuit het dashboard. Vaste stap bij elke video (ook remixes):
+thumbnail 540x960 van het hookmoment, mp4 + jpg uploaden met Artifact `asset: true`,
+ids in `videoAsset` en `thumbAsset`, plus `firstComment`.
