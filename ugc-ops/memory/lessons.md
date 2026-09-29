@@ -442,3 +442,6 @@ Masters week 2 afgekeurd: te glad (fotoshoot-licht, alles opgeruimd), Brits acce
 - **Selfie-armregel**: rechterarm houdt de telefoon de hele clip vast, er komt nooit een hand van onderen in beeld, alleen de linkerhand beweegt, precies twee armen.
 - **Tijdlijn per halve seconde** in de prompt, niet per blok van 2–3 s.
 - **Controle**: `tools/hear.py` (transcript met tijden) + frames om de 0,5 s bij elke praat-/handclip vóór montage.
+
+## L085 — 29-09: TikTok-concepten via Higgsfield werken niet vanuit Claude Code
+TikTok gekoppeld aan Higgsfield (connector 914fad99-…, @xmilabby). `tiktok_prepare_publish` met UPLOAD_TO_DRAFT lukt, maar de gebruiker moet elk formulier zelf versturen en Claude Code kan die formulieren niet tonen. Route: plakbericht `TIKTOK-CONCEPTEN.md` in claude.ai/desktop met Higgsfield-connector. Video's op Higgsfield krijgen = `media_import_url` op de Metricool-URL (static.metricool.com), gratis; openbare URL = d2ol7oe51mr4n9.cloudfront.net/user_…/<media_id>.mp4. Metricool blijft de wekker (melding-modus).
