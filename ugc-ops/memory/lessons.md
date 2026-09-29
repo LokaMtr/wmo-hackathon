@@ -433,3 +433,12 @@ artifact-asset te uploaden. Gevolg: geen thumbnails in de lijst en geen video in
 waardoor Loka niets kon posten vanuit het dashboard. Vaste stap bij elke video (ook remixes):
 thumbnail 540x960 van het hookmoment, mp4 + jpg uploaden met Artifact `asset: true`,
 ids in `videoAsset` en `thumbAsset`, plus `firstComment`.
+
+## L084 — 29-09: "echt opgenomen" is een eis, geen stijl
+Masters week 2 afgekeurd: te glad (fotoshoot-licht, alles opgeruimd), Brits accent, kussen als slappe paarse zak, derde hand in beeld bij selfies. Vaste regels vanaf nu:
+- **Beginbeeld = iPhone-still, geen fotoshoot**: gewone rommel in beeld (kabel, handdoek, mok), licht iets ongelijk, lichte ruis/zachtheid, huidtextuur, haar niet gestyled. Wel gezond en mooi (L082).
+- **Accent in élke praatprompt**: "natural American accent (casual West Coast), conversational — not British".
+- **Kussen altijd letterlijk beschrijven**: stevig rechthoekig wit traagschuim, alléén bovenop plat paars honingraatrooster met wit in de cellen, witte zijkanten; buigt/vouwt/deukt nooit. Onder de arm geklemd, niet knuffelen (knuffelen vervormt het).
+- **Selfie-armregel**: rechterarm houdt de telefoon de hele clip vast, er komt nooit een hand van onderen in beeld, alleen de linkerhand beweegt, precies twee armen.
+- **Tijdlijn per halve seconde** in de prompt, niet per blok van 2–3 s.
+- **Controle**: `tools/hear.py` (transcript met tijden) + frames om de 0,5 s bij elke praat-/handclip vóór montage.
