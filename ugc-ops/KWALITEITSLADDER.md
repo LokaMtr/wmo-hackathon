@@ -12,6 +12,9 @@ Regel: **nooit twee keer dezelfde video maken met een ander product.** Per video
 3. Staat de kledinglengte en het model letterlijk in élk frameprompt? (L052)
 4. Zit er een mechanisme in beeld dat bediend wordt? Dan herschrijven. (L051)
 5. Wie houdt per shot de camera vast: zij (selfie, arm zichtbaar), niemand (neergezet, stil), of haar handen (POV)? Geen antwoord = herschrijven. (L078)
+6. **Ziet Mila er in élk shot aantrekkelijk, gezond en ontspannen uit?** Geen wijd opengesperde ogen, geen overdreven gezichten, geen ingevallen wangen door hard licht. Gezicht altijd zacht en egaal belicht (lamp + vullicht). (L082)
+7. **Snap je de hook binnen een halve seconde?** "Je ziet niet wat het is" is geen hook maar onduidelijkheid. (L082)
+8. **Minstens 15 seconden, met een opbouw: opzet → escalatie → clou → nagrap.** Niet korter knippen dan het verhaal. (L082)
 
 ## Standaard (geldt nu voor elke video)
 

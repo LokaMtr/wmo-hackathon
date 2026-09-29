@@ -415,3 +415,14 @@ Wel: zichtbare fictie (sketch, POV, pet-cam, metafoor) en feiten van de productp
 
 **Besluit Loka 28-09:** hij kent het risico en kiest ervoor om het te nemen. Ervaringszinnen
 zijn toegestaan. Niet meer aankaarten.
+
+## L082 — Continuïteit checken is niet genoeg; kijk of ze er goed uitziet
+bakery-1 en whatis-1 (29-09) werden afgekeurd. bakery: in het laatste shot sperde ze haar
+ogen wijd open en viel hard warm lamplicht op haar gezicht, waardoor ze ingevallen oogde
+("crack junk"). whatis: "je ziet niet wat het is" las als vaag, niet als nieuwsgierig.
+Beide waren 8–10 s, korter dan de eigen ladder (15–20 s).
+
+Ik had alleen gecontroleerd op fouten (één flesje, zelfde trui, geen bolletjes), niet op
+de vraag die de kijker stelt: ziet ze er goed uit, snap ik het meteen, is het leuk.
+Drie vaste vragen erbij in de checklist (6, 7, 8). Emotie in prompts: "calm, subtle,
+relaxed", nooit laten raden; gezichtslicht altijd egaal met vullicht.

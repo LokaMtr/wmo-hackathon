@@ -1,15 +1,15 @@
-# Week 1 — ingepland (stand 29-09 12:40)
+# Week 1 — ingepland (stand 29-09 12:55)
 
-| Dag | Tijd | Video | Product | Format | Metricool |
+| Dag | 21:00 | Video | Product | Format | Metricool |
 |---|---|---|---|---|---|
-| di 29-09 | 21:00 | kameo-1 "the ugliest thing in my room" | Kameo | praten in de camera + textuur-hook | 383823470 |
-| wo 30-09 | 21:00 | custody-1 "i left the room for five minutes" | Kameo | pet-cam-sketch | 384127325 |
-| do 01-10 | 21:00 | bakery-1 "i'm not baking. i'm the bakery." | Khamrah | relatie-POV | 384135418 |
-| vr 02-10 | 21:00 | whatis-1 "guess what this is" | Kameo | ASMR-loop, 8 s | 384135466 |
+| di 29-09 | kameo-1 "the ugliest thing in my room" | Kameo | praten + textuur-hook | 383823470 |
+| wo 30-09 | custody-1 "i left the room for five minutes" | Kameo | pet-cam-sketch | 384127325 |
+| do 01-10 | bakery-2 "i'm not baking. i'm the bakery." (20 s) | Khamrah | relatie-POV, 4 beats | 384146136 |
+| vr 02-10 | nightshift-1 "03:12. every single night." (18 s) | Kameo | pet-cam nacht, voor/na | 384144210 |
 
-Vier verschillende formats in vier dagen: dat is de test van week 1. Maat: gemiddelde
-kijktijd per video (screenshot TikTok-analytics na ~24u). Boven 3 s werkt het format.
+bakery-1 en whatis-1 afgekeurd (L082) en vervangen.
+bakery-2: in de nagrap pakte hij eerst het flesje uit haar hand (maakt de grap kapot) en
+later kleurde het flesje paars; opnieuw gemaakt en afgeknipt direct na haar "No.".
+nightshift-1: het tweede nachtshot is ingezoomd, anders zie je de hand niet.
 
-bakery-1: tweede beginbeeld had het flesje twee keer in beeld (op tafel én in haar hand);
-bewerkt voordat de clip gemaakt werd. Stilte van 3,6 s voor de clou eruit geknipt.
-whatis-1: eindtekst was wit op lichtpaars en onleesbaar; donkere rand toegevoegd.
+Tweede post per dag: nog te vullen, zie het budget in het bericht aan Loka.
