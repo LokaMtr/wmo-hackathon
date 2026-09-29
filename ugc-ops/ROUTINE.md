@@ -6,7 +6,7 @@ Deze tekst is de opdracht van de geplande sessie. Werk in repo `LokaMtr/wmo-hack
 2. **Budgetwaker** (ook geld): Higgsfield `balance` → `meta/state.credits`; `creditsSpentTotal` en `spendEurTotal` (× `creditRateEur`) bijwerken; bij verkopen ook `commissionTotal` en `salesTotal`, zodat de netto winst in het dashboard klopt.
 2b. **Oud** (`agents/budget.md`): Higgsfield `balance` → `meta/state.credits`.
 3. **Prestatie-analist** (`agents/performance-analyst.md`): Metricool posts + analytics ophalen, `videos` bijwerken (status posted, metrics, verdict na ≥48u), max 3 acties.
-4. **Trend-scout** (`agents/trend-scout.md`): 5 nieuwe ideeën (niet dubbel met bestaande `ideas`), JSON opslaan als `scout.json`, dan
+4. **Scout** (`agents/scout.md`, 5 criteria): 5 nieuwe ideeën (niet dubbel met bestaande `ideas`), JSON opslaan als `scout.json`, dan
    `python3 ugc-ops/scripts/prepare_ingest.py scout.json <tmp>/ingest <datum>`,
    productfoto's uit `<tmp>/ingest/img/` uploaden met Artifact `asset: true` (url = dashboard) en de asset-ids als `imageAssets` in elk idee zetten, daarna `ArtifactData batch` met `writes.json`.
    Voeg de acties van de analist toe aan `briefing.actions`.
@@ -15,7 +15,7 @@ Deze tekst is de opdracht van de geplande sessie. Werk in repo `LokaMtr/wmo-hack
 7. Nooit credits uitgeven of posten in deze routine; alleen onderzoeken, meten, adviseren.
 
 ## Ritme
-3 posts per dag: 10:00, 16:00, 21:00 (Europe/Amsterdam). Alleen situatie-hooks, geen review-hooks. Zie PRODUCTIEPLAN.md.
+2 posts per dag: 16:00 (remix of kant-en-klare video) en 21:00 (nieuwe video), Europe/Amsterdam. Alles in het Engels (L079). Zie CONTENTPLAN.md en scripts/masters-week2.md.
 
 ## Uurlijkse cijfer-sync (elke 4 uur :33, trigger `hourlyMetrics`)
 Licht: alleen Metricool-cijfers + Higgsfield-saldo → `videos/<id>.metrics`, `status/postedAt`, `meta/state`. Geen scout, geen credits, niets posten. Alleen een chat-bericht (collectie `chat`, zelfde stijl als de Regie-chat) als er écht iets nieuws is; anders stil en niets committen. De volledige run blijft 1× per dag om 08:00.
