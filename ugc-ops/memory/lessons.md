@@ -454,3 +454,8 @@ TikTok-app (Loka): account 7 dagen 51% man / 35% vrouw / 14% overig. Video A 51/
 
 ## L087 — 30-09: één product per video, altijd
 TikTok staat maar één productlink per video toe (Loka). Nooit twee producten als held in één video, ook niet als "set". Ander product in beeld = rekwisiet zonder naam, of beter: weglaten.
+
+## L088 — 30-09: tekst in beeld = echte TikTok-stijl
+Loka: tekst moet eruitzien als TikTok-app-tekst: **wit met zwarte rand**. Vast in `tools/cctv_ass.py`: lettertype TikTok Sans Bold
+(OFL, `mila-mirror/tools/fonts/`, statische 700-instantie), wit, zwarte rand 7, geen schaduw/kader, spacing 1.5, geen fades.
+`finish.py` laadt het lettertype via `fontsdir`. Nooit meer DejaVu of donkere halfdoorzichtige kaders.

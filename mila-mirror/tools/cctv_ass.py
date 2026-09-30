@@ -33,8 +33,8 @@ WrapStyle: 0
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
 Style: Cam,DejaVu Sans Mono,40,&H00F0F0F0,&H00F0F0F0,&H00000000,&H00000000,0,0,0,0,100,100,1,0,1,2,0,7,70,70,120,1
-Style: Hook,DejaVu Sans,62,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,1,0,3,8,110,110,300,1
-Style: Q,DejaVu Sans,62,&H00FFFFFF,&H00FFFFFF,&H00000000,&HB4000000,1,0,0,0,100,100,0,0,1,0,3,2,110,110,340,1
+Style: Hook,TikTok Sans Bold,66,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,1.5,0,1,7,0,8,90,90,230,1
+Style: Q,TikTok Sans Bold,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,1.5,0,1,7,0,2,90,90,330,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -52,8 +52,8 @@ for start, end, clock in a.seg:
         ev.append(f"Dialogue: 0,{ts(t)},{ts(nxt)},Cam,,0,0,0,,{a.label}   {stamp}")
         t, k = nxt, k + 1
 for start, end, text in a.text:
-    ev.append(f"Dialogue: 1,{ts(float(start))},{ts(float(end))},Hook,,0,0,0,,{{\\fad(80,200)}}{text}")
+    ev.append(f"Dialogue: 1,{ts(float(start))},{ts(float(end))},Hook,,0,0,0,,{text}")
 for start, end, text in a.q:
-    ev.append(f"Dialogue: 1,{ts(float(start))},{ts(float(end))},Q,,0,0,0,,{{\\fad(150,0)}}{text}")
+    ev.append(f"Dialogue: 1,{ts(float(start))},{ts(float(end))},Q,,0,0,0,,{text}")
 open(a.out, "w").write(head + "\n".join(ev) + "\n")
 print("klaar:", a.out, len(ev), "regels")

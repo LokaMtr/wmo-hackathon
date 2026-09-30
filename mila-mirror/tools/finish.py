@@ -208,7 +208,7 @@ def main():
     if a.drift or a.ae_step:
         vf += f",eq=eval=frame:brightness='{bright}':contrast=1.02:saturation=0.97"
     if a.subs:
-        vf += f",subtitles={a.subs}"
+        vf += f",subtitles={a.subs}:fontsdir={os.path.join(os.path.dirname(os.path.abspath(__file__)), 'fonts')}"
     vf += ",format=yuv420p"
 
     tone = room_tone(normed, tmp) if a.roomtone else None
