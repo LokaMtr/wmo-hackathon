@@ -445,3 +445,9 @@ Masters week 2 afgekeurd: te glad (fotoshoot-licht, alles opgeruimd), Brits acce
 
 ## L085 — 29-09: TikTok-concepten via Higgsfield werken niet vanuit Claude Code
 TikTok gekoppeld aan Higgsfield (connector 914fad99-…, @xmilabby). `tiktok_prepare_publish` met UPLOAD_TO_DRAFT lukt, maar de gebruiker moet elk formulier zelf versturen en Claude Code kan die formulieren niet tonen. Route: plakbericht `TIKTOK-CONCEPTEN.md` in claude.ai/desktop met Higgsfield-connector. Video's op Higgsfield krijgen = `media_import_url` op de Metricool-URL (static.metricool.com), gratis; openbare URL = d2ol7oe51mr4n9.cloudfront.net/user_…/<media_id>.mp4. Metricool blijft de wekker (melding-modus).
+
+## L086 — 30-09: publiek = gemengd, maar vooral níet-NL
+TikTok-app (Loka): account 7 dagen 51% man / 35% vrouw / 14% overig. Video A 51/49, 70% 18–34, top-land **Polen 36,8%**. Video B 65% man, 61% 35+, **VK 26% / NL ±25,7%**. Actiefst: dinsdag 00–01u (1 week, nog ruis).
+- Mannen testen: ja, 2–3 producten via Mila ("voor hem"/cadeau), niet het hele account ombouwen (Loka: nog te vroeg).
+- Groter probleem: waarschijnlijk maar ±¼–⅓ van de kijkers kan via TikTok Shop NL kopen (Polen geen Shop voor zover bekend; of VK via NL-link kan bestellen is onbevestigd). Engelse content trekt internationaal publiek.
+- Actie: NL-% per video bijhouden (screenshot Kijkers → Locaties), NL-signalen proberen (#nederland, NL-details in beeld). Blijft NL < 30% na ±2 weken → taalvraag met Loka bespreken (L079: niet zelf wijzigen).
