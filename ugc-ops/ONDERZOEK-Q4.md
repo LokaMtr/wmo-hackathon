@@ -52,3 +52,9 @@ maatgevoelige kleding/schoenen (retour), alles < €25, dupes met merknaam (IP),
 - **Test:** 4–6 video's in 2–3 weken vóór half oktober. Meten: productklikken per 1.000 views, % mannelijke kijkers per video (TikTok-app),
   koop-reacties. Doorgaan bij ≥ huidig klikgemiddelde én ≥1 verkoop binnen 2 weken.
 - Metricool geeft voor dit account geen geslachts-/leeftijdsdata (TKDG leeg) → screenshots uit TikTok-app nodig.
+
+## Geparkeerd (30-09): By Yoni Pad — draagbare warmteband met massage
+€49,95 (€44,95 met coupon) + €4,95 verzending · **€12,49 per verkoop (±25%)** · terugbetaalbaar proefproduct · levering 2–8 okt.
+- Sterk: haalt de €8-regel ruim (2,4× de Omniexa-deken), zichtbaar in één frame, gedragen, past bij Mila, groot bewezen pijnpunt (menstruatiekramp), "hij kocht dit voor mij"-hoek werkt ook voor mannelijke kijkers als koper.
+- Risico: geen medische claims ("pijnstiller", "helpt tegen kramp" niet zeggen, wel de situatie tonen); naam "Yoni" + "vibration" + lingerie-productfoto's → kans op flag seksuele content, dus nooit vibratie benoemen of in beeld zetten op buik/onderlijf in ondergoed; €4,95 verzendkosten = drempel.
+- Start pas na de Omniexa-test, of eerder als Loka wil.
