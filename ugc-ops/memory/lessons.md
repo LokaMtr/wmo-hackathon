@@ -451,3 +451,6 @@ TikTok-app (Loka): account 7 dagen 51% man / 35% vrouw / 14% overig. Video A 51/
 - Mannen testen: ja, 2–3 producten via Mila ("voor hem"/cadeau), niet het hele account ombouwen (Loka: nog te vroeg).
 - Groter probleem: waarschijnlijk maar ±¼–⅓ van de kijkers kan via TikTok Shop NL kopen (Polen geen Shop voor zover bekend; of VK via NL-link kan bestellen is onbevestigd). Engelse content trekt internationaal publiek.
 - Actie: NL-% per video bijhouden (screenshot Kijkers → Locaties), NL-signalen proberen (#nederland, NL-details in beeld). Blijft NL < 30% na ±2 weken → taalvraag met Loka bespreken (L079: niet zelf wijzigen).
+
+## L087 — 30-09: één product per video, altijd
+TikTok staat maar één productlink per video toe (Loka). Nooit twee producten als held in één video, ook niet als "set". Ander product in beeld = rekwisiet zonder naam, of beter: weglaten.
