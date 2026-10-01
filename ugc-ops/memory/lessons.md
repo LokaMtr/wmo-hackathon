@@ -459,3 +459,8 @@ TikTok staat maar één productlink per video toe (Loka). Nooit twee producten a
 Loka: tekst moet eruitzien als TikTok-app-tekst: **wit met zwarte rand**. Vast in `tools/cctv_ass.py`: lettertype TikTok Sans Bold
 (OFL, `mila-mirror/tools/fonts/`, statische 700-instantie), wit, zwarte rand 7, geen schaduw/kader, spacing 1.5, geen fades.
 `finish.py` laadt het lettertype via `fontsdir`. Nooit meer DejaVu of donkere halfdoorzichtige kaders.
+
+## L089 — 01-10: onzichtbaar product = flop, bevestigd met cijfers
+Na 48u+: eyemask-1 197 views (25% van gemiddelde 797), shapewear-a 250 (31%), eyemask-2 70, sniffit-1 443 met 0,7% likes.
+Zichtbare producten doen het beter: teddy-2 5.565, teddy-1 1.006, kameo-1 700 in 35u, kameo-1b 715 in 16u; omniexa-A 5,1% likes in 11u.
+Regel: scout-criterium 1 (herkenbaar in één frame) is een harde eis. Geen nieuwe video's voor producten die op de huid, in de mond of onder kleding werken.
