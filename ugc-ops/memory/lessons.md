@@ -464,3 +464,10 @@ Loka: tekst moet eruitzien als TikTok-app-tekst: **wit met zwarte rand**. Vast i
 Na 48u+: eyemask-1 197 views (25% van gemiddelde 797), shapewear-a 250 (31%), eyemask-2 70, sniffit-1 443 met 0,7% likes.
 Zichtbare producten doen het beter: teddy-2 5.565, teddy-1 1.006, kameo-1 700 in 35u, kameo-1b 715 in 16u; omniexa-A 5,1% likes in 11u.
 Regel: scout-criterium 1 (herkenbaar in één frame) is een harde eis. Geen nieuwe video's voor producten die op de huid, in de mond of onder kleding werken.
+
+## L090 — 02-10: kijktijd is het knelpunt; gezicht = bereik, verhaal = vasthouden
+TikTok-app (Loka): kameo-1b selfie-opener 1.085 views, 2,7 s gem., 3 nieuwe volgers · custody-1 petcam + verhaaltekst
+"i left the room for five minutes" 3,8 s, **5,95% volledig bekeken** (beste) · bakery-2 3,2 s · kameo-1 hand-opener 2,5 s ·
+omniexa-A (25 s) 2,3 s, 1,15% volledig.
+Regels: Mila's gezicht in frame 0 (bereik) + een verhaal-tekst die een vraag opent (vasthouden). Max ±15 s. Product in beeld vóór 2 s.
+Lange reviews (25 s) pas na een gezicht-hook die in de eerste 2 s al iets belooft.
