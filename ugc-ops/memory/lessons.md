@@ -471,3 +471,5 @@ TikTok-app (Loka): kameo-1b selfie-opener 1.085 views, 2,7 s gem., 3 nieuwe volg
 omniexa-A (25 s) 2,3 s, 1,15% volledig.
 Regels: Mila's gezicht in frame 0 (bereik) + een verhaal-tekst die een vraag opent (vasthouden). Max ±15 s. Product in beeld vóór 2 s.
 Lange reviews (25 s) pas na een gezicht-hook die in de eerste 2 s al iets belooft.
+Bevestigd 06-10: omniexa-C (28 s sketch, prijs als pointe) 251 views na 59 u = flop; omniexa-B (8 s stille meme, zelfde deken) 781.
+Lange sketches (>15 s) halen bij ons nooit de helft van het gemiddelde. Nog gepland op lange lengte: omniexa-Ac (25 s), Cb en Cc (varianten van de 28 s-sketch); inkorten aanbevolen.
