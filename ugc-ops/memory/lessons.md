@@ -473,3 +473,12 @@ Regels: Mila's gezicht in frame 0 (bereik) + een verhaal-tekst die een vraag ope
 Lange reviews (25 s) pas na een gezicht-hook die in de eerste 2 s al iets belooft.
 Bevestigd 06-10: omniexa-C (28 s sketch, prijs als pointe) 251 views na 59 u = flop; omniexa-B (8 s stille meme, zelfde deken) 781.
 Lange sketches (>15 s) halen bij ons nooit de helft van het gemiddelde. Nog gepland op lange lengte: omniexa-Ac (25 s), Cb en Cc (varianten van de 28 s-sketch); inkorten aanbevolen.
+
+## L091 — 07-10: parfum werkt met een herkenbare regel, niet met een geur-grap
+Khamrah, drie formats na ≥48 u: curfew-1 ("caffeine curfew is real. this is the loophole", vraag aan kijker
+"what's your 4pm rule?") **1.009 views, 2,6% likes** · bakery-2 ("he checked the oven twice") 399 · bakery-2b
+("the whole flat smells like cinnamon rolls") **189 = flop**.
+De bakkerij-grap leunt op een geur die de kijker niet ruikt; de punchline valt weg. Een herkenbare dagelijkse
+regel (cafeïne na 16:00) werkt wél: de fles is het antwoord op een probleem dat iedereen kent.
+Regel: parfumvideo's openen met een herkenbare situatie of regel + vraag aan de kijker; geen geur als clou.
+Stop met bakkerij-varianten. october-1 ("perfume switch = start of fall") is de volgende test (432 na 15 u).
