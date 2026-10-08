@@ -482,3 +482,10 @@ De bakkerij-grap leunt op een geur die de kijker niet ruikt; de punchline valt w
 regel (cafeïne na 16:00) werkt wél: de fles is het antwoord op een probleem dat iedereen kent.
 Regel: parfumvideo's openen met een herkenbare situatie of regel + vraag aan de kijker; geen geur als clou.
 Stop met bakkerij-varianten. october-1 ("perfume switch = start of fall") is de volgende test (432 na 15 u).
+
+## L092 — 08-10: remixen van bestaande video's doen minstens zo goed als het origineel
+custody-1b (kat-variant, "day four of losing to a cat") **732 views na 20 u**, terwijl custody-1 in totaal 416 haalde.
+omniexa-B-b (8 s meme, tweede versie) **748 na 14 u**; het origineel omniexa-B haalde 798 in totaal.
+TikTok straft een tweede versie van hetzelfde concept niet af; een scherpere opener kan het zelfs verdubbelen.
+Regel: bij weinig credits eerst remixen van bestaande clips (nieuwe tekst/opener/volgorde) in plaats van nieuwe generaties.
+Voorlopig: 2 datapunten, < 48 u. Opnieuw toetsen na de 48 u-meting.
