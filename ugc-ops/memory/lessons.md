@@ -489,3 +489,5 @@ omniexa-B-b (8 s meme, tweede versie) **748 na 14 u**; het origineel omniexa-B h
 TikTok straft een tweede versie van hetzelfde concept niet af; een scherpere opener kan het zelfs verdubbelen.
 Regel: bij weinig credits eerst remixen van bestaande clips (nieuwe tekst/opener/volgorde) in plaats van nieuwe generaties.
 Voorlopig: 2 datapunten, < 48 u. Opnieuw toetsen na de 48 u-meting.
+Aangescherpt 09-10: remixen van een flop blijven floppen. apartment-1b 103 views (19 u; apartment-1 = 111), nightshift-1b 103
+(43 u; nightshift-1 = 127), omniexa-C-b 80 (22 u; omniexa-C = 257). Regel: alleen remixen van een promise/winnaar.
