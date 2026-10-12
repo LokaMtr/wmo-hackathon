@@ -491,3 +491,9 @@ Regel: bij weinig credits eerst remixen van bestaande clips (nieuwe tekst/opener
 Voorlopig: 2 datapunten, < 48 u. Opnieuw toetsen na de 48 u-meting.
 Aangescherpt 09-10: remixen van een flop blijven floppen. apartment-1b 103 views (19 u; apartment-1 = 111), nightshift-1b 103
 (43 u; nightshift-1 = 127), omniexa-C-b 80 (22 u; omniexa-C = 257). Regel: alleen remixen van een promise/winnaar.
+
+## L093 — 12-10: Metricool-limiet blokkeert posten én meten
+11-10: apartment-1c (16:00) en omniexa-C-c (21:00) kregen status ERROR "You have reached your Metricool account limit."
+Al sinds 8 okt komen er geen nieuwe posts meer binnen in de analytics (curfew-1b, omniexa-Ac, october-1b, overnight-1b,
+omniexa-B-c ontbreken). Regel: bij elke sync ook `detailedStatus` van gisteren checken; bij ERROR of >48 u geen nieuwe
+analytics-rij meteen melden en cijfers uit de TikTok-app halen. Plan niet meer posts in dan het Metricool-abonnement toelaat.
